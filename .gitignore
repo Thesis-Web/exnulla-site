@@ -13,3 +13,5 @@ site/dist
 site/node_modules
 site/dist
 site/.astro
+
+node_modules/
