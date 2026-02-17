@@ -142,3 +142,43 @@ exnulla-site/
 - x
 - tictok
 - linkedin
+
+## CI/CD Add-ins (v1+)
+We will implement **1–2 CI/CD-powered add-ins** to increase “wow factor” and reduce manual ops.
+
+### CI/CD Add-in #1 (required): Main site auto-deploy
+- Trigger: push to `main`
+- Action: build + deploy to droplet using atomic releases + rollback
+- Outcome: `exnulla.<domain>` always reflects the latest approved `main`
+
+### CI/CD Add-in #2 (optional): Demo pipeline
+Choose one (can evolve over time):
+- **A (default):** GH Actions builds + deploys demos to droplet under `/demos/<name>/`
+- **B (heavy demo):** GH Actions publishes a specific heavy demo to Vercel; site embeds via iframe
+
+## Repo Hygiene Baseline (required)
+This repo must ship with baseline hygiene from day 0:
+- `.editorconfig`
+- Prettier (`format`, `format:check`)
+- Markdownlint (`lint:md`)
+- GitHub Actions CI matching `thesisweb-backend` conventions:
+  - Node 20 + npm cache
+  - `npm ci`
+  - `npm run format:check`
+  - `npm run lint --if-present`
+  - `npm run build --if-present`
+  - `npm run typecheck --if-present`
+
+## Backend Integration Policy
+We already have `thesisweb-backend` on the droplet. We may tap it for **optional augmentation** only.
+
+### Rules
+- Site must remain functional without backend (static-first).
+- Backend endpoints for ExNulla must be scoped under `/api/exnulla/*`.
+- Prefer read-only endpoints for v1.
+- No cross-project coupling (no shared DB schema changes unless explicitly planned).
+
+### Candidate endpoints (v1.1+)
+- `GET /api/exnulla/lab-index` (demo tile metadata)
+- `GET /api/exnulla/releases` (release history / current SHA)
+- `GET /api/exnulla/demo/:name/version` (demo version stamp)

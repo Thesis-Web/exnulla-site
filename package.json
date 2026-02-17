@@ -1,0 +1,25 @@
+{
+  "name": "exnulla-site",
+  "private": true,
+  "packageManager": "npm@10",
+  "scripts": {
+    "format": "prettier -w .",
+    "format:check": "prettier -c .",
+    "lint:md": "markdownlint-cli2",
+    "lint": "npm run lint:md && npm run format:check",
+    "build": "echo \"scaffold: add site build\""
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "^0.14.0",
+    "prettier": "^3.8.1"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
