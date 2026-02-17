@@ -7,11 +7,9 @@ import { LINKS, PROJECT_CARDS } from "../components/siteConfig";
   <h1 class="h1">Digital CV</h1>
 
   <div class="headshot">
-    <a href={LINKS.linkedin} target="_blank" rel="noreferrer">
+    <a href={LINKS.linkedin} target="_blank" rel="noreferrer" title="Open LinkedIn">
       <img src="/assets/James-Headshot.jpg" alt="James — Headshot" loading="eager" />
-    </a>
-    <div class="small">Click photo → LinkedIn</div>
-  </div>
+    </a>  </div>
   <p class="sub">
     Evidence-driven CV: what I ship, how I think, and where the proof lives.
     Prefer a fast scan? Hit <a href="/projects"><strong>Projects</strong></a> or the <a href="/links"><strong>Links</strong></a> hub.
@@ -91,7 +89,8 @@ import { LINKS, PROJECT_CARDS } from "../components/siteConfig";
   <style>
     .headshot{ margin-top:16px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
     .headshot img{ width:140px; height:140px; border-radius:18px; object-fit:cover; border:1px solid var(--border); background:var(--card); }
-    .headshot a{ display:inline-flex; border-radius:18px; }
+    .headshot a{ display:inline-flex; border-radius:18px; cursor:pointer; }
+    .headshot a:hover img{ border-color: color-mix(in oklab, var(--border) 60%, var(--fg)); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
     .headshot a:hover img{ transform: translateY(-1px); }
   </style>
 </BaseLayout>
