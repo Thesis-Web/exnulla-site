@@ -1,35 +1,45 @@
 # ExNulla Site Blueprint
 
 ## Mission
+
 Build `exnulla-site` as a **Digital CV + Interactive Lab** (“sandbox”) that:
+
 - communicates narrative + credibility fast (static-first),
 - embeds runnable proof-of-work (interactive demos),
 - funnels to live streams + LinkedIn + repos,
 - stays operationally simple on a single droplet behind Cloudflare.
 
 ## Non-goals (initially)
+
 - No user-submitted code execution.
 - No auth/accounts.
 - No database requirement for v1.
 - No SSR requirement for v1.
 
 ## Core UX
+
 ### Primary CTA
+
 - Watch Live (Kick/Twitch/YouTube)
 
 ### Secondary CTA
+
 - Connect on LinkedIn
 - View Projects (curated case studies)
 
-### Help me Grow the Network 
+### Help me Grow the Network
+
 - LinkedIN - https://www.LinkedIn/in/exnulla
 
 ### Tertiary
+
 - Press kit / assets
 - Contact
 
 ## IA (Information Architecture)
+
 ### Required routes (v1)
+
 - `/` — Landing: tagline, CTAs, “what I build”, featured case study, featured demo tile
 - `/cv` — Digital CV: skills evidence, timeline, “case study cards”
 - `/projects` — Case study index (curated list)
@@ -44,12 +54,15 @@ Build `exnulla-site` as a **Digital CV + Interactive Lab** (“sandbox”) that:
 - `/press-kit` — logos, colors, short bio, screenshots (optional but recommended v1)
 
 ### Optional routes (v1.1+)
+
 - `/now` — what I’m working on this week
 - `/stream-kit` — stream stack, commands, engagement notes
 - `/gear` — hardware/software list
 
 ## Content Model (Case Studies)
+
 Each case study must include:
+
 - Title + 1-line outcome
 - Problem
 - Constraints
@@ -62,7 +75,9 @@ Each case study must include:
   - Related stream VOD / clip (if exists)
 
 ## Demo Model (“Lab Tiles”)
+
 Each demo tile must include:
+
 - Demo name + short description
 - Tags (infra / thermal / stream-ops / chain / ui)
 - “Weight tier” (see below)
@@ -72,11 +87,13 @@ Each demo tile must include:
   - Build notes
 
 ### Demo tiers
+
 - Tier 1: lightweight island component (embedded directly, minimal JS)
 - Tier 2: medium demo (iframe to `/demos/<name>/` path)
 - Tier 3: heavy demo (full-page, launched from case study)
 
 ## Guardrails
+
 - Static-first pages; demos loaded on demand.
 - Demos run in iframes with sandbox restrictions.
 - Curated set: max 12 tiles on `/lab`.
@@ -84,6 +101,7 @@ Each demo tile must include:
 - Build + deploy must support atomic release + rollback.
 
 ## Domains / Hosting
+
 - DNS managed in Cloudflare.
 - Origin served from droplet (Nginx).
 - Target hostnames (proposed):
@@ -93,46 +111,48 @@ Each demo tile must include:
 - No direct public admin endpoints.
 
 ## Repo Layout (target)
+
 exnulla-site/
-  README.md
-  LICENSE
-  docs/
-    blueprint.md
-    engineering-specs.md
-    ops/
-      releases.md
-      runbooks.md
-  site/                      # main site source (static-first)
-    package.json
-    src/
-    public/
-  demos/                     # demo sources (one subdir per demo)
-    <demo-name>/
-      package.json
-      src/
-  assets/                    # shared assets checked into this repo (logos, images)
-    branding/
-    screenshots/
-  import/                    # scripts + mappings for pulling assets from other repos / desktop
-    manifests/
-    scripts/
-  nginx/
-    exnulla-site.conf        # vhost templates
-    lab.conf                 # optional subdomain vhost templates
-  scripts/
-    build-all.sh
-    deploy.sh
-    verify.sh
-    stamp-version.sh
+README.md
+LICENSE
+docs/
+blueprint.md
+engineering-specs.md
+ops/
+releases.md
+runbooks.md
+site/ # main site source (static-first)
+package.json
+src/
+public/
+demos/ # demo sources (one subdir per demo)
+<demo-name>/
+package.json
+src/
+assets/ # shared assets checked into this repo (logos, images)
+branding/
+screenshots/
+import/ # scripts + mappings for pulling assets from other repos / desktop
+manifests/
+scripts/
+nginx/
+exnulla-site.conf # vhost templates
+lab.conf # optional subdomain vhost templates
+scripts/
+build-all.sh
+deploy.sh
+verify.sh
+stamp-version.sh
 
 ## Initial Milestones
+
 - M0: Repo scaffolding + CI stub (lint/build)
 - M1: Landing + /cv + /projects + /projects/<slug>
 - M2: /lab + 1 demo embedded via iframe + version stamp
 - M3: Nginx vhost + atomic deploy + rollback docs
 - M4: Import pipeline: pull assets/sims from other repos + desktop
 
-### Social Links at the Bottom 
+### Social Links at the Bottom
 
 ## Clickable icons:
 
@@ -144,20 +164,26 @@ exnulla-site/
 - linkedin
 
 ## CI/CD Add-ins (v1+)
+
 We will implement **1–2 CI/CD-powered add-ins** to increase “wow factor” and reduce manual ops.
 
 ### CI/CD Add-in #1 (required): Main site auto-deploy
+
 - Trigger: push to `main`
 - Action: build + deploy to droplet using atomic releases + rollback
 - Outcome: `exnulla.<domain>` always reflects the latest approved `main`
 
 ### CI/CD Add-in #2 (optional): Demo pipeline
+
 Choose one (can evolve over time):
+
 - **A (default):** GH Actions builds + deploys demos to droplet under `/demos/<name>/`
 - **B (heavy demo):** GH Actions publishes a specific heavy demo to Vercel; site embeds via iframe
 
 ## Repo Hygiene Baseline (required)
+
 This repo must ship with baseline hygiene from day 0:
+
 - `.editorconfig`
 - Prettier (`format`, `format:check`)
 - Markdownlint (`lint:md`)
@@ -170,15 +196,18 @@ This repo must ship with baseline hygiene from day 0:
   - `npm run typecheck --if-present`
 
 ## Backend Integration Policy
+
 We already have `thesisweb-backend` on the droplet. We may tap it for **optional augmentation** only.
 
 ### Rules
+
 - Site must remain functional without backend (static-first).
 - Backend endpoints for ExNulla must be scoped under `/api/exnulla/*`.
 - Prefer read-only endpoints for v1.
 - No cross-project coupling (no shared DB schema changes unless explicitly planned).
 
 ### Candidate endpoints (v1.1+)
+
 - `GET /api/exnulla/lab-index` (demo tile metadata)
 - `GET /api/exnulla/releases` (release history / current SHA)
 - `GET /api/exnulla/demo/:name/version` (demo version stamp)
