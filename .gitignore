@@ -5,3 +5,11 @@ releases
 .DS_Store
 .env
 .env.*
+
+site/node_modules
+site/dist
+
+# Astro
+site/node_modules
+site/dist
+site/.astro
