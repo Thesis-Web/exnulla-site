@@ -7,7 +7,9 @@
     "format:check": "prettier -c .",
     "lint:md": "markdownlint-cli2",
     "lint": "npm run lint:md && npm run format:check",
-    "build": "echo \"scaffold: add site build\""
+    "build": "npm --prefix site ci && npm --prefix site run build",
+    "dev": "npm --prefix site run dev",
+    "preview": "npm --prefix site run preview"
   },
   "devDependencies": {
     "markdownlint-cli2": "^0.14.0",
