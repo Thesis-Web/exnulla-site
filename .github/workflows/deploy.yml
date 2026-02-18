@@ -2,7 +2,7 @@ name: Deploy (prod)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   workflow_dispatch: {}
 
 jobs:
@@ -52,7 +52,6 @@ jobs:
         run: |
           set -euo pipefail
           ssh-keygen -y -f ~/.ssh/id_ed25519
-
 
       - name: Deploy to droplet (atomic)
         env:

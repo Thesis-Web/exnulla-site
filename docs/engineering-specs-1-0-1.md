@@ -1,6 +1,7 @@
 # ExNulla Site Engineering Specs
 
 ## Architecture Summary
+
 Static-first shell + isolated demos.
 
 - **Shell:** Astro static output, minimal JS, SEO-friendly.
@@ -12,7 +13,9 @@ Static-first shell + isolated demos.
 ---
 
 ## System Objectives
+
 The system must:
+
 - load quickly (static shell; small JS footprint),
 - provide “wow” through intentional boundaries and provenance,
 - support interactive demos without polluting the shell,
@@ -20,6 +23,7 @@ The system must:
 - keep CI consistent and reliable.
 
 Non-goals (v1):
+
 - user-submitted code execution,
 - auth/accounts,
 - DB dependency,
@@ -28,7 +32,9 @@ Non-goals (v1):
 ---
 
 ## Route Model
+
 Required:
+
 - `/`
 - `/cv`
 - `/projects`
@@ -45,11 +51,13 @@ Required:
 ---
 
 ## UI Engineering Pattern: “Spec-like Pages”
+
 Pages (especially project detail) should read like structured engineering docs:
 
 **Problem → Constraints → Approach → Trade-offs → Result → Artifacts**
 
 Implementation:
+
 - Astro pages composed from data models (TS objects) initially,
 - optionally move long-form to Markdown/MDX later without changing route structure.
 
@@ -58,11 +66,14 @@ Implementation:
 ## Provenance / Version Stamping
 
 ### Build provenance (site)
+
 During every site build generate:
+
 - `site/public/meta/version.json`
 - `site/src/generated/version.ts` (for build-time import)
 
 Fields:
+
 - `gitSha`
 - `gitShortSha`
 - `buildTimestampUtc`
@@ -74,14 +85,18 @@ Fields:
   - runner identifier
 
 Expose:
+
 - `/meta` page renders `version.ts`
 - Footer displays `v<shortsha> • <timestamp>` linking to `/meta`
 
 ### Demo provenance
+
 Each demo must output:
+
 - `demos/<demo>/dist/meta.json` (copied/served under `/demos/<demo>/meta.json`)
 
 Fields:
+
 - demo name
 - source repo/path
 - commit SHA (if vendored)
@@ -93,19 +108,23 @@ Fields:
 ## Demo Size Tiers
 
 ### Tier 1 — Lightweight Islands
+
 - Implement as Astro component/island
 - Lazy load when possible
 - Keep JS footprint minimal
 
 ### Tier 2 — Independent Demo Artifact
+
 - Separate Vite build
 - Served at `/demos/<demo>/`
 - Embedded via iframe in `/lab/<demo>` and/or runner panel
 
 Iframe sandbox default:
+
 - `allow-scripts allow-same-origin`
 
 ### Tier 3 — Heavy Demo
+
 - Same as Tier 2 OR external host (Vercel)
 - Must never degrade landing performance
 - Still embedded via iframe with constraints
@@ -113,7 +132,9 @@ Iframe sandbox default:
 ---
 
 ## Lab Runner Behavior (Required)
+
 On `/lab`:
+
 - tiles list only metadata
 - user click loads iframe into runner panel
 - only one active demo at a time:
@@ -121,14 +142,17 @@ On `/lab`:
 - show load time metrics (ms) in UI
 
 Rationale:
+
 - lifecycle control, isolation, performance awareness.
 
 ---
 
 ## Terminal Block (“Quiet Wow”)
+
 Landing page embeds a terminal block using the ported `TerminalTyper` engine.
 
 Requirements:
+
 - boots only on visibility or interaction
 - manual tabs (no autoplay)
 - supports multiple scripts:
@@ -137,6 +161,7 @@ Requirements:
   - optional: TS/Go/Rust variants
 
 Security:
+
 - no dynamic imports from arbitrary origins
 - no eval
 - no user-provided input execution
@@ -146,16 +171,20 @@ Security:
 ## Build System
 
 ### Root workflow
+
 Repository root build should:
+
 - build site
 - (later) build demos
 - generate provenance metadata
 - verify outputs exist
 
 Current path:
+
 - `npm --prefix site run build` builds the shell and runs `prebuild` for version stamping.
 
 Future:
+
 - root `npm run build` orchestrates site + demos in sequence.
 
 ---
@@ -163,26 +192,32 @@ Future:
 ## Deployment Architecture (Droplet)
 
 ### Filesystem layout
+
 /var/www/exnulla-site/
+
 - releases/<timestamp>/
 - current -> releases/<timestamp>
 - shared/ (optional: assets/logs)
 
 Deploy steps:
-1) build site + demos
-2) create new release dir
-3) rsync artifacts into release dir
-4) atomically repoint `current` symlink
-5) `nginx -t` then reload
+
+1. build site + demos
+2. create new release dir
+3. rsync artifacts into release dir
+4. atomically repoint `current` symlink
+5. `nginx -t` then reload
 
 Rollback:
+
 - repoint `current` to prior release
 - reload Nginx
 
 ---
 
 ## CI Requirements
+
 CI must:
+
 - run on Node 20
 - `npm ci`
 - `npm run format:check` (repo root)
@@ -193,17 +228,19 @@ CI must:
 ---
 
 ## Security Model
+
 - No user code execution.
 - Demos isolated via iframe sandbox.
 - Avoid allowing:
   - top navigation
   - popups
   - forms escape
-unless explicitly required by a specific demo.
+    unless explicitly required by a specific demo.
 
 ---
 
 ## Performance Targets
+
 - Landing page:
   - minimal JS
   - no heavy demo code loaded by default
@@ -217,6 +254,7 @@ unless explicitly required by a specific demo.
 ---
 
 ## Definition of Done (v1)
+
 - IA routes exist and build.
 - `/meta/version.json` exists and footer shows version.
 - Lab runner loads one demo at a time (iframe lifecycle).
@@ -313,6 +351,7 @@ Choose one (can evolve over time):
 - **B (heavy demo):** GH Actions publishes a specific heavy demo to Vercel; site embeds via iframe
 
 ## Repo Hygiene Baseline (required)
+
 # Repo Hygiene Baseline (required)
 
 This repo must ship with baseline hygiene from day 0:

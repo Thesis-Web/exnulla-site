@@ -1,6 +1,7 @@
 # ExNulla Site Blueprint
 
 ## Mission
+
 Build **exnulla.com** as a **Digital CV + Interactive Lab** that:
 
 - loads like a small, static, “boring fast” site,
@@ -13,9 +14,11 @@ This site is “paper” for senior-level capability: problem framing, systems t
 ---
 
 ## Core Positioning
+
 **Toyota, not a race car.**
+
 - Reliable, deterministic, repeatable.
-- Innovative in the *useful* places.
+- Innovative in the _useful_ places.
 - Avoid overengineering; favor intentional boundaries.
 
 Primary signal: **deployment rigor + infrastructure maturity**, expressed through a static-first site with provenance, atomic releases, and isolation patterns.
@@ -23,14 +26,18 @@ Primary signal: **deployment rigor + infrastructure maturity**, expressed throug
 ---
 
 ## Primary UX Funnel
+
 ### Primary CTA
+
 - **Watch Live (Kick)**
 
 ### Secondary CTA
+
 - Twitch
 - LinkedIn (network-first contact)
 
 ### Tertiary
+
 - Projects (case studies)
 - Lab (demos)
 - Links hub
@@ -40,9 +47,11 @@ Primary signal: **deployment rigor + infrastructure maturity**, expressed throug
 ---
 
 ## “Wow Without Weight” Principle
+
 The site should **paint instantly** and then **progressively reveal** technical depth.
 
 Rules:
+
 - Static HTML first; minimal JS.
 - JS is opt-in (on interaction or viewport visibility).
 - Demos run outside the shell via **iframe isolation**.
@@ -54,6 +63,7 @@ Rules:
 ## IA (Information Architecture)
 
 ### Required routes (v1)
+
 - `/` — Landing
   - hero narrative + CTAs
   - subtle “quiet wow” (Terminal block)
@@ -78,6 +88,7 @@ Rules:
 - `/meta/version.json` — raw provenance JSON
 
 ### Optional routes (v1.1+)
+
 - `/now` — current focus
 - `/stream-kit` — stream stack + commands
 - `/gear` — hardware/software
@@ -85,18 +96,22 @@ Rules:
 ---
 
 ## Signature “Quiet Wow” Feature: Terminal Block
+
 Landing page includes a small terminal that feels like a real dev environment (Ubuntu/Endeavour aesthetic).
 
 Behavior:
+
 - terminal only boots when visible or interacted with
 - manual tab switch (no autoplay gimmicks)
 - scripts are real snippets derived from actual repo/tools
 
 Tabs (initial):
+
 - **B (default): Attest / hostile JSON** pipeline snippet (non-vanilla)
 - A: ops maturity snippet (timer/systemd example)
 
 Implementation target:
+
 - `TerminalTyper.ts` engine ported
 - scripts per language:
   - `bash.ts` (ops maturity)
@@ -107,7 +122,9 @@ Implementation target:
 ---
 
 ## Lab Runner Flex (Core Differentiator)
+
 On `/lab`:
+
 - show tiles
 - click tile loads iframe into a runner panel
 - only one active iframe at a time (destroy previous)
@@ -116,6 +133,7 @@ On `/lab`:
 - heavy demos stay isolated and must not impact landing performance
 
 This signals:
+
 - lifecycle control
 - performance awareness
 - intentional runtime boundaries
@@ -123,7 +141,9 @@ This signals:
 ---
 
 ## Content Model (Case Studies)
+
 Each case study must include:
+
 - Title + one-line outcome
 - Problem
 - Constraints
@@ -136,12 +156,15 @@ Each case study must include:
   - related stream clip/VOD link
 
 Layout style:
+
 - reads like an architecture/spec markdown (sections, code blocks, math allowed)
 
 ---
 
 ## Demo Model (“Lab Tiles”)
+
 Each demo tile must include:
+
 - name + description
 - tags
 - tier (1/2/3)
@@ -150,6 +173,7 @@ Each demo tile must include:
 - wrapper route (`/lab/<demo>`)
 
 Tiers:
+
 - Tier 1: lightweight island (minimal JS)
 - Tier 2: Vite artifact embedded via iframe
 - Tier 3: heavy demo; optionally external hosted and framed
@@ -157,57 +181,62 @@ Tiers:
 ---
 
 ## Repo Layout (target)
-  exnulla-site/
-	README.md
-	LICENSE
-   docs/
-	blueprint.md
-	engineering-specs.md
-	ops/
-	  releases.md
-	  runbooks.md
-   site/
-	package.json
-	src/
-	public/
-	meta/version.json
-   demos/
-	<demo-name>/
-	 src/
-         dist/
-         meta.json
 
-   package.json
-   src/
-   dist/
-	meta.json
-   assets/
-   branding/
-   screenshots/
-   import/
-   manifests/
-   scripts/
-	build-all.sh
-	deploy.sh
-	verify.sh
-	stamp-version.sh
-   nginx/
-	exnulla-site.conf
-	lab.conf
+exnulla-site/
+README.md
+LICENSE
+docs/
+blueprint.md
+engineering-specs.md
+ops/
+releases.md
+runbooks.md
+site/
+package.json
+src/
+public/
+meta/version.json
+demos/
+<demo-name>/
+src/
+dist/
+meta.json
+
+package.json
+src/
+dist/
+meta.json
+assets/
+branding/
+screenshots/
+import/
+manifests/
+scripts/
+build-all.sh
+deploy.sh
+verify.sh
+stamp-version.sh
+nginx/
+exnulla-site.conf
+lab.conf
+
 ---
 
 ## First Showcase Demos (target set)
+
 Initial “wow” demos pulled from thesis-chain:
-1) Attest pipeline (hostile JSON → canonicalize → digest → reasons)
-2) Tenure simulation
-3) Mining lottery simulation
-4) Reward lottery / lottery v2
+
+1. Attest pipeline (hostile JSON → canonicalize → digest → reasons)
+2. Tenure simulation
+3. Mining lottery simulation
+4. Reward lottery / lottery v2
 
 These are deterministic, explainable, and visually demonstrable.
 
 ---
 
 ## Operational Guardrails
+
 - Never move/delete `site/` without pwd+ls confirmation.
 - Commit scaffolds immediately.
 - Provenance required on every build (`/meta/version.json`).
@@ -260,6 +289,7 @@ Choose one (can evolve over time):
 - **B (heavy demo):** GH Actions publishes a specific heavy demo to Vercel; site embeds via iframe
 
 ## Repo Hygiene Baseline (required)
+
 # Repo Hygiene Baseline (required)
 
 This repo must ship with baseline hygiene from day 0:
@@ -274,4 +304,3 @@ This repo must ship with baseline hygiene from day 0:
   - `npm run lint --if-present`
   - `npm run build --if-present`
   - `npm run typecheck --if-present`
-
