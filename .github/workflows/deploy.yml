@@ -48,6 +48,11 @@ jobs:
           CFG
           chmod 600 ~/.ssh/config
 
+      - name: Debug derived public key
+        run: |
+          set -euo pipefail
+          ssh-keygen -y -f ~/.ssh/id_ed25519
+
 
       - name: Deploy to droplet (atomic)
         env:
