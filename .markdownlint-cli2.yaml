@@ -8,3 +8,5 @@ ignores:
   - "**/.astro/**"
   - "site/**/.vercel/**"
   - "site/**/.netlify/**"
+  - "!docs/**"
+
