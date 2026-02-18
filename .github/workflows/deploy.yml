@@ -1,0 +1,51 @@
+name: Deploy (prod)
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: exnulla-site-prod
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps (root)
+        run: npm ci
+
+      - name: Install deps (site)
+        run: npm ci
+        working-directory: site
+
+      - name: Build (site)
+        run: npm run build
+        working-directory: site
+
+      - name: Prepare SSH
+        run: |
+          set -euo pipefail
+          install -m 700 -d ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy to droplet (atomic)
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: /var/www/exnulla-site
+          LOCAL_DIST: site/dist
+          RELEASE_ID: ${{ github.sha }}
+        run: ./scripts/deploy-to-droplet.sh
