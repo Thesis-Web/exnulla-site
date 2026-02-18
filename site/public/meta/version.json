@@ -1,0 +1,12 @@
+{
+  "gitSha": "dedc182387fbbe4e826795a12deeaa51bfd949e8",
+  "gitShortSha": "dedc182",
+  "buildTimestampUtc": "2026-02-17T22:14:31.743Z",
+  "buildEnv": {
+    "node": "v20.20.0",
+    "platform": "linux",
+    "arch": "x64",
+    "ci": false,
+    "runner": "local"
+  }
+}

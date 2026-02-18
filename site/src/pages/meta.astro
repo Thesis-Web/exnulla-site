@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { buildVersion } from "../generated/version";
+---
+<BaseLayout title="Meta — ExNulla" description="Build provenance + version metadata." active="">
+  <div class="kicker">Meta</div>
+  <h1 class="h1">Build Metadata</h1>
+  <p class="sub">Provenance for this deployment. Also available at <code>/meta/version.json</code>.</p>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Version</h2>
+    <ul class="list">
+      <li><strong>Git SHA:</strong> <code>{buildVersion.gitSha}</code></li>
+      <li><strong>Built (UTC):</strong> <code>{buildVersion.buildTimestampUtc}</code></li>
+      <li><strong>Node:</strong> <code>{buildVersion.buildEnv.node}</code></li>
+      <li><strong>Platform:</strong> <code>{buildVersion.buildEnv.platform}/{buildVersion.buildEnv.arch}</code></li>
+      <li><strong>Runner:</strong> <code>{buildVersion.buildEnv.runner}</code></li>
+      <li><strong>CI:</strong> <code>{String(buildVersion.buildEnv.ci)}</code></li>
+    </ul>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Raw JSON</h2>
+    <p class="small">
+      <a class="btn ghost" href="/meta/version.json" target="_blank" rel="noreferrer">Open /meta/version.json</a>
+    </p>
+  </section>
+</BaseLayout>

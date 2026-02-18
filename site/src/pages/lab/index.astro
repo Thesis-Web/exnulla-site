@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { LAB_TILES } from "../../components/siteConfig";
+
+const tierLabel = (t: 1|2|3) => (t === 1 ? "Tier 1 (light)" : t === 2 ? "Tier 2 (iframe)" : "Tier 3 (heavy)");
+---
+<BaseLayout title="Lab — ExNulla" description="ExNulla Lab: curated sandbox demos (static-first, isolated as needed)." active="lab">
+  <div class="kicker">Lab</div>
+  <h1 class="h1">ExNulla Lab</h1>
+  <p class="sub">
+    Click a tile to run it. Only one demo runs at a time. Demos are sandboxed and lifecycle-managed to keep the shell fast.
+  </p>
+
+  <div class="hr"></div>
+
+  <section class="grid grid-2">
+    <div class="card">
+      <h2>Runner</h2>
+      <p class="small" id="lab-status">No demo loaded.</p>
+      <div class="btnrow">
+        <button class="btn ghost" id="lab-unload" type="button">Unload demo</button>
+      </div>
+      <div class="hr"></div>
+      <div id="lab-mount" style="min-height:320px;"></div>
+      <p class="small" id="lab-metrics"></p>
+    </div>
+
+    <div class="card">
+      <h2>Policy</h2>
+      <ul class="list">
+        <li><strong>Isolation:</strong> iframe sandbox keeps demo JS out of the shell.</li>
+        <li><strong>Lifecycle:</strong> previous demo is destroyed (DOM + memory pressure reduced).</li>
+        <li><strong>Performance:</strong> we measure load timing for visibility.</li>
+        <li><strong>Motion:</strong> no autoplay; demos only load on explicit click.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <div class="grid grid-3" id="lab-tiles">
+    {LAB_TILES.slice(0, 12).map((d) => (
+      <article class="card">
+        <h2 style="font-size:16px; margin:0 0 8px">{d.name}</h2>
+        <p class="small" style="margin:0">{d.blurb}</p>
+        <div class="pillrow">
+          <span class="pill">{tierLabel(d.tier)}</span>
+          {d.tags.map((t) => <span class="pill">{t}</span>)}
+        </div>
+
+        <div class="btnrow">
+          {/* demoPath is the actual runnable artifact target (if present) */}
+          <button
+            class="btn ghost"
+            type="button"
+            data-demo={d.demoPath ?? ""}
+            data-name={d.name}
+          >
+            Run
+          </button>
+          {d.demoPath ? <a class="btn ghost" href={d.demoPath} target="_blank" rel="noreferrer">Open artifact</a> : null}
+        </div>
+
+        {d.source ? <p class="small" style="margin-top:10px">src: {d.source}</p> : null}
+      </article>
+    ))}
+  </div>
+
+  <script is:inline>
+    const mount = document.getElementById("lab-mount");
+    const status = document.getElementById("lab-status");
+    const metrics = document.getElementById("lab-metrics");
+    const tiles = document.getElementById("lab-tiles");
+    const unloadBtn = document.getElementById("lab-unload");
+
+    let activeIframe = null;
+
+    function unload() {
+      if (activeIframe) {
+        activeIframe.remove();
+        activeIframe = null;
+      }
+      status.textContent = "No demo loaded.";
+      metrics.textContent = "";
+      mount.innerHTML = "";
+    }
+
+    unloadBtn.addEventListener("click", unload);
+
+    tiles.addEventListener("click", (e) => {
+      const btn = e.target?.closest("button[data-demo]");
+      if (!btn) return;
+
+      const demo = btn.getAttribute("data-demo");
+      const name = btn.getAttribute("data-name") || "Demo";
+
+      if (!demo) {
+        status.textContent = `${name}: no artifact configured yet.`;
+        metrics.textContent = "Add demoPath (/demos/<name>/) to enable.";
+        return;
+      }
+
+      // Destroy previous demo (explicit lifecycle)
+      unload();
+
+      const t0 = performance.now();
+      status.textContent = `Loading: ${name}`;
+
+      const iframe = document.createElement("iframe");
+      iframe.src = demo;
+      iframe.width = "100%";
+      iframe.height = "420";
+      iframe.loading = "eager";
+      iframe.referrerPolicy = "no-referrer";
+
+      // Sandbox: allow what we need; tighten later per-demo
+      iframe.sandbox = "allow-scripts allow-same-origin";
+
+      iframe.style.border = "1px solid var(--border)";
+      iframe.style.borderRadius = "14px";
+      iframe.style.background = "var(--card)";
+
+      iframe.addEventListener("load", () => {
+        const t1 = performance.now();
+        status.textContent = `Running: ${name}`;
+        metrics.textContent = `Load time: ${(t1 - t0).toFixed(1)} ms`;
+      });
+
+      mount.appendChild(iframe);
+      activeIframe = iframe;
+    });
+  </script>
+</BaseLayout>

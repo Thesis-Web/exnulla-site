@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LINKS } from "../components/siteConfig";
+
+const items = [
+  { label: "Watch Live (Kick)", href: LINKS.kick },
+  { label: "Twitch", href: LINKS.twitch },
+  { label: "YouTube", href: LINKS.youtube },
+  { label: "LinkedIn", href: LINKS.linkedin },
+  { label: "GitHub (Thesis-Web)", href: LINKS.github },
+  { label: "X", href: LINKS.x },
+  { label: "Instagram", href: LINKS.instagram },
+  { label: "Facebook", href: LINKS.facebook },
+  { label: "TikTok", href: LINKS.tiktok },
+  { label: "Projects", href: "/projects" },
+  { label: "Lab", href: "/lab" },
+  { label: "Press Kit", href: "/press-kit" },
+  { label: "Contact", href: "/contact" },
+];
+---
+<BaseLayout title="Links — ExNulla" description="Fast link hub for social bios." active="links">
+  <div class="kicker">Links</div>
+  <h1 class="h1">Link Hub</h1>
+  <p class="sub">Bio-friendly. One click to the important stuff.</p>
+
+  <div class="hr"></div>
+
+  <div class="grid" style="gap:10px; max-width:720px">
+    {items.map((i) => (
+      <a class="card" href={i.href}
+         target={i.href.startsWith("http") ? "_blank" : undefined}
+         rel={i.href.startsWith("http") ? "noreferrer" : undefined}
+         style="text-decoration:none; display:flex; align-items:center; justify-content:space-between; gap:10px">
+        <strong>{i.label}</strong>
+        <span class="small">→</span>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LINKS } from "../components/siteConfig";
+---
+<BaseLayout title="Contact — ExNulla" description="Contact + key links." active="contact">
+  <div class="kicker">Contact</div>
+  <h1 class="h1">Contact</h1>
+  <p class="sub">
+    Preferred contact is <strong>LinkedIn</strong> (network first). Email is available if needed.
+  </p>
+
+  <div class="btnrow">
+    <a class="btn primary" href={LINKS.linkedin} target="_blank" rel="noreferrer">Message on LinkedIn</a>
+    <a class="btn ghost" href={LINKS.kick} target="_blank" rel="noreferrer">Watch Live (Kick)</a>
+    <a class="btn ghost" href={LINKS.twitch} target="_blank" rel="noreferrer">Twitch</a>
+    <a class="btn ghost" href="/links">Links Hub</a>
+    <a class="btn ghost" href={LINKS.email}>Email (secondary)</a>
+  </div>
+
+  <div class="hr"></div>
+
+  <section class="grid grid-2">
+    <div class="card">
+      <h2>What to include</h2>
+      <ul class="list">
+        <li>Role / project context + timeline.</li>
+        <li>Constraints (stack, environment, budget).</li>
+        <li>What success looks like (measurable).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Quick links</h2>
+      <ul class="list">
+        <li><a href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
+        <li><a href={LINKS.github} target="_blank" rel="noreferrer">GitHub (Thesis-Web)</a></li>
+        <li><a href={LINKS.youtube} target="_blank" rel="noreferrer">YouTube</a></li>
+        <li><a href={LINKS.kick} target="_blank" rel="noreferrer">Kick</a></li>
+        <li><a href={LINKS.twitch} target="_blank" rel="noreferrer">Twitch</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

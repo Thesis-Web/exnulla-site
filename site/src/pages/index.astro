@@ -1,11 +1,124 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LINKS } from "../components/siteConfig";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout
+  title="Systems Architecture — ExNulla"
+  description="Static-first portfolio with isolated simulations, atomic releases, and verifiable build provenance."
+  active=""
+>
+  <h1 class="h1">Systems Architecture. Deterministic Execution.</h1>
+
+  <p class="sub">
+    Static-first portfolio with isolated simulations, atomic releases,
+    and verifiable build provenance.
+  </p>
+
+  <div class="btnrow">
+    <a class="btn primary" href={LINKS.kick} target="_blank" rel="noreferrer">
+      Watch Live
+    </a>
+    <a class="btn ghost" href="/projects">Projects</a>
+    <a class="btn ghost" href="/lab">Lab</a>
+    <a class="btn ghost" href="/meta">Meta</a>
+  </div>
+
+  <div class="hr"></div>
+
+  <section>
+    <h2>Design for Constraints</h2>
+    <p>
+      Systems are shaped by limits. Architecture begins with constraints,
+      not features. This site reflects that discipline.
+    </p>
+    <ul class="list">
+      <li>Static-first rendering.</li>
+      <li>Explicit runtime isolation.</li>
+      <li>Atomic deploys with rollback.</li>
+      <li>Build provenance on every release.</li>
+    </ul>
+  </section>
+
+  <div class="hr"></div>
+
+  <section>
+    <h2>Featured Case</h2>
+    <p>
+      Deterministic attest pipeline for hostile JSON ingestion,
+      canonicalization, hashing, and rule-based decisioning.
+    </p>
+    <div class="btnrow">
+      <a class="btn ghost" href="/projects/exnulla-site">
+        View Case Study
+      </a>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section>
+    <h2>Interactive Simulation</h2>
+    <p>
+      Isolated runtime simulation. Loaded on demand. No shell pollution.
+    </p>
+    <div class="btnrow">
+      <a class="btn ghost" href="/lab">Open Lab</a>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- Terminal block will be inserted here in next step -->
+
+  <div class="hr"></div>
+
+  <section class="identity">
+    <div class="identity-inner">
+      <img
+        src="/assets/James-Headshot.jpg"
+        alt="James Huson"
+        loading="lazy"
+      />
+      <div>
+        <strong>James Huson</strong>
+        <div class="small">Systems Architect</div>
+      </div>
+    </div>
+
+    <div class="btnrow" style="justify-content:center;">
+      <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">
+        LinkedIn
+      </a>
+      <a class="btn ghost" href={LINKS.github} target="_blank" rel="noreferrer">
+        GitHub
+      </a>
+      <a class="btn ghost" href={LINKS.kick} target="_blank" rel="noreferrer">
+        Kick
+      </a>
+    </div>
+  </section>
+
+  <style>
+    .identity {
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    .identity-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .identity img {
+      width: 90px;
+      height: 90px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: var(--card);
+    }
+  </style>
+</BaseLayout>

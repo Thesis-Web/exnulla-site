@@ -1,0 +1,22 @@
+---
+type Props = { href: string; label: string; svgPath: string };
+const { href, label, svgPath } = Astro.props;
+---
+<a class="icon" href={href} target="_blank" rel="noreferrer">
+  <span class="sr-only">{label}</span>
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d={svgPath}></path>
+  </svg>
+</a>
+
+<style>
+  .icon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:12px;
+    border:1px solid var(--border); background:var(--card);
+    transition:transform .12s ease, border-color .12s ease;
+  }
+  .icon:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border) 70%, var(--fg)); }
+  svg{ width:18px; height:18px; fill: currentColor; color: var(--fg); opacity:.9; }
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+</style>

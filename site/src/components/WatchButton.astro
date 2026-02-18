@@ -1,0 +1,67 @@
+---
+const fallbackUrl = "https://kick.com/exnulla";
+---
+
+<a
+  id="watch-btn"
+  href={fallbackUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="btn primary watch-btn watch-btn--unknown"
+>
+  Watch
+</a>
+
+<script is:inline>
+  (async () => {
+    const btn = document.getElementById("watch-btn");
+    if (!btn) return;
+
+    try {
+      const res = await fetch("/stream/status.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("status fetch failed");
+      const data = await res.json();
+
+      const status = (data.status || "offline").toLowerCase();
+      const url = data.url || btn.getAttribute("href");
+
+      btn.setAttribute("href", url);
+
+      btn.classList.remove("watch-btn--unknown", "watch-btn--offline", "watch-btn--live");
+      if (status === "live") {
+        btn.classList.add("watch-btn--live");
+        btn.textContent = "LIVE";
+      } else {
+        btn.classList.add("watch-btn--offline");
+        btn.textContent = "Offline";
+      }
+    } catch {
+      // keep SSR fallback
+    }
+  })();
+</script>
+
+<style>
+  /* Only state-specific styling; base button styling comes from SiteHeader (.btn/.primary) */
+  .watch-btn--offline {
+    opacity: 0.75;
+  }
+
+  .watch-btn--live::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    margin-right: 8px;
+    background: currentColor;
+    animation: pulse 1.2s ease-in-out infinite;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.55; }
+    50% { transform: scale(1.25); opacity: 1; }
+  }
+</style>
+

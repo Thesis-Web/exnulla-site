@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LINKS, FEATURED } from "../components/siteConfig";
+---
+<BaseLayout
+  title="ExNulla — Digital CV + Interactive Lab"
+  description="Static-first credibility with embedded proof-of-work demos. Systems architecture, infrastructure, and execution."
+>
+  <div class="kicker">From zero — shipped, measured, repeatable</div>
+  <h1 class="h1">Digital CV + Interactive Lab</h1>
+  <p class="sub">
+    I build <strong>systems</strong> (infra + product execution) and publish the proof:
+    case studies, diagrams, and runnable demos. Static-first, fast, and deployable with atomic releases.
+  </p>
+
+  <div class="btnrow">
+    <a class="btn primary" href={LINKS.kick} target="_blank" rel="noreferrer">Watch Live (Kick)</a>
+    <a class="btn ghost" href={LINKS.twitch} target="_blank" rel="noreferrer">Twitch</a>
+    <a class="btn ghost" href={LINKS.youtube} target="_blank" rel="noreferrer">YouTube</a>
+    <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">Connect on LinkedIn</a>
+    <a class="btn ghost" href="/projects">View Projects</a>
+  </div>
+
+  <div class="hr"></div>
+
+  <section class="grid grid-2">
+    <div class="card">
+      <h2>What I build</h2>
+      <ul class="list">
+        <li><strong>Systems architecture:</strong> trade-offs, constraints, and failure modes documented.</li>
+        <li><strong>Infrastructure + DevOps:</strong> repeatable deploys, rollback, CI hygiene, operational simplicity.</li>
+        <li><strong>Product execution:</strong> scope control, risk reduction, measurable outcomes.</li>
+        <li><strong>Public proof:</strong> case studies + runnable demos (isolated when needed).</li>
+      </ul>
+      <p class="small" style="margin-top:12px">
+        Primary CTA is live stream; secondary is LinkedIn + projects; tertiary is press-kit + contact. (Blueprint)
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Start here</h2>
+      <div class="pillrow">
+        <span class="pill">Static-first</span>
+        <span class="pill">Minimal JS</span>
+        <span class="pill">SEO friendly</span>
+        <span class="pill">Atomic deploys</span>
+        <span class="pill">Lab via iframe</span>
+      </div>
+
+      <div class="btnrow" style="margin-top:14px">
+        <a class="btn ghost" href="/cv">Read the CV</a>
+        <a class="btn ghost" href="/lab">Open the Lab</a>
+        <a class="btn ghost" href="/press-kit">Press Kit</a>
+        <a class="btn ghost" href="/contact">Contact</a>
+      </div>
+
+      <p class="small" style="margin-top:12px">
+        If you’re hiring: treat this site like a runnable portfolio, not a brochure.
+      </p>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="grid grid-2">
+    <div class="card">
+      <h2>Featured case study</h2>
+      <p class="small" style="margin:6px 0 0">{FEATURED.project.outcome}</p>
+      <div class="pillrow">
+        {FEATURED.project.tags.map((t) => <span class="pill">{t}</span>)}
+      </div>
+      <div class="btnrow">
+        <a class="btn ghost" href={FEATURED.project.href}>Open</a>
+        {FEATURED.project.repo ? <a class="btn ghost" href={FEATURED.project.repo} target="_blank" rel="noreferrer">Repo</a> : null}
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Featured demo</h2>
+      <p class="small" style="margin:6px 0 0">{FEATURED.demo.blurb}</p>
+      <div class="pillrow">
+        <span class="pill">Tier {FEATURED.demo.tier}</span>
+        {FEATURED.demo.tags.map((t) => <span class="pill">{t}</span>)}
+      </div>
+      <div class="btnrow">
+        <a class="btn ghost" href={FEATURED.demo.href}>Browse demos</a>
+      </div>
+      <p class="small" style="margin-top:10px">
+        Demos will be embedded on demand (iframe for tier 2/3) to keep the landing page fast.
+      </p>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <p class="small">
+    Help me grow the network: <a href={LINKS.linkedin} target="_blank" rel="noreferrer"><strong>LinkedIn</strong></a>
+  </p>
+</BaseLayout>

@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LINKS } from "../components/siteConfig";
+---
+<BaseLayout title="Press Kit — ExNulla" description="Logos, colors, short bio, and screenshots." active="press-kit">
+  <div class="kicker">Press Kit</div>
+  <h1 class="h1">Press Kit</h1>
+  <p class="sub">
+    Logos, colors, short bio, and screenshots for collaborators, podcasts, or write-ups.
+    Assets will land in <code>/assets/branding</code> in M2/M3.
+  </p>
+
+  <div class="btnrow">
+    <a class="btn primary" href={LINKS.youtube} target="_blank" rel="noreferrer">YouTube</a>
+    <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+    <a class="btn ghost" href="/contact">Contact</a>
+  </div>
+
+  <div class="hr"></div>
+
+  <section class="grid grid-2">
+    <div class="card">
+      <h2>Short bio</h2>
+      <p class="small">
+        ExNulla is a public proof-of-work portfolio: systems architecture, infrastructure, and product execution.
+        Static-first case studies with runnable demos, shipped behind Nginx with atomic releases.
+      </p>
+      <ul class="list">
+        <li>Focus: architecture + infra + execution</li>
+        <li>Format: docs + demos + streams</li>
+        <li>CTA: live builds + LinkedIn</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Brand (placeholder)</h2>
+      <ul class="list">
+        <li><strong>Name:</strong> ExNulla</li>
+        <li><strong>Mark:</strong> “∅” (temporary glyph)</li>
+        <li><strong>Colors:</strong> dark base + high-contrast accents (refine later)</li>
+      </ul>
+      <div class="pillrow">
+        <span class="pill">#0b0e14</span>
+        <span class="pill">#e8eefc</span>
+        <span class="pill">#101624</span>
+        <span class="pill">#22304a</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Assets (TODO)</h2>
+    <ul class="list">
+      <li>Add logos (SVG/PNG) to <code>assets/branding/</code></li>
+      <li>Add screenshots to <code>assets/screenshots/</code></li>
+      <li>Add a one-sheet PDF export if needed</li>
+    </ul>
+  </section>
+</BaseLayout>
