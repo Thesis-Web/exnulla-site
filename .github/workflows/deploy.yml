@@ -37,9 +37,18 @@ jobs:
         run: |
           set -euo pipefail
           install -m 700 -d ~/.ssh
-          printf "%s" "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+
+          # Write private key from base64 secret
+          printf "%s" "${{ secrets.DEPLOY_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
+
+          # Validate key parses (fails fast)
+          ssh-keygen -y -f ~/.ssh/id_ed25519 >/dev/null
+
+          # Host key
           ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+
+          # Force ssh/rsync to use this key only
           cat > ~/.ssh/config <<'CFG'
           Host *
             IdentityFile ~/.ssh/id_ed25519
@@ -47,6 +56,7 @@ jobs:
             StrictHostKeyChecking yes
           CFG
           chmod 600 ~/.ssh/config
+
 
       - name: Debug derived public key
         run: |
