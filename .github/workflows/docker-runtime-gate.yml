@@ -1,18 +1,45 @@
 name: docker-runtime-gate
 
 on:
+  pull_request:
   push:
     branches: [main]
-  pull_request:
 
 jobs:
-  docker-runtime-build-and-verify:
+  quality-gates:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Optional but clean/pro: avoids legacy builder and enables BuildKit features
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Markdown lint (if present)
+        run: npm run lint:md --if-present
+
+      - name: Lint (if present)
+        run: npm run lint --if-present
+
+      - name: Typecheck (if present)
+        run: npm run typecheck --if-present
+
+  docker-runtime-build-and-verify:
+    runs-on: ubuntu-latest
+    needs: [quality-gates]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -22,33 +49,38 @@ jobs:
             --build-arg "GIT_SHA=${{ github.sha }}" \
             -t exnulla-site:ci .
 
-      - name: Run container on ephemeral port
+      - name: Run container on random port + verify version stamp
         run: |
           set -euo pipefail
           NAME="exnulla-site-ci"
           docker rm -f "$NAME" >/dev/null 2>&1 || true
 
-          CID="$(docker run -d --name "$NAME" -p 127.0.0.1::80 exnulla-site:ci)"
+          CID="$(docker run -d --name "$NAME" -p 0:80 exnulla-site:ci)"
           echo "CID=$CID"
 
           PORT="$(docker port "$NAME" 80/tcp | awk -F: '{print $2}' | tail -n1)"
           echo "PORT=$PORT"
 
-          # wait for nginx
+          ok=0
           for _ in {1..30}; do
             if curl -fsS "http://127.0.0.1:${PORT}/meta/version.json" >/dev/null; then
+              ok=1
               break
             fi
             sleep 0.2
           done
 
+          if [ "$ok" -ne 1 ]; then
+            echo "ERROR: container did not become ready"
+            docker ps -a
+            docker logs "$NAME" || true
+            exit 1
+          fi
+
           echo "version.json:"
           curl -fsS "http://127.0.0.1:${PORT}/meta/version.json"
-
-          # verify SHA matches the workflow commit
           curl -fsS "http://127.0.0.1:${PORT}/meta/version.json" | grep -q "${{ github.sha }}"
 
       - name: Cleanup
         if: always()
-        run: |
-          docker rm -f exnulla-site-ci >/dev/null 2>&1 || true
+        run: docker rm -f exnulla-site-ci >/dev/null 2>&1 || true
