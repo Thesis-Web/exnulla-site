@@ -1,0 +1,54 @@
+name: docker-runtime-gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  docker-runtime-build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Optional but clean/pro: avoids legacy builder and enables BuildKit features
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build runtime image (with provenance)
+        run: |
+          docker build \
+            --build-arg "GIT_SHA=${{ github.sha }}" \
+            -t exnulla-site:ci .
+
+      - name: Run container on ephemeral port
+        run: |
+          set -euo pipefail
+          NAME="exnulla-site-ci"
+          docker rm -f "$NAME" >/dev/null 2>&1 || true
+
+          CID="$(docker run -d --name "$NAME" -p 127.0.0.1::80 exnulla-site:ci)"
+          echo "CID=$CID"
+
+          PORT="$(docker port "$NAME" 80/tcp | awk -F: '{print $2}' | tail -n1)"
+          echo "PORT=$PORT"
+
+          # wait for nginx
+          for _ in {1..30}; do
+            if curl -fsS "http://127.0.0.1:${PORT}/meta/version.json" >/dev/null; then
+              break
+            fi
+            sleep 0.2
+          done
+
+          echo "version.json:"
+          curl -fsS "http://127.0.0.1:${PORT}/meta/version.json"
+
+          # verify SHA matches the workflow commit
+          curl -fsS "http://127.0.0.1:${PORT}/meta/version.json" | grep -q "${{ github.sha }}"
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker rm -f exnulla-site-ci >/dev/null 2>&1 || true
