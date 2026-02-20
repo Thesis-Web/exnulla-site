@@ -5,8 +5,7 @@ WORKDIR /repo
 ENV CI=true
 
 ARG GIT_SHA=unknown
-ENV GIT_SHA=
-
+ENV GIT_SHA=${GIT_SHA}
 RUN apt-get update \
   && apt-get install -y --no-install-recommends git ca-certificates \
   && rm -rf /var/lib/apt/lists/*
