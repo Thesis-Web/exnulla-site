@@ -4,6 +4,13 @@ FROM node:20-bookworm-slim AS build
 WORKDIR /repo
 ENV CI=true
 
+ARG GIT_SHA=unknown
+ENV GIT_SHA=
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends git ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
 # Install deps with maximal layer caching
 COPY package.json package-lock.json ./
 COPY site/package.json site/package-lock.json ./site/
