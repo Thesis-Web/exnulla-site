@@ -1,0 +1,7 @@
+services:
+  exnulla-site:
+    build:
+      context: .
+      target: runtime
+    ports:
+      - "8080:80"
