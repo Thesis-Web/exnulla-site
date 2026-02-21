@@ -1,0 +1,10 @@
+{
+  "status": "offline",
+  "url": "https://kick.com/exnulla",
+  "lastChecked": "2026-02-21T00:00:00Z",
+  "provenance": {
+    "buildSha": "initial",
+    "runner": "local",
+    "updatedBy": "ExNulla"
+  }
+}

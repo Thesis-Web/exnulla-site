@@ -2,66 +2,39 @@
 const fallbackUrl = "https://kick.com/exnulla";
 ---
 
-<a
-  id="watch-btn"
-  href={fallbackUrl}
-  target="_blank"
-  rel="noopener noreferrer"
-  class="btn primary watch-btn watch-btn--unknown"
->
-  Watch
+<a id="watch-btn" href={fallbackUrl} target="_blank" class="watch-button flex items-center gap-2 px-6 py-3 rounded-full border border-white/30 hover:border-white/60 transition-all">
+  <span id="status-dot" class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
+  <span id="status-text" class="font-medium">Watch on Kick</span>
 </a>
 
-<script is:inline>
-  (async () => {
-    const btn = document.getElementById("watch-btn");
-    if (!btn) return;
+<script>
+  const btn = document.getElementById('watch-btn');
+  const dot = document.getElementById('status-dot');
+  const text = document.getElementById('status-text');
 
+  async function checkLiveStatus() {
     try {
-      const res = await fetch("/stream/status.json", { cache: "no-store" });
-      if (!res.ok) throw new Error("status fetch failed");
+      const res = await fetch('/stream/status.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error();
       const data = await res.json();
 
-      const status = (data.status || "offline").toLowerCase();
-      const url = data.url || btn.getAttribute("href");
-
-      btn.setAttribute("href", url);
-
-      btn.classList.remove("watch-btn--unknown", "watch-btn--offline", "watch-btn--live");
-      if (status === "live") {
-        btn.classList.add("watch-btn--live");
-        btn.textContent = "LIVE";
+      if (data.status === 'live') {
+        dot.classList.remove('bg-red-500');
+        dot.classList.add('bg-green-500', 'animate-ping');
+        text.textContent = 'LIVE NOW →';
+        btn.href = data.url;
+        btn.classList.add('!border-green-400', '!text-green-400');
       } else {
-        btn.classList.add("watch-btn--offline");
-        btn.textContent = "Offline";
+        dot.classList.remove('bg-green-500', 'animate-ping');
+        dot.classList.add('bg-red-500');
+        text.textContent = 'Watch on Kick';
       }
-    } catch {
-      // keep SSR fallback
+    } catch (e) {
+      // fallback silent
     }
-  })();
+  }
+
+  // Check immediately + every 30s while page open
+  checkLiveStatus();
+  setInterval(checkLiveStatus, 30000);
 </script>
-
-<style>
-  /* Only state-specific styling; base button styling comes from SiteHeader (.btn/.primary) */
-  .watch-btn--offline {
-    opacity: 0.75;
-  }
-
-  .watch-btn--live::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    margin-right: 8px;
-    background: currentColor;
-    animation: pulse 1.2s ease-in-out infinite;
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.55; }
-    50% { transform: scale(1.25); opacity: 1; }
-  }
-</style>
-
