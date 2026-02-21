@@ -255,7 +255,7 @@ export const PROOF_OF_TALENT = [
   }
 ] as const;
 
-export const LAB_TILES: LabTile[] = [
+export const BASE_LAB_TILES: LabTile[] = [
   FEATURED.demo,
   {
     name: 'Tier-2: Embedded demo (placeholder)',
@@ -272,6 +272,11 @@ export const LAB_TILES: LabTile[] = [
     tags: ['heavy', 'webgl'],
     href: '/lab',
   },
+];
+
+export const LAB_TILES: LabTile[] = [
+  ...BASE_LAB_TILES,
+  ...SIM_PLACEHOLDERS,
 ];
 
 // === SIM PLACEHOLDERS for Proof-of-Talent (phase-two stubs) ===
@@ -314,8 +319,3 @@ export const SIM_PLACEHOLDERS = [
   }
 ] as const;
 
-// Add to existing LAB_TILES (append)
-export const LAB_TILES: LabTile[] = [
-  ...LAB_TILES,  // keep existing placeholders
-  ...SIM_PLACEHOLDERS,
-];
