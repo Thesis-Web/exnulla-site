@@ -19,3 +19,5 @@ node_modules/
 # generated build provenance
 site/src/generated/
 site/public/meta/version.json
+/assets/
+/demos/
