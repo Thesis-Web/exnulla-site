@@ -51,7 +51,9 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
 
           # Debug: fingerprint only
-          ssh-keygen -lf ~/.ssh/id_ed25519
+          ssh-keygen -y -f ~/.ssh/id_ed25519
+
+          ssh -o BatchMode=yes -i ~/.ssh/id_ed25519 "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" 'echo runner_ok'
 
       - name: Deploy to droplet (atomic)
         env:
