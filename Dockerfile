@@ -6,6 +6,7 @@ ENV CI=true
 
 ARG GIT_SHA=unknown
 ENV GIT_SHA=${GIT_SHA}
+
 RUN apt-get update \
   && apt-get install -y --no-install-recommends git ca-certificates \
   && rm -rf /var/lib/apt/lists/*
@@ -20,11 +21,14 @@ RUN npm --prefix site ci --no-audit --no-fund
 COPY . .
 RUN npm run build
 
-# Runtime image (optional, for "docker run" preview)
+# Artifact export stage (for CI/CD / local extraction)
+FROM scratch AS artifacts
+COPY --from=build /repo/site/dist /site-dist
+
+# Runtime image (final stage, default runnable)
 FROM nginx:1.27-alpine AS runtime
 COPY --from=build /repo/site/dist /usr/share/nginx/html
 EXPOSE 80
 
-# Artifact export stage (for CI/CD / local extraction)
-FROM scratch AS artifacts
-COPY --from=build /repo/site/dist /site-dist
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget -qO- http://127.0.0.1/meta/version.json >/dev/null || exit 1
