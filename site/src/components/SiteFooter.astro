@@ -1,7 +1,6 @@
 ---
 import SocialIcon from "./SocialIcons.astro";
 import { LINKS } from "./siteConfig";
-import { buildVersion } from "../generated/version";
 const year = new Date().getUTCFullYear();
 
 // Minimal SVG paths (simple brand-ish glyphs; replace later with real brand set if desired)
@@ -48,7 +47,7 @@ const ICONS = {
     <div class="legal">
       <span>© {year} ExNulla.</span>
       <span class="dot">•</span>
-      <a class="meta" href="/meta">v{buildVersion.gitShortSha} • {buildVersion.buildTimestampUtc}</a>
+      <a class="meta" href="/meta">Meta</a><span class="dot">•</span><a class="meta" href="/meta/version.json" target="_blank" rel="noreferrer">/meta/version.json</a>
       <span class="dot">•</span>
       <span>Static-first. Demos isolated by iframe when needed.</span>
     </div>
