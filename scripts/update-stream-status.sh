@@ -5,14 +5,13 @@ set -euo pipefail
 : "${DEPLOY_USER:?Missing DEPLOY_USER}"
 DEPLOY_PATH="${DEPLOY_PATH:-/var/www/exnulla-site}"
 
-echo "=== exnulla reactive status runner ==="
+echo "=== exnulla reactive status runner (shared/ edition) ==="
 
-# Kick public API — no auth needed
 RESPONSE=$(curl -s -f --max-time 10 "https://kick.com/api/v1/channels/exnulla" || echo '{"livestream":null}')
 
 if echo "$RESPONSE" | grep -q '"is_live":true'; then
   STATUS='live'
-  echo "✅ You are LIVE on Kick"
+  echo "✅ LIVE on Kick"
 else
   STATUS='offline'
   echo "⭕ Offline"
@@ -31,8 +30,7 @@ cat > /tmp/status.json <<EOF
 }
 EOF
 
-# Atomic rsync — exactly like your deploy script
-ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '${DEPLOY_PATH}/current/stream'"
-rsync -az --delete /tmp/status.json "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/current/stream/status.json"
+ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '${DEPLOY_PATH}/shared/stream'"
+rsync -az --delete /tmp/status.json "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/stream/status.json"
 
-echo "✅ status.json shipped to droplet (Docker-safe)"
+echo "✅ status.json shipped to /shared/stream (Docker + atomic safe)"
