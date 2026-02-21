@@ -194,65 +194,65 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
 // === PROOF-OF-TALENT CURATED SHOWCASES (phase-two 4-agent xAI sprint) ===
 export const PROOF_OF_TALENT = [
   {
-    slug: "thesis-chain-test",
-    title: "thesis-chain-test",
-    subtitle: "Deterministic consensus simulator + visual execution proofs",
-    repo: "https://github.com/Thesis-Web/thesis-chain-test",
-    demoPath: "/demos/thesis-chain-test",
-    type: "public",
-    wow: "Turns boring consensus into live canvas sims — zero deps, full provenance",
-    status: "live-demo-ready"
+    slug: 'thesis-chain-test',
+    title: 'thesis-chain-test',
+    subtitle: 'Deterministic consensus simulator + visual execution proofs',
+    repo: 'https://github.com/Thesis-Web/thesis-chain-test',
+    demoPath: '/demos/thesis-chain-test',
+    type: 'public',
+    wow: 'Turns boring consensus into live canvas sims — zero deps, full provenance',
+    status: 'live-demo-ready',
   },
   {
-    slug: "attest-pipeline",
-    title: "attest-pipeline",
-    subtitle: "Cryptographically signed atomic builds in CI",
-    repo: "private (contact for access)",
-    demoPath: "/demos/attest-pipeline",
-    type: "private",
-    wow: "Every release is verifiable forever — first-class provenance architecture",
-    status: "todo-sim"
+    slug: 'attest-pipeline',
+    title: 'attest-pipeline',
+    subtitle: 'Cryptographically signed atomic builds in CI',
+    repo: 'private (contact for access)',
+    demoPath: '/demos/attest-pipeline',
+    type: 'private',
+    wow: 'Every release is verifiable forever — first-class provenance architecture',
+    status: 'todo-sim',
   },
   {
-    slug: "tenure-sim",
-    title: "tenure-sim",
-    subtitle: "Long-running state machine with time-edge-case testing",
-    repo: "private",
-    demoPath: "/demos/tenure-sim",
-    type: "private",
+    slug: 'tenure-sim',
+    title: 'tenure-sim',
+    subtitle: 'Long-running state machine with time-edge-case testing',
+    repo: 'private',
+    demoPath: '/demos/tenure-sim',
+    type: 'private',
     wow: "Models real-world 'time passes' that no one else simulates",
-    status: "todo-sim"
+    status: 'todo-sim',
   },
   {
-    slug: "exnulla-stream-ops",
-    title: "exnulla-stream-ops",
-    subtitle: "Reactive live status runner (this exact feature)",
-    repo: "https://github.com/Thesis-Web/exnulla-site",
-    demoPath: "/lab",
-    type: "meta",
-    wow: "4-agent xAI orchestrated SSH + Kick API + atomic shared/ deploy",
-    status: "live"
+    slug: 'exnulla-stream-ops',
+    title: 'exnulla-stream-ops',
+    subtitle: 'Reactive live status runner (this exact feature)',
+    repo: 'https://github.com/Thesis-Web/exnulla-site',
+    demoPath: '/lab',
+    type: 'meta',
+    wow: '4-agent xAI orchestrated SSH + Kick API + atomic shared/ deploy',
+    status: 'live',
   },
   {
-    slug: "lab-runner-core",
-    title: "lab-runner-core",
-    subtitle: "Isolated iframe lifecycle engine (load/unload/metrics)",
-    repo: "private",
-    demoPath: "/lab",
-    type: "private",
-    wow: "Prevents demo bleed — explicit unload + performance telemetry",
-    status: "todo-sim"
+    slug: 'lab-runner-core',
+    title: 'lab-runner-core',
+    subtitle: 'Isolated iframe lifecycle engine (load/unload/metrics)',
+    repo: 'private',
+    demoPath: '/lab',
+    type: 'private',
+    wow: 'Prevents demo bleed — explicit unload + performance telemetry',
+    status: 'todo-sim',
   },
   {
-    slug: "thesis-web-backend-tap",
-    title: "thesis-web-backend-tap",
-    subtitle: "Static-first with optional backend hooks",
-    repo: "private",
-    demoPath: "/api",
-    type: "private",
-    wow: "Graceful degradation — site works offline, backend is pure enhancement",
-    status: "todo-sim"
-  }
+    slug: 'thesis-web-backend-tap',
+    title: 'thesis-web-backend-tap',
+    subtitle: 'Static-first with optional backend hooks',
+    repo: 'private',
+    demoPath: '/api',
+    type: 'private',
+    wow: 'Graceful degradation — site works offline, backend is pure enhancement',
+    status: 'todo-sim',
+  },
 ] as const;
 
 export const BASE_LAB_TILES: LabTile[] = [
@@ -274,25 +274,22 @@ export const BASE_LAB_TILES: LabTile[] = [
   },
 ];
 
-export const LAB_TILES: LabTile[] = [
-  ...BASE_LAB_TILES,
-  ...SIM_PLACEHOLDERS,
-];
-
 // === SIM PLACEHOLDERS for Proof-of-Talent (phase-two stubs) ===
 export const SIM_PLACEHOLDERS = [
   {
     name: 'Attest Pipeline Simulator',
-    blurb: 'Deterministic JSON attest → canonicalize → hash → reason engine. Coming soon – full iframe demo.',
+    blurb:
+      'Deterministic JSON attest → canonicalize → hash → reason engine. Coming soon – full iframe demo.',
     tier: 2,
     tags: ['provenance', 'crypto', 'attest'],
     href: '/lab/attest-pipeline',
-    demoPath: '/demos/attest-pipeline/placeholder/',  // stub path
+    demoPath: '/demos/attest-pipeline/placeholder/',
     source: 'repo: thesis-chain-test (private)',
   },
   {
     name: 'Tenure Simulation',
-    blurb: 'Long-running state machine modeling time-based edge cases. Stubbed – real sim next push.',
+    blurb:
+      'Long-running state machine modeling time-based edge cases. Stubbed – real sim next push.',
     tier: 2,
     tags: ['simulation', 'state-machine', 'time'],
     href: '/lab/tenure-sim',
@@ -316,6 +313,7 @@ export const SIM_PLACEHOLDERS = [
     href: '/lab/thesis-web-backend-tap',
     demoPath: '/demos/backend-tap/placeholder/',
     source: 'private repo',
-  }
+  },
 ] as const;
 
+export const LAB_TILES: LabTile[] = [...BASE_LAB_TILES, ...SIM_PLACEHOLDERS];
