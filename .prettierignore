@@ -8,3 +8,6 @@ package-lock.json
 pnpm-lock.yaml
 yarn.lock
 
+# GitHub Actions expressions can break prettier YAML parser
+.github/workflows/*.yml
+.github/workflows/*.yaml
