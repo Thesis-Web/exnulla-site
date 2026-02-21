@@ -191,6 +191,70 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
   },
 ];
 
+// === PROOF-OF-TALENT CURATED SHOWCASES (phase-two 4-agent xAI sprint) ===
+export const PROOF_OF_TALENT = [
+  {
+    slug: "thesis-chain-test",
+    title: "thesis-chain-test",
+    subtitle: "Deterministic consensus simulator + visual execution proofs",
+    repo: "https://github.com/Thesis-Web/thesis-chain-test",
+    demoPath: "/demos/thesis-chain-test",
+    type: "public",
+    wow: "Turns boring consensus into live canvas sims — zero deps, full provenance",
+    status: "live-demo-ready"
+  },
+  {
+    slug: "attest-pipeline",
+    title: "attest-pipeline",
+    subtitle: "Cryptographically signed atomic builds in CI",
+    repo: "private (contact for access)",
+    demoPath: "/demos/attest-pipeline",
+    type: "private",
+    wow: "Every release is verifiable forever — first-class provenance architecture",
+    status: "todo-sim"
+  },
+  {
+    slug: "tenure-sim",
+    title: "tenure-sim",
+    subtitle: "Long-running state machine with time-edge-case testing",
+    repo: "private",
+    demoPath: "/demos/tenure-sim",
+    type: "private",
+    wow: "Models real-world 'time passes' that no one else simulates",
+    status: "todo-sim"
+  },
+  {
+    slug: "exnulla-stream-ops",
+    title: "exnulla-stream-ops",
+    subtitle: "Reactive live status runner (this exact feature)",
+    repo: "https://github.com/Thesis-Web/exnulla-site",
+    demoPath: "/lab",
+    type: "meta",
+    wow: "4-agent xAI orchestrated SSH + Kick API + atomic shared/ deploy",
+    status: "live"
+  },
+  {
+    slug: "lab-runner-core",
+    title: "lab-runner-core",
+    subtitle: "Isolated iframe lifecycle engine (load/unload/metrics)",
+    repo: "private",
+    demoPath: "/lab",
+    type: "private",
+    wow: "Prevents demo bleed — explicit unload + performance telemetry",
+    status: "todo-sim"
+  },
+  {
+    slug: "thesis-web-backend-tap",
+    title: "thesis-web-backend-tap",
+    subtitle: "Static-first with optional backend hooks",
+    repo: "private",
+    demoPath: "/api",
+    type: "private",
+    wow: "Graceful degradation — site works offline, backend is pure enhancement",
+    status: "todo-sim"
+  }
+] as const;
+
 export const LAB_TILES: LabTile[] = [
   FEATURED.demo,
   {
@@ -208,4 +272,50 @@ export const LAB_TILES: LabTile[] = [
     tags: ['heavy', 'webgl'],
     href: '/lab',
   },
+];
+
+// === SIM PLACEHOLDERS for Proof-of-Talent (phase-two stubs) ===
+export const SIM_PLACEHOLDERS = [
+  {
+    name: 'Attest Pipeline Simulator',
+    blurb: 'Deterministic JSON attest → canonicalize → hash → reason engine. Coming soon – full iframe demo.',
+    tier: 2,
+    tags: ['provenance', 'crypto', 'attest'],
+    href: '/lab/attest-pipeline',
+    demoPath: '/demos/attest-pipeline/placeholder/',  // stub path
+    source: 'repo: thesis-chain-test (private)',
+  },
+  {
+    name: 'Tenure Simulation',
+    blurb: 'Long-running state machine modeling time-based edge cases. Stubbed – real sim next push.',
+    tier: 2,
+    tags: ['simulation', 'state-machine', 'time'],
+    href: '/lab/tenure-sim',
+    demoPath: '/demos/tenure-sim/placeholder/',
+    source: 'private repo',
+  },
+  {
+    name: 'Lab Runner Core Demo',
+    blurb: 'Iframe lifecycle engine stress test. Placeholder – metrics + unload in action soon.',
+    tier: 1,
+    tags: ['ui', 'lifecycle', 'perf'],
+    href: '/lab/lab-runner-core',
+    demoPath: '/demos/lab-runner-core/placeholder/',
+    source: 'this repo (site/src)',
+  },
+  {
+    name: 'Backend Tap Integration',
+    blurb: 'Static-first with optional /api/exnulla/* hooks. Stub – graceful fallback demo.',
+    tier: 2,
+    tags: ['api', 'degradation', 'hybrid'],
+    href: '/lab/thesis-web-backend-tap',
+    demoPath: '/demos/backend-tap/placeholder/',
+    source: 'private repo',
+  }
+] as const;
+
+// Add to existing LAB_TILES (append)
+export const LAB_TILES: LabTile[] = [
+  ...LAB_TILES,  // keep existing placeholders
+  ...SIM_PLACEHOLDERS,
 ];
