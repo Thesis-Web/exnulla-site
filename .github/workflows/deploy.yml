@@ -33,7 +33,7 @@ jobs:
         run: npm run build
         working-directory: site
 
-            - name: Load SSH key (agent)
+      - name: Load SSH key (agent)
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
