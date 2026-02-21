@@ -1,24 +1,27 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { buildVersion } from "../generated/version";
 ---
+
 <BaseLayout title="Meta — ExNulla" description="Build provenance + version metadata." active="">
   <div class="kicker">Meta</div>
   <h1 class="h1">Build Metadata</h1>
-  <p class="sub">Provenance for this deployment. Also available at <code>/meta/version.json</code>.</p>
+  <p class="sub">
+    Provenance for this deployment. Canonical source: <code>/meta/version.json</code>.
+  </p>
 
   <div class="hr"></div>
 
   <section class="card">
     <h2>Version</h2>
     <ul class="list">
-      <li><strong>Git SHA:</strong> <code>{buildVersion.gitSha}</code></li>
-      <li><strong>Built (UTC):</strong> <code>{buildVersion.buildTimestampUtc}</code></li>
-      <li><strong>Node:</strong> <code>{buildVersion.buildEnv.node}</code></li>
-      <li><strong>Platform:</strong> <code>{buildVersion.buildEnv.platform}/{buildVersion.buildEnv.arch}</code></li>
-      <li><strong>Runner:</strong> <code>{buildVersion.buildEnv.runner}</code></li>
-      <li><strong>CI:</strong> <code>{String(buildVersion.buildEnv.ci)}</code></li>
+      <li><strong>Git SHA:</strong> <code id="v-sha">Loading…</code></li>
+      <li><strong>Built (UTC):</strong> <code id="v-built">Loading…</code></li>
+      <li><strong>Node:</strong> <code id="v-node">Loading…</code></li>
+      <li><strong>Platform:</strong> <code id="v-platform">Loading…</code></li>
+      <li><strong>Runner:</strong> <code id="v-runner">Loading…</code></li>
+      <li><strong>CI:</strong> <code id="v-ci">Loading…</code></li>
     </ul>
+    <p class="small" id="v-error" style="display:none;"></p>
   </section>
 
   <div class="hr"></div>
@@ -28,5 +31,36 @@ import { buildVersion } from "../generated/version";
     <p class="small">
       <a class="btn ghost" href="/meta/version.json" target="_blank" rel="noreferrer">Open /meta/version.json</a>
     </p>
+    <pre class="small" id="v-raw" style="white-space: pre-wrap;">Loading…</pre>
   </section>
+
+  <script is:inline>
+    (async () => {
+      const set = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+
+      try {
+        const res = await fetch("/meta/version.json", { cache: "no-store" });
+        if (!res.ok) throw new Error(`GET /meta/version.json -> ${res.status}`);
+        const v = await res.json();
+
+        set("v-sha", v.sha ?? v.gitSha ?? "unknown");
+        set("v-built", v.builtAt ?? v.buildTimestampUtc ?? "unknown");
+        set("v-node", v.buildEnv?.node ?? "unknown");
+        set("v-platform", `${v.buildEnv?.platform ?? "unknown"}/${v.buildEnv?.arch ?? "unknown"}`);
+        set("v-runner", v.buildEnv?.runner ?? "unknown");
+        set("v-ci", String(v.buildEnv?.ci ?? false));
+
+        set("v-raw", JSON.stringify(v, null, 2));
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        set("v-error", msg);
+        const el = document.getElementById("v-error");
+        if (el) el.style.display = "block";
+        set("v-raw", msg);
+      }
+    })();
+  </script>
 </BaseLayout>
