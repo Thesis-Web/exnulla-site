@@ -48,9 +48,15 @@ jobs:
 
           docker run -d --name "$NAME" -p 0:80 exnulla-site:ci >/dev/null
 
-          PORT="$(docker port "$NAME" 80/tcp | awk -F: '{print $2}' | tail -n1)"
+          PORT="$(docker port "$NAME" 80/tcp | sed -n 's/.*:\([0-9][0-9]*\)$/\1/p' | head -n1)"
           echo "PORT=$PORT"
-
+          if [ -z "$PORT" ]; then
+          echo "ERROR: could not determine mapped host port"
+          docker port "$NAME" 80/tcp || true
+          docker ps -a
+          docker logs "$NAME" || true
+          exit 1
+          fi
           ok=0
           for _ in {1..30}; do
             if curl -fsS "http://127.0.0.1:${PORT}/meta/version.json" >/dev/null; then
