@@ -9,46 +9,55 @@ set -euo pipefail
 
 DEPLOY_PATH="${DEPLOY_PATH:-/var/www/exnulla-site}"
 
-echo "=== exnulla reactive status runner (Twitch + shared/) ==="
+echo "=== exnulla Twitch status runner (full Helix data) ==="
 
-# 1. Get OAuth token (client credentials)
-TOKEN_RESPONSE=$(curl -sS -X POST "https://id.twitch.tv/oauth2/token" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "client_id=${TWITCH_CLIENT_ID}&client_secret=${TWITCH_CLIENT_SECRET}&grant_type=client_credentials")
+# 1. OAuth token
+TOKEN=$(curl -sS -X POST "https://id.twitch.tv/oauth2/token" \
+  -d "client_id=${TWITCH_CLIENT_ID}" \
+  -d "client_secret=${TWITCH_CLIENT_SECRET}" \
+  -d "grant_type=client_credentials" | jq -r '.access_token')
 
-ACCESS_TOKEN=$(echo "$TOKEN_RESPONSE" | jq -r '.access_token // empty')
-
-if [ -z "$ACCESS_TOKEN" ]; then
-  echo "ERROR: Failed to get Twitch token"
-  exit 1
-fi
-
-# 2. Check if live
-STREAM_RESPONSE=$(curl -sS --fail --max-time 15 \
-  -H "Client-ID: ${TWITCH_CLIENT_ID}" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+# 2. Stream data
+DATA=$(curl -sS -H "Client-ID: ${TWITCH_CLIENT_ID}" \
+  -H "Authorization: Bearer ${TOKEN}" \
   "https://api.twitch.tv/helix/streams?user_login=${TWITCH_USER_LOGIN}")
 
-IS_LIVE=$(echo "$STREAM_RESPONSE" | jq -r '(.data | length) > 0')
-
-if [ "$IS_LIVE" = "true" ]; then
-  STATUS="live"
-  TYPE=$(echo "$STREAM_RESPONSE" | jq -r '.data[0].type // "live"')
-  echo "LIVE on Twitch (${TYPE})"
+if echo "$DATA" | jq -e '.data | length > 0' >/dev/null; then
+  LIVE=true
+  STREAM=$(echo "$DATA" | jq '.data[0]')
+  TITLE=$(echo "$STREAM" | jq -r '.title // ""')
+  GAME_NAME=$(echo "$STREAM" | jq -r '.game_name // "Unknown"')
+  VIEWERS=$(echo "$STREAM" | jq -r '.viewer_count // 0')
+  STARTED_AT=$(echo "$STREAM" | jq -r '.started_at // ""')
+  TYPE="live"
 else
-  STATUS="offline"
-  echo "Offline"
+  LIVE=false
+  TITLE=""
+  GAME_NAME=""
+  VIEWERS=0
+  STARTED_AT=""
+  TYPE="offline"
 fi
 
-# 3. Build atomic JSON
-cat > /tmp/status.json <<EOF
+# 3. Build JSON (exact shape you already have working)
+cat > /tmp/status.json <<JSON
 {
-  "status": "${STATUS}",
-  "url": "https://twitch.tv/${TWITCH_USER_LOGIN}",
-  "lastChecked": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-  "provenance": {
-    "buildSha": "${GITHUB_SHA:-local-dev}",
-    "runner": "github-actions",
-    "updatedBy": "grok-xai-team"
-  }
+  "source": "twitch",
+  "user_login": "${TWITCH_USER_LOGIN}",
+  "url": "https://www.twitch.tv/${TWITCH_USER_LOGIN}",
+  "checked_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "live": ${LIVE},
+  "isLive": ${LIVE},
+  "type": "${TYPE}",
+  "title": "${TITLE}",
+  "game_name": "${GAME_NAME}",
+  "viewer_count": ${VIEWERS},
+  "started_at": "${STARTED_AT}"
 }
+JSON
+
+# 4. Ship to shared/ (survives deploys)
+ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '${DEPLOY_PATH}/shared/stream'"
+rsync -az --delete /tmp/status.json "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/stream/status.json"
+
+echo "Status shipped - Live: ${LIVE} at $(date -u)"
