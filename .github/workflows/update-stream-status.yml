@@ -2,8 +2,8 @@ name: Update Stream Status (reactive live/offline)
 
 on:
   schedule:
-    - cron: '*/5 * * * *'   # every 5 min — matches your spec
-  workflow_dispatch: {}     # manual test button in Actions
+    - cron: '*/5 * * * *'   # every 5 min
+  workflow_dispatch: {}     # manual trigger
 
 jobs:
   update:
@@ -14,8 +14,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y jq rsync
+
       - name: Load SSH key (same as deploy)
         uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -24,7 +26,7 @@ jobs:
       - name: Add droplet to known_hosts
         run: ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
 
-      - name: Update /stream/status.json (atomic)
+      - name: Update /stream/status.json (Twitch + atomic rsync)
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
@@ -32,7 +34,4 @@ jobs:
           TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
           TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
           TWITCH_USER_LOGIN: exnulla
-        run: |
-          ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "TWITCH_CLIENT_ID='${TWITCH_CLIENT_ID}' TWITCH_CLIENT_SECRET='${TWITCH_CLIENT_SECRET}' TWITCH_USER_LOGIN='${TWITCH_USER_LOGIN}' \
-             /var/www/exnulla-site/current/scripts/update-stream-status.sh"
+        run: ./scripts/update-stream-status.sh
