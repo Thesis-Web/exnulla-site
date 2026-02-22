@@ -17,14 +17,20 @@ ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '${REMOTE_RELEASE_DIR}' '${DEPLOY_
 
 rsync -az --delete "${LOCAL_DIST}/" "${DEPLOY_USER}@${DEPLOY_HOST}:${REMOTE_RELEASE_DIR}/"
 
-ssh "${DEPLOY_USER}@${DEPLOY_HOST}" bash -lc "set -euo pipefail
-  # If current ever becomes a directory, back it up so the symlink flip works.
+ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
+  DEPLOY_PATH="${DEPLOY_PATH}" \
+  REMOTE_RELEASE_DIR="${REMOTE_RELEASE_DIR}" \
+  'bash -seu' <<'EOF'
+set -euo pipefail
+
 if [ -d "${DEPLOY_PATH}/current" ] && [ ! -L "${DEPLOY_PATH}/current" ]; then
-  TS="$(date -u +%Y%m%dT%H%M%SZ)"
-  mv "${DEPLOY_PATH}/current" "${DEPLOY_PATH}/current.dir.bak.${TS}"
+  mv "${DEPLOY_PATH}/current" "${DEPLOY_PATH}/current.dir.bak.$(date -u +%Y%m%dT%H%M%SZ)"
 fi
-  ln -sfnT '${REMOTE_RELEASE_DIR}' '${DEPLOY_PATH}/current'
-  sudo nginx -t
-  sudo systemctl reload nginx
-  echo 'Current -> ' \$(readlink -f '${DEPLOY_PATH}/current')
-"
+
+ln -sfnT "${REMOTE_RELEASE_DIR}" "${DEPLOY_PATH}/current"
+
+sudo nginx -t
+sudo systemctl reload nginx
+
+echo "Current -> $(readlink -f "${DEPLOY_PATH}/current")"
+EOF
