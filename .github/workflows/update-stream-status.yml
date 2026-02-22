@@ -32,4 +32,7 @@ jobs:
           TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
           TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
           TWITCH_USER_LOGIN: exnulla
-        run: ./scripts/update-stream-status.sh
+        run: |
+          ssh "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "TWITCH_CLIENT_ID='${TWITCH_CLIENT_ID}' TWITCH_CLIENT_SECRET='${TWITCH_CLIENT_SECRET}' TWITCH_USER_LOGIN='${TWITCH_USER_LOGIN}' \
+             /var/www/exnulla-site/current/scripts/update-stream-status.sh"
