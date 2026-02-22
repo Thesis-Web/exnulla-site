@@ -7,13 +7,34 @@ DEPLOY_PATH="${DEPLOY_PATH:-/var/www/exnulla-site}"
 
 echo "=== exnulla reactive status runner (shared/ edition) ==="
 
-RESPONSE=$(curl -s -f --max-time 10 "https://kick.com/api/v1/channels/exnulla" || echo '{"livestream":null}')
+URL="https://kick.com/api/v1/channels/exnulla"
 
-if echo "$RESPONSE" | grep -q '"is_live":true'; then
-  STATUS='live'
+RESPONSE="$(curl -sS --fail --max-time 10 \
+  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome Safari' \
+  -H 'Accept: application/json' \
+  "$URL" || echo '{}')"
+
+echo "Kick fetch ok: $(echo "$RESPONSE" | head -c 200) ..."
+
+# Robust: treat live if any plausible field indicates it.
+IS_LIVE="$(
+  echo "$RESPONSE" | jq -r '
+    (
+      .is_live // 
+      .livestream.is_live // 
+      (.livestream != null) //
+      .live_stream.is_live //
+      (.live_stream != null) //
+      false
+    ) | tostring
+  ' 2>/dev/null || echo "false"
+)"
+
+if [ "$IS_LIVE" = "true" ]; then
+  STATUS="live"
   echo "✅ LIVE on Kick"
 else
-  STATUS='offline'
+  STATUS="offline"
   echo "⭕ Offline"
 fi
 
