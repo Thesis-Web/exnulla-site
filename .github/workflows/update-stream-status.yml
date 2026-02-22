@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: exnulla-stream-status
-      cancel-in-progress: false
+      cancel-in-progress: true
 
     steps:
       - uses: actions/checkout@v4
