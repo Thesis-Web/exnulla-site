@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { LINKS } from "../components/siteConfig";
+import { LINKS, PROOF_OF_TALENT } from "../components/siteConfig";
 ---
 
 <BaseLayout
@@ -98,6 +98,39 @@ import { LINKS } from "../components/siteConfig";
       </a>
     </div>
   </section>
+<!-- PROOF-OF-TALENT SECTION — 6 creative architecture showcases -->
+<section class="proof-of-work py-16 border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-4xl font-bold mb-4">Proof of Talent</h2>
+    <p class="text-xl text-white/70 mb-12">6× systems I built that solve real problems most people ignore.</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {PROOF_OF_TALENT.map((item) => (
+        <div class="bg-zinc-950 border border-white/10 rounded-2xl p-8 hover:border-white/30 transition-all group">
+          <div class="flex justify-between items-start mb-6">
+            <div>
+              <h3 class="text-2xl font-semibold group-hover:text-white transition-colors">{item.title}</h3>
+              <p class="text-white/60 text-sm mt-1">{item.subtitle}</p>
+            </div>
+            <span class="px-3 py-1 text-xs rounded-full border border-white/20 text-white/60">{item.type}</span>
+          </div>
+          
+          <p class="text-white/80 text-sm leading-relaxed mb-8">{item.wow}</p>
+          
+          <a href={item.repo} target="_blank" class="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
+            View repo →
+          </a>
+          {item.demoPath && item.status === 'live' && (
+            <a href={item.demoPath} class="ml-4 text-green-400 text-sm">→ live demo</a>
+          )}
+          {item.status === 'todo-sim' && (
+            <span class="ml-4 text-amber-400 text-sm">sim coming next push</span>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
   <style>
     .identity {
