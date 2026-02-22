@@ -1,12 +1,11 @@
 ---
-const fallbackUrl = "https://kick.com/exnulla";
+const fallbackUrl = "https://www.twitch.tv/exnulla";
 ---
 
 <a id="watch-btn" href={fallbackUrl} target="_blank" rel="noreferrer" class="btn ghost watch">
   <span id="status-dot" class="dot"></span>
-  <span id="status-text">Watch on Kick</span>
+  <span id="status-text">Watch on Twitch</span>
 </a>
-
 
 <script>
   const btn = document.getElementById('watch-btn');
@@ -19,20 +18,24 @@ const fallbackUrl = "https://kick.com/exnulla";
       if (!res.ok) throw new Error();
       const data = await res.json();
 
-      if (data.status === 'live') {
+      if (data.live === true || data.isLive === true) {
         dot.classList.add('live');
-        text.textContent = 'LIVE NOW →';
-        btn.href = data.url;
+        const title = data.title ? ` — ${data.title.slice(0, 45)}${data.title.length > 45 ? '...' : ''}` : '';
+        text.textContent = `LIVE NOW${title}`;
+        btn.href = data.url || fallbackUrl;
       } else {
         dot.classList.remove('live');
-        text.textContent = 'Watch on Kick';
+        text.textContent = 'Watch on Twitch';
+        btn.href = fallbackUrl;
       }
     } catch (e) {
-      // fallback silent
+      // silent fallback
+      dot.classList.remove('live');
+      text.textContent = 'Watch on Twitch';
     }
   }
 
-  // Check immediately + every 30s while page open
+  // Check immediately + every 30s (matches your cron)
   checkLiveStatus();
   setInterval(checkLiveStatus, 30000);
 </script>
