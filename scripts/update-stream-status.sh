@@ -7,35 +7,33 @@ DEPLOY_PATH="${DEPLOY_PATH:-/var/www/exnulla-site}"
 
 echo "=== exnulla reactive status runner (shared/ edition) ==="
 
-URL="https://kick.com/api/v1/channels/exnulla"
+: "${TWITCH_CLIENT_ID:?Missing TWITCH_CLIENT_ID}"
+: "${TWITCH_CLIENT_SECRET:?Missing TWITCH_CLIENT_SECRET}"
+TWITCH_LOGIN="${TWITCH_BROADCASTER_LOGIN:-exnulla}"
 
-RESPONSE="$(curl -sS --fail --max-time 10 \
-  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome Safari' \
-  -H 'Accept: application/json' \
-  "$URL" || echo '{}')"
-
-echo "Kick fetch ok: $(echo "$RESPONSE" | head -c 200) ..."
-
-# Robust: treat live if any plausible field indicates it.
-IS_LIVE="$(
-  echo "$RESPONSE" | jq -r '
-    (
-      .is_live // 
-      .livestream.is_live // 
-      (.livestream != null) //
-      .live_stream.is_live //
-      (.live_stream != null) //
-      false
-    ) | tostring
-  ' 2>/dev/null || echo "false"
+TOKEN="$(
+  curl -sS --fail -X POST "https://id.twitch.tv/oauth2/token" \
+    -d "client_id=${TWITCH_CLIENT_ID}" \
+    -d "client_secret=${TWITCH_CLIENT_SECRET}" \
+    -d "grant_type=client_credentials" \
+  | jq -r '.access_token'
 )"
 
-if [ "$IS_LIVE" = "true" ]; then
+STREAMS_JSON="$(
+  curl -sS --fail \
+    -H "Client-Id: ${TWITCH_CLIENT_ID}" \
+    -H "Authorization: Bearer ${TOKEN}" \
+    "https://api.twitch.tv/helix/streams?user_login=${TWITCH_LOGIN}"
+)"
+
+echo "Twitch streams payload head: $(echo "$STREAMS_JSON" | head -c 200) ..."
+
+if echo "$STREAMS_JSON" | jq -e '.data | length > 0' >/dev/null; then
   STATUS="live"
-  echo "✅ LIVE on Kick"
+  echo "✅ LIVE on Twitch"
 else
   STATUS="offline"
-  echo "⭕ Offline"
+  echo "⭕ Offline (Twitch)"
 fi
 
 cat > /tmp/status.json <<EOF
