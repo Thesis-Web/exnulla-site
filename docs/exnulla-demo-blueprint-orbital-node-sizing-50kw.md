@@ -4,6 +4,7 @@
 **Tier:** Lab Tier 2 (static-built mini-app → iframe embed)  
 **Primary source repo:** `space-server-heat-dissipation-main`  
 **Anchor docs (must remain source-of-truth):**
+
 - `docs/architecture/node-class-s-50kw.md`
 - `docs/compute/compute-baseline-50kw.md`
 - `docs/architecture/launch-packaging-assumptions.md`
@@ -17,9 +18,9 @@ Size a 50 kW orbital compute module in real time—compute budget, thermal zones
 
 This demo is a **systems sizing sandbox**, not a “space fantasy.” It makes three concrete claims, each backed by the repo docs:
 
-1. A **50 kW continuous electrical bus** with a **~40–44 kW compute payload target** (GPU-first).  
-2. A **segmented thermal architecture**: cold compute loop (Zone A) HX-coupled into a **high‑T backbone** (Zone C) feeding a **1200 K effective radiator field** (Zone D).  
-3. A packaging expectation: at **1200 K**, radiator area drops enough that **arrays and power** are likely the first-order packaging constraint (“array-limited”).  
+1. A **50 kW continuous electrical bus** with a **~40–44 kW compute payload target** (GPU-first).
+2. A **segmented thermal architecture**: cold compute loop (Zone A) HX-coupled into a **high‑T backbone** (Zone C) feeding a **1200 K effective radiator field** (Zone D).
+3. A packaging expectation: at **1200 K**, radiator area drops enough that **arrays and power** are likely the first-order packaging constraint (“array-limited”).
 
 The “wow” is not the numbers—it’s the **modeling posture**: constrained, inspectable, and deterministic.
 
@@ -39,6 +40,7 @@ The “wow” is not the numbers—it’s the **modeling posture**: constrained,
 ## 2) Demo scope and non-goals
 
 ### In-scope (v1)
+
 - Power budget rollup (compute vs overhead) aligned to the repo docs.
 - Radiator sizing estimate via Stefan–Boltzmann (effective emission).
 - GPU Block abstraction (10× H200 @ 600 W) as a first-class control.
@@ -46,6 +48,7 @@ The “wow” is not the numbers—it’s the **modeling posture**: constrained,
 - Deterministic permalink: state serialized in query params.
 
 ### Explicit non-goals (v1)
+
 - Orbit dynamics (eclipse fraction, station-keeping) beyond a placeholder toggle.
 - Detailed radiator materials, view factors, heat pipe networks, or fluid selection.
 - Radiation shielding mass models.
@@ -56,11 +59,13 @@ The “wow” is not the numbers—it’s the **modeling posture**: constrained,
 ## 3) Information architecture (pages, routes, embeds)
 
 **ExNulla site integration pattern (already established):**
+
 - Build artifact outputs to: `/demos/orbital-node-sizing-50kw/`
 - Expose a wrapper page: `/lab/orbital-node-sizing-50kw/` that hosts an iframe.
 - Provide `meta.json` for lab index & provenance.
 
 ### Required files (demo artifact)
+
 ```
 /demos/orbital-node-sizing-50kw/
   index.html
@@ -69,6 +74,7 @@ The “wow” is not the numbers—it’s the **modeling posture**: constrained,
 ```
 
 ### `meta.json` (minimum)
+
 ```json
 {
   "id": "orbital-node-sizing-50kw",
@@ -90,28 +96,34 @@ The “wow” is not the numbers—it’s the **modeling posture**: constrained,
 ## 4) UX spec (layout + behavior)
 
 ### 4.1 Three-column layout (desktop)
+
 **Left: Inputs (controls)**  
 Grouped sections:
+
 1. **Compute configuration**
 2. **Power envelope**
 3. **Thermal / radiator**
 4. **Packaging heuristics**
 
 **Center: Outputs (numbers + charts)**
+
 - Power budget table
 - Radiator area estimate + sensitivity mini-plot (optional in v1)
 - Constraint verdict badges
 
 **Right: Architecture explainer**
+
 - Zone A–D diagram (SVG)
 - Text that updates with chosen parameters (“You set Zone D effective T = 1200 K”)
 - “What changed” bullet list
 
 ### 4.2 Mobile layout
+
 - Controls → outputs → explainer (stacked)
 - Keep verdict badges at top.
 
 ### 4.3 Interaction rules
+
 - All controls update outputs immediately (debounced).
 - Provide a **“Reset to Baseline”** button that matches repo docs.
 - Provide **“Copy Permalink”** (URL query params) to share the exact run.
@@ -121,32 +133,36 @@ Grouped sections:
 ## 5) Inputs (controls) — v1
 
 ### 5.1 Compute configuration
-| Control | Type | Default | Range | Notes |
-|---|---|---:|---:|---|
-| GPU Block count | integer | 6 | 0–8 | One block = 10 GPUs @ chosen TDP |
-| GPU TDP (W) | integer | 600 | 400–800 | Docs prefer 600 W where possible |
-| Host+RAM+NVMe+Fabric per block (kW) | number | 1.0 | 0.4–1.5 | Capability-class placeholder per compute baseline |
-| Fixed BMC/Control (kW) | number | 0.5 | 0.2–1.0 | From compute baseline bucket |
+
+| Control                             | Type    | Default |   Range | Notes                                             |
+| ----------------------------------- | ------- | ------: | ------: | ------------------------------------------------- |
+| GPU Block count                     | integer |       6 |     0–8 | One block = 10 GPUs @ chosen TDP                  |
+| GPU TDP (W)                         | integer |     600 | 400–800 | Docs prefer 600 W where possible                  |
+| Host+RAM+NVMe+Fabric per block (kW) | number  |     1.0 | 0.4–1.5 | Capability-class placeholder per compute baseline |
+| Fixed BMC/Control (kW)              | number  |     0.5 | 0.2–1.0 | From compute baseline bucket                      |
 
 ### 5.2 Power envelope
-| Control | Type | Default | Range |
-|---|---|---:|---:|
-| Node bus continuous (kW) | fixed/display | 50 | — |
-| Spacecraft overhead + margin (kW) | number | 8 | 6–10 |
+
+| Control                           | Type          | Default | Range |
+| --------------------------------- | ------------- | ------: | ----: |
+| Node bus continuous (kW)          | fixed/display |      50 |     — |
+| Spacecraft overhead + margin (kW) | number        |       8 |  6–10 |
 
 ### 5.3 Thermal / radiator
-| Control | Type | Default | Range | Notes |
-|---|---|---:|---:|---|
-| Radiator effective temperature (K) | number | 1200 | 350–1400 | 1200 K is the design target |
-| Effective emissivity (0–1) | number | 0.85 | 0.5–0.95 | Lumps coating + view factor into one knob |
-| Rejection load (kW) | derived | = node total | — | For v1 assume steady-state ~ electrical bus |
+
+| Control                            | Type    |      Default |    Range | Notes                                       |
+| ---------------------------------- | ------- | -----------: | -------: | ------------------------------------------- |
+| Radiator effective temperature (K) | number  |         1200 | 350–1400 | 1200 K is the design target                 |
+| Effective emissivity (0–1)         | number  |         0.85 | 0.5–0.95 | Lumps coating + view factor into one knob   |
+| Rejection load (kW)                | derived | = node total |        — | For v1 assume steady-state ~ electrical bus |
 
 ### 5.4 Packaging heuristics (qualitative)
-| Control | Type | Default | Options |
-|---|---|---:|---|
-| Orbit | select | LEO | LEO / GEO |
-| Array specific power (W/kg) | number | 80 | 30–200 |
-| Array packing factor | number | 0.25 | 0.1–0.6 |
+
+| Control                     | Type   | Default | Options   |
+| --------------------------- | ------ | ------: | --------- |
+| Orbit                       | select |     LEO | LEO / GEO |
+| Array specific power (W/kg) | number |      80 | 30–200    |
+| Array packing factor        | number |    0.25 | 0.1–0.6   |
 
 > Note: Packaging outputs are **qualitative** in v1. These knobs drive only the “binding constraint” heuristics.
 
@@ -155,20 +171,25 @@ Grouped sections:
 ## 6) Core calculations (deterministic)
 
 ### 6.1 Compute power
+
 Definitions:
+
 - `gpusPerBlock = 10`
 - `gpuPower_kW = blocks * gpusPerBlock * gpuTdp_W / 1000`
 - `hostPower_kW = blocks * hostPerBlock_kW + fixedBmc_kW`
 - `computePayload_kW = gpuPower_kW + hostPower_kW`
 
 ### 6.2 Node total
+
 - `nodeTotal_kW = computePayload_kW + overhead_kW`
 
 Verdict:
+
 - **PASS** if `nodeTotal_kW <= bus_kW` (bus fixed at 50)
 - **OVER** otherwise; show “trim suggestions” (see 6.5)
 
 ### 6.3 Radiator area estimate (effective)
+
 Use Stefan–Boltzmann with a single effective emissivity:
 
 - `sigma = 5.670374419e-8 W/m^2/K^4`
@@ -176,20 +197,26 @@ Use Stefan–Boltzmann with a single effective emissivity:
 - `A_m2 = P_W / (emissivity * sigma * T_K^4)`
 
 Display:
+
 - `A_m2` and `A_m2_per_kW`
 
-**Important:** This is an *order-of-magnitude sizing* using an effective temperature, explicitly consistent with the repo’s “placeholders until radiator is locked” posture.
+**Important:** This is an _order-of-magnitude sizing_ using an effective temperature, explicitly consistent with the repo’s “placeholders until radiator is locked” posture.
 
 ### 6.4 Constraint classification (array-limited vs radiator-limited)
+
 Rules-based heuristic (v1):
+
 - If `T_K >= 900` and `A_m2 < thresholdA` (default 50–150 m²), label **“likely array-limited”**
 - Else label **“radiator likely significant”**
 
 Also show:
+
 - “Why”: the two conditions that triggered the verdict.
 
 ### 6.5 Trim suggestions (when OVER)
+
 When `nodeTotal_kW > 50` propose deterministic steps:
+
 1. Reduce `gpuTdp_W` toward 600 (if higher)
 2. Reduce blocks by 1
 3. Reduce hostPerBlock_kW toward 0.8
@@ -201,7 +228,9 @@ These are suggestions only; don’t auto-change values.
 ## 7) Visual assets (must ship with demo)
 
 ### 7.1 Zone diagram (SVG)
+
 A simple four-zone schematic:
+
 - Zone A: Compute Vault (300–350 K, cold plates)
 - Zone B: HX boundary
 - Zone C: High‑T backbone (1000–1200 K transport)
@@ -210,7 +239,9 @@ A simple four-zone schematic:
 This diagram is a **fixed asset** that supports the narrative; highlight the active temps in text.
 
 ### 7.2 Power budget table
+
 Table rows mirroring compute baseline:
+
 - GPUs
 - CPU+DRAM
 - NVMe
@@ -225,11 +256,13 @@ Table rows mirroring compute baseline:
 ## 8) Technical implementation plan
 
 ### 8.1 Stack
+
 - Vite + TypeScript + minimal React (or vanilla TS + lit) — choose what matches existing lab conventions.
 - Pure client-side; no network calls.
 - Deterministic state → URL query params.
 
 ### 8.2 State model
+
 ```ts
 type DemoState = {
   blocks: number;
@@ -239,23 +272,26 @@ type DemoState = {
   overheadkW: number;
   radiatorK: number;
   emissivity: number;
-  orbit: "LEO" | "GEO";
+  orbit: 'LEO' | 'GEO';
   arraySpecificPowerWPerKg: number;
   arrayPackingFactor: number;
 };
 ```
 
 ### 8.3 Query param encoding
+
 - Use short keys (e.g., `b=6&t=600&h=1.0&o=8&r=1200&e=0.85`)
 - Validate + clamp on load.
 - Unknown params ignored.
 
 ### 8.4 Determinism guarantees
+
 - No randomness.
 - Fixed constants (sigma).
 - Canonical number formatting (e.g., 2 decimals).
 
 ### 8.5 Acceptance criteria (v1)
+
 - Baseline config loads and **PASS** under 50 kW bus with:
   - `blocks=6`, `gpuTdpW=600`, `hostPerBlock=1.0`, `fixedBmc=0.5`, `overhead=8`
 - Radiator area updates smoothly as `radiatorK` changes.
@@ -267,11 +303,14 @@ type DemoState = {
 ## 9) Content requirements (copy, labels, tooltips)
 
 ### 9.1 On-screen disclaimers (tight, non-hand-wavy)
+
 - “Order-of-magnitude radiator estimate using effective emission temperature + emissivity.”
 - “Packaging verdict is qualitative; arrays/power often dominate stowage at high radiator temperature.”
 
 ### 9.2 Source traceability
+
 Right panel must include a “Source anchors” box listing:
+
 - Node Class S — 50 kW baseline spec
 - Compute baseline — 50 kW module
 - Launch + packaging assumptions
@@ -283,10 +322,12 @@ Right panel must include a “Source anchors” box listing:
 ## 10) Test plan
 
 ### 10.1 Unit tests (optional but recommended)
+
 - `radiatorArea()` matches known points (use fixed snapshots).
 - Query parsing clamps values.
 
 ### 10.2 Manual tests
+
 - Set `radiatorK=350` → radiator area should jump dramatically.
 - Set `blocks=8`, `gpuTdpW=800` → should flag **OVER** and show trim suggestions.
 - Emissivity extremes (0.5 vs 0.95) produce expected monotonic change.
@@ -317,6 +358,7 @@ Right panel must include a “Source anchors” box listing:
 ## 13) Baseline presets (ship in v1)
 
 ### Preset: “Node Class S Baseline”
+
 - blocks: 6
 - gpuTdpW: 600
 - hostPerBlockkW: 1.0
@@ -329,7 +371,8 @@ Right panel must include a “Source anchors” box listing:
 - arrayPackingFactor: 0.25
 
 ### Preset: “Conventional radiator thought experiment”
+
 - radiatorK: 350
-(keep everything else baseline)
+  (keep everything else baseline)
 
 This makes the “1200 K” design driver visceral in 10 seconds.

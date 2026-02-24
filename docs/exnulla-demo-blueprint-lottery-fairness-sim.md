@@ -1,4 +1,5 @@
 # ExNulla Demo Blueprint — Deterministic Lottery + Fairness Simulator
+
 **Demo ID:** `lottery-fairness-sim`  
 **Tier:** 2 (iframe-isolated demo artifact)  
 **Primary audience takeaway:** _“This person designs deterministic, auditable protocol selection mechanisms and can explain fairness tradeoffs with real code.”_
@@ -12,18 +13,21 @@ This blueprint defines **what the demo is**, **what it must prove**, and **what 
 This demo must be built directly from (or faithfully mirrored from) these modules in `the-thesis-chain-main`:
 
 ### Mining cohort selection (v2)
+
 - `src/primitives/lottery/mining/engine.ts`
 - `src/primitives/lottery/mining/multipliers.ts`
 - `src/primitives/lottery/mining/types.ts`
 - `src/primitives/lottery/mining/vrf.ts`
 
 ### Reward lottery selection (v2)
+
 - `src/primitives/lottery/reward/engine.ts`
 - `src/primitives/lottery/reward/weights.ts`
 - `src/primitives/lottery/reward/types.ts`
 - `src/primitives/lottery/reward/vrf.ts`
 
 (for “realistic presets” and narrative examples):
+
 - `dev/sims/lottery-v2-mining-sim.ts`
 - `dev/sims/lottery-v2-reward-sim.ts`
 - `src/l1/miner-lottery/mining-lottery.ts`
@@ -35,18 +39,20 @@ This demo must be built directly from (or faithfully mirrored from) these module
 
 The demo is a single page app with two modes (tabs):
 
-1) **Mining Cohort (v2):** Given a deterministic seed context + a candidate set, select a cohort using:
+1. **Mining Cohort (v2):** Given a deterministic seed context + a candidate set, select a cohort using:
+
 - eligibility filtering
 - wins-bucket inclusion scan (with `pool_floor` and `max_bucket_scan`)
 - PoC ladder multipliers (`computePoCLadderMultipliersV2`)
 - deterministic “min(metric)” ordering where `metric = score_int / multiplier`
 
-2) **Reward Winner (v2):** Given a deterministic lottery context + work reports, select a reward winner using:
+2. **Reward Winner (v2):** Given a deterministic lottery context + work reports, select a reward winner using:
+
 - redundancy gate + proof validation
 - fairness-weight computation (`computeRewardWeightV2`) including reverse curve penalty for device dominance
 - deterministic “min(metric)” ordering where `metric = score_int / weight_scaled`
 
-**Core property:** *A run is reproducible.* Identical inputs must produce identical outputs (including tie-break ordering) across browsers.
+**Core property:** _A run is reproducible._ Identical inputs must produce identical outputs (including tie-break ordering) across browsers.
 
 ---
 
@@ -60,11 +66,13 @@ The demo is a single page app with two modes (tabs):
 ## 3) User stories
 
 ### Hiring manager / reviewer
+
 - I can tweak parameters and immediately see the cohort/winner change.
 - I can copy a **share link** (permalink) and reproduce the same result on another machine.
-- I can inspect a deterministic audit trail explaining exactly *why* someone was included/excluded and *how* the final sort produced the selection.
+- I can inspect a deterministic audit trail explaining exactly _why_ someone was included/excluded and _how_ the final sort produced the selection.
 
 ### You (ExNulla)
+
 - I can use “Presets” to tell a story: normal network day, under-filled pool, adversarial malformed inputs, hardware dominance penalty, etc.
 - I can record a 2–3 minute walkthrough video and it matches what the demo outputs every time.
 
@@ -73,13 +81,16 @@ The demo is a single page app with two modes (tabs):
 ## 4) Demo UX spec (wireframe-level)
 
 ### Global layout
+
 - **Top bar**: title + “Deterministic permalink” + “Reset” + “Presets”
 - **Main**: two tabs
   - Tab A: Mining Cohort (v2)
   - Tab B: Reward Winner (v2)
 
 ### Tab A — Mining Cohort (v2)
+
 **Left column (Inputs)**
+
 - Seed context:
   - `domain_tag` (string)
   - `scope_tag` (string)
@@ -101,6 +112,7 @@ The demo is a single page app with two modes (tabs):
     - wallet_id, pubkey_hex, eligible, wins_bucket
 
 **Center column (Run + Output)**
+
 - Primary action: **Run Deterministic Selection**
 - Output card:
   - `baseBucket`
@@ -110,6 +122,7 @@ The demo is a single page app with two modes (tabs):
   - multipliers summary (per bucket)
 
 **Right column (Audit trail)**
+
 - Rejections list: wallet_id → reason (`NOT_ELIGIBLE`, `MALFORMED_INPUT`, `EMPTY_POOLS`)
 - Inclusion scan steps:
   - show buckets scanned, counts, total, stop reason (floor met vs empty bucket)
@@ -119,7 +132,9 @@ The demo is a single page app with two modes (tabs):
   - show tie-break rule: metric → score_int → wallet_id
 
 ### Tab B — Reward Winner (v2)
+
 **Left column (Inputs)**
+
 - Context (`RewardLotteryContext`):
   - `line` (L1/L2)
   - `region_id` (optional)
@@ -146,6 +161,7 @@ The demo is a single page app with two modes (tabs):
   - priority_factor
 
 **Center column (Run + Output)**
+
 - Primary action: **Run Deterministic Winner**
 - Output card:
   - winner wallet_id
@@ -155,6 +171,7 @@ The demo is a single page app with two modes (tabs):
   - winner weight_scaled
 
 **Right column (Audit trail)**
+
 - Events list as emitted by `selectRewardWinnerV2`:
   - `REWARD_LOTTERY_ATTEMPT_REJECTED` with reason
   - `REWARD_LOTTERY_WIN` decision metadata
@@ -170,6 +187,7 @@ The demo is a single page app with two modes (tabs):
 ## 5) Determinism contract (non-negotiable)
 
 ### 5.1 Input normalization rules (must match chain code)
+
 - Lowercase hex strings and strip `0x` prefix where applicable:
   - mining candidate `pubkey_hex`
   - reward report `proof_hex`
@@ -184,7 +202,9 @@ The demo is a single page app with two modes (tabs):
   - priority_factor default 1.0
 
 ### 5.2 Sorting and tie-break rules
+
 Both mining and reward selection sort candidates by:
+
 1. `metric` ascending
 2. `score_int` ascending
 3. `wallet_id` lexicographic ascending
@@ -192,13 +212,16 @@ Both mining and reward selection sort candidates by:
 The UI must show this explicitly.
 
 ### 5.3 BigInt handling
+
 - BigInt inputs are entered as **base-10 decimal strings** and parsed to `BigInt`.
 - All on-screen BigInt outputs:
   - show as decimal by default
   - offer toggle to show hex (optional)
 
 ### 5.4 Permalink contract
+
 A permalink must encode the full demo state:
+
 - selected tab
 - contexts, params, and data sets (candidates or reports)
 - reward_units input
@@ -211,9 +234,10 @@ A permalink must encode the full demo state:
 ## 6) Data model for the demo state
 
 **State shape (conceptual):**
+
 ```ts
 type DemoState = {
-  tab: "mining" | "reward";
+  tab: 'mining' | 'reward';
   mining: {
     ctx: MiningSeedContextV2;
     params: MiningParamsV2;
@@ -231,6 +255,7 @@ type DemoState = {
 ```
 
 **Serialization constraints:**
+
 - Must be JSON-serializable (BigInt must be stored as strings in state)
 - Use stable ordering for arrays when serializing permalinks (do not rely on JS object key iteration)
 
@@ -241,38 +266,48 @@ type DemoState = {
 Each preset should be deterministic and pre-filled with valid shapes.
 
 ### Mining presets
-1) **Normal day**
+
+1. **Normal day**
+
 - bucket 0 populated heavily, bucket 1/2 populated lightly
 - pool floor reached within 2–3 buckets
 - cohort size medium
 
-2) **Under-filled pool**
+2. **Under-filled pool**
+
 - only bucket 0 has a small number of candidates
 - ensure included_buckets is `[0]` and still produces selection
 
-3) **Malformed + strict**
+3. **Malformed + strict**
+
 - include candidates with invalid pubkeys and negative wins_bucket
 - strict_pubkey = true
 - demonstrate rejected reasons
 
-4) **Tie-break demo**
+4. **Tie-break demo**
+
 - crafted inputs that produce equal metrics for at least two candidates
 - show secondary sort keys (score_int then wallet_id)
 
 ### Reward presets
-1) **Fairness penalty (device dominance)**
+
+1. **Fairness penalty (device dominance)**
+
 - two miners with same effective_work, but device_ratio_r differs (e.g., 1 vs 6)
 - show reverse curve penalizing the higher ratio
 
-2) **Redundancy failure**
+2. **Redundancy failure**
+
 - some reports have redundancy_confirmed false
 - show rejection events
 
-3) **Work cap enforcement**
+3. **Work cap enforcement**
+
 - work_completed > work_assigned, enforce_work_cap true
 - show effective_work = assigned
 
-4) **Invalid proof (strict)**
+4. **Invalid proof (strict)**
+
 - strict_proof_hex = true
 - include a report with non-hex proof and show rejection
 
@@ -281,10 +316,12 @@ Each preset should be deterministic and pre-filled with valid shapes.
 ## 8) What the demo must output (audit artifacts)
 
 The demo must expose the following as copyable JSON (download button):
+
 - Mining output: `MiningSelectionV2`
 - Reward output: `RewardLotterySelectionV2`
 
 Additionally, provide a human-readable “explain” panel that is derived from the output + intermediate calculations:
+
 - bucket scan trace
 - multiplier map
 - top K ticketed rows (mining)
@@ -295,15 +332,19 @@ Additionally, provide a human-readable “explain” panel that is derived from 
 ## 9) Quality gates (acceptance tests)
 
 ### Determinism tests (manual, v1)
+
 - Run preset → copy permalink → open in private window → run → outputs identical
 - Run preset → export JSON → import JSON → run → outputs identical
 
 ### Correctness tests (must match chain code behavior)
+
 Using the same input data, the demo must match:
+
 - `selectMiningCohortV2(...)` output exactly
 - `selectRewardWinnerV2(...)` output exactly
 
 ### Edge case tests
+
 - Empty candidate list → mining returns `{ ok:false, rejected:[{wallet_id:"ALL",reason:"EMPTY_POOLS"}] }` or equivalent outcome shown by UI
 - All invalid / not eligible candidates → mining returns ok false + correct rejected reasons
 - Reward with all rejected reports → `{ ok:false, events:[...] }`
@@ -313,21 +354,25 @@ Using the same input data, the demo must match:
 ## 10) Implementation checkpoints (for the later engineering spec)
 
 ### Checkpoint A — Pure-core extraction
+
 - Either:
-  1) import these modules directly (best), or
-  2) vend a minimal “demo-core” package that copies the modules with pinned commit hash
+  1. import these modules directly (best), or
+  2. vend a minimal “demo-core” package that copies the modules with pinned commit hash
 - Must remain pure: no I/O, no random, no Date, no network.
 
 ### Checkpoint B — UI scaffolding
+
 - Vite + TypeScript strict
 - No server required
 - Render fast in iframe
 
 ### Checkpoint C — State + permalink
+
 - encode/decode DemoState
 - handle BigInt string conversions safely
 
 ### Checkpoint D — Audit rendering
+
 - render intermediate values (score_int, metric, weight breakdown)
 - show explicit tie-break
 
@@ -352,13 +397,14 @@ Using the same input data, the demo must match:
 - **Performance**: demo must handle at least:
   - Mining: 10,000 candidates
   - Reward: 5,000 reports
-  without freezing the browser (use virtualization for tables if needed)
+    without freezing the browser (use virtualization for tables if needed)
 
 ---
 
 ## Appendix A — Key algorithm summaries (from your chain code)
 
 ### Mining selection summary
+
 - Filter candidates by:
   - `eligible`
   - pubkey sanity (strict optional)
@@ -382,6 +428,7 @@ Using the same input data, the demo must match:
 - Choose first `cohortSize`.
 
 ### Reward winner summary
+
 - Reject report if:
   - malformed shape
   - redundancy_confirmed false
@@ -389,8 +436,8 @@ Using the same input data, the demo must match:
 - Compute weight:
   - effective_work = min(work_completed, work_assigned) if enforce_work_cap
   - reverse_weight = reverseWeightV2(device_ratio_r) (penalizes r > 1)
-  - weight = effective_work * reverse * perf * uptime * tenure * priority
-  - weight_scaled = floor(weight * scale) clamped to min_weight_scaled
+  - weight = effective*work * reverse _ perf _ uptime \_ tenure \* priority
+  - weight_scaled = floor(weight \* scale) clamped to min_weight_scaled
 - Compute score:
   - `score_hex = rewardScoreHexV2(ctx, wallet_id, proof)`
   - `score_int = scoreHexToBigInt(score_hex)`

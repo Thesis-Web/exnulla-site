@@ -42,11 +42,13 @@ From `thesisweb-backend-main.zip`:
 ## 3) Demo Goals
 
 ### 3.1 What the demo must prove
+
 1. **Abuse resistance** is not a buzzword: the backend refuses oversized bodies, rejects unexpected fields, rate-limits bursts, and hardens headers.
 2. **Correctness under failure**: email sending is best-effort and never blocks signup success.
 3. **Operational boundaries**: backend binds to localhost, sits behind nginx rewrite, persists locally, and remains deterministic/inspectable.
 
 ### 3.2 What the demo must feel like
+
 - Fast and interactive (no “read a wall of text”)
 - Safe (no PII stored from demo usage beyond what backend already does; demo encourages disposable emails)
 - Explainable (each behavior has a short reason and an observable artifact)
@@ -65,11 +67,13 @@ From `thesisweb-backend-main.zip`:
 ## 5) Target Audience & Narrative
 
 ### Audience
+
 - Hiring managers / staff engineers
 - DevOps/security-aware reviewers
 - Anyone skeptical of “frontend-only” portfolios
 
 ### Narrative arc (60–90 seconds)
+
 1. **Valid request** → `201 { ok: true }`
 2. **Bad email** → `400 invalid_email`
 3. **Extra field** (schema strictness) → `400` with schema error
@@ -82,7 +86,9 @@ From `thesisweb-backend-main.zip`:
 ## 6) UX Specification
 
 ### 6.1 Layout (three-column)
+
 **Left: Controls**
+
 - Target mode:
   - `Same-origin (/api/signup)` (default in production)
   - `Direct (/v1/signup)` (useful when running locally without nginx rewrite)
@@ -105,6 +111,7 @@ From `thesisweb-backend-main.zip`:
   - **Reset**
 
 **Center: Live Results**
+
 - Request timeline feed (most recent on top):
   - `#`, timestamp, status, latency, short reason tag (e.g., `RATE_LIMIT`, `SCHEMA`, `OK`, `HONEYPOT`)
 - Aggregates:
@@ -115,6 +122,7 @@ From `thesisweb-backend-main.zip`:
   - requests/sec vs 429s (keep lightweight; can be bars)
 
 **Right: Explainer + Inspect**
+
 - “What you are seeing” accordion sections:
   - Schema validation
   - Rate limits
@@ -130,6 +138,7 @@ From `thesisweb-backend-main.zip`:
 - Copy/paste `curl` examples (reflect current settings)
 
 ### 6.2 Visual language
+
 - Minimal UI, black/gray/white.
 - Emphasis on **status codes**, **headers**, and **reasons**.
 - No heavy animations; focus on responsiveness.
@@ -139,6 +148,7 @@ From `thesisweb-backend-main.zip`:
 ## 7) Functional Specification
 
 ### 7.1 Deterministic request generator
+
 - Input: `seed`, `payload mode`, `total`, `concurrency`, `delay`
 - Output: deterministic sequence of requests:
   - deterministic email generation (e.g. `demo+<hash>@example.invalid`)
@@ -146,14 +156,15 @@ From `thesisweb-backend-main.zip`:
 - Requirement: same inputs ⇒ same sequence (for shareable permalinks later)
 
 ### 7.2 Payload definitions (exact)
+
 Based on backend schema in `src/server.ts`:
 
 ```json
 {
   "email": "string (required, 3..320)",
-  "name":  "string (optional, 1..80)",
-  "source":"string (optional, 1..80)",
-  "hp":    "string (optional, <=200)"
+  "name": "string (optional, 1..80)",
+  "source": "string (optional, 1..80)",
+  "hp": "string (optional, <=200)"
 }
 ```
 
@@ -174,6 +185,7 @@ Payload modes:
   - use same deterministic email for all requests → expect first `201`, then `200 { already: true }` (or all 200 if already exists)
 
 ### 7.3 Result classification (client-side)
+
 Map responses into reason tags:
 
 - `201` → `OK_CREATED`
@@ -186,7 +198,9 @@ Map responses into reason tags:
 - `5xx` → `SERVER_ERROR`
 
 ### 7.4 Safe client-side limits
+
 Even if user drags sliders:
+
 - hard cap `concurrency <= 25`
 - hard cap `total <= 300`
 - add “cooldown” between runs if `total*concurrency` exceeds threshold (purely UI-level)
@@ -196,6 +210,7 @@ Even if user drags sliders:
 ## 8) System Architecture
 
 ### 8.1 Production topology (recommended)
+
 - Browser demo runs under `exnulla.com` (same origin).
 - Nginx exposes:
   - `POST /api/signup` → `http://127.0.0.1:8787/v1/signup`
@@ -205,11 +220,14 @@ Even if user drags sliders:
 **Why:** avoids CORS complexity; makes the demo realistic and clean.
 
 ### 8.2 Local dev topology
+
 Two paths:
+
 1. Run backend on localhost `8787` and set demo target to `/v1/signup` at same origin via dev proxy.
 2. Or run nginx locally (optional; heavier).
 
 ### 8.3 Demo artifact packaging
+
 - Build as Vite static artifact.
 - Published to: `/demos/micro-backend-showcase/`
 - Embedded at: `/lab/micro-backend-showcase` with iframe sandbox.
@@ -219,7 +237,8 @@ Two paths:
 ## 9) API Contract (Demo-Assumed)
 
 ### Endpoints
-- `POST /v1/signup`  
+
+- `POST /v1/signup`
   - body schema above
   - returns:
     - `201 { ok: true }`
@@ -227,16 +246,18 @@ Two paths:
     - `204` (honeypot)
     - `400 { error: "invalid_email" }` or Fastify schema error response
     - `429` on rate limit
-- `GET /healthz`  
+- `GET /healthz`
   - returns `200 { ok: true }`
 
 ### Expected header behaviors
+
 - Security headers from helmet (exact set may vary by version/config).
 - Rate limiting may expose:
   - `retry-after`
   - rate limit headers (varies by plugin version/settings)
 
 **Demo must not depend on any single header name**; instead:
+
 - present a curated list of “interesting headers” when present
 - always show **raw header map** in an expandable section
 
@@ -251,6 +272,7 @@ Two paths:
 - In demo/production, set `EMAIL_PROVIDER=none` (or ensure not configured) so no emails are sent.
 
 Optional hardening:
+
 - allowlist `source: "exnulla-lab"` from demo; do not add this constraint until engineering-specs phase (it changes the backend contract).
 
 ---
@@ -258,11 +280,13 @@ Optional hardening:
 ## 11) Telemetry & Debug UX
 
 ### Client-side
+
 - compute per-request latency using `performance.now()`
 - provide export:
   - “Copy run report” → JSON blob including inputs + summary + first N request results
 
 ### Server-side (already)
+
 - Fastify logging is enabled (`logger: true`).
 - Warn log when welcome email fails: `welcome_email_failed`.
 
@@ -271,26 +295,31 @@ Optional hardening:
 ## 12) Acceptance Tests (Demo)
 
 ### A) Happy path
+
 - Run `total=1`, `valid`:
   - status is `201` or `200 already` depending on DB state
   - response body contains `{ ok: true }`
 
 ### B) Schema strictness
+
 - `extra_property`:
   - status `400`
   - body indicates schema rejection (Fastify error format)
 
 ### C) Honeypot behavior
+
 - `honeypot_filled`:
   - status `204`
   - no JSON body required
 
 ### D) Rate limit behavior
+
 - `valid`, `total=100`, `concurrency=25`, `delay=0`:
   - some `429` responses
   - `retry-after` or rate limit headers often visible (do not hard-require)
 
 ### E) Idempotency
+
 - `duplicate_email`, `total=10`:
   - at least 1 `200 { already: true }` if DB already has the email
   - no `500` errors due to UNIQUE constraint
@@ -300,6 +329,7 @@ Optional hardening:
 ## 13) ExNulla-Site Integration Notes
 
 ### 13.1 Lab tile metadata (proposed)
+
 Create `site/src/content/lab/micro-backend-showcase.json` (or equivalent, based on current content system):
 
 ```json
@@ -318,6 +348,7 @@ Create `site/src/content/lab/micro-backend-showcase.json` (or equivalent, based 
 ```
 
 ### 13.2 Demo artifact meta.json (proposed)
+
 `/demos/micro-backend-showcase/meta.json`:
 
 ```json
@@ -396,4 +427,3 @@ This blueprint intentionally stops before implementation details. The engineerin
 - Shows response headers and JSON body in inspector
 - Can be operated by a first-time visitor in < 30 seconds
 - No fragile assumptions about exact header names or error formats
-
