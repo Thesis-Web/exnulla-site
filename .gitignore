@@ -21,3 +21,17 @@ site/src/generated/
 site/public/meta/version.json
 /assets/
 /demos/
+
+# --- local backup / temp files ---
+*.bak
+*.bak.*
+*.old
+*.orig
+*~
+
+# --- local backup / temp files ---
+*.bak
+*.bak.*
+*.old
+*.orig
+*~
