@@ -1,3 +1,5 @@
+// site/src/components/siteConfig.ts
+
 export type LinkItem = { label: string; href: string; note?: string };
 
 export type ProjectCard = {
@@ -56,11 +58,13 @@ export const FEATURED = {
     tags: ['astro', 'nginx', 'static-first', 'atomic-releases'],
     repo: 'https://github.com/Thesis-Web/exnulla-site',
   },
+
+  // NOTE: Keep this around as a “shape” example, but we do not surface it in LAB_TILES.
   demo: <LabTile>{
-    name: 'Tier-1: Calculator / Visualizer (placeholder)',
-    blurb: 'A tiny island demo (fast, lazy-loaded). Replace with a real demo in M2.',
+    name: 'Lab Tile Template (not shown)',
+    blurb: 'Reference object for LabTile shape; not used directly.',
     tier: 1,
-    tags: ['ui', 'infra'],
+    tags: ['template'],
     href: '/lab',
     source: 'repo: exnulla-site (site/src)',
   },
@@ -191,129 +195,81 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
   },
 ];
 
-// === PROOF-OF-TALENT CURATED SHOWCASES (phase-two 4-agent xAI sprint) ===
+/**
+ * Proof-of-talent registry.
+ * Keep this export stable in case other pages reference it.
+ * Only list what is real and current; do not leave “todo” entries that imply live artifacts.
+ */
 export const PROOF_OF_TALENT = [
   {
-    slug: 'thesis-chain-test',
-    title: 'thesis-chain-test',
-    subtitle: 'Deterministic consensus simulator + visual execution proofs',
-    repo: 'https://github.com/Thesis-Web/thesis-chain-test',
-    demoPath: '/demos/thesis-chain-test',
+    slug: 'intent-file-router',
+    title: 'intent-file-router',
+    subtitle: 'Deterministic intent → repo/file target plan',
+    repo: 'https://github.com/Thesis-Project/exnulla-demos',
+    demoPath: '/demos/intent-file-router/',
     type: 'public',
-    wow: 'Turns boring consensus into live canvas sims — zero deps, full provenance',
-    status: 'live-demo-ready',
-  },
-  {
-    slug: 'attest-pipeline',
-    title: 'attest-pipeline',
-    subtitle: 'Cryptographically signed atomic builds in CI',
-    repo: 'private (contact for access)',
-    demoPath: '/demos/attest-pipeline',
-    type: 'private',
-    wow: 'Every release is verifiable forever — first-class provenance architecture',
-    status: 'todo-sim',
-  },
-  {
-    slug: 'tenure-sim',
-    title: 'tenure-sim',
-    subtitle: 'Long-running state machine with time-edge-case testing',
-    repo: 'private',
-    demoPath: '/demos/tenure-sim',
-    type: 'private',
-    wow: "Models real-world 'time passes' that no one else simulates",
-    status: 'todo-sim',
+    wow: 'Strict normalization + validation + deterministic plan output; tested + CI gated',
+    status: 'live',
   },
   {
     slug: 'exnulla-stream-ops',
     title: 'exnulla-stream-ops',
-    subtitle: 'Reactive live status runner (this exact feature)',
+    subtitle: 'Reactive live status runner (stream/status.json)',
     repo: 'https://github.com/Thesis-Web/exnulla-site',
-    demoPath: '/lab',
+    demoPath: '/stream/status.json',
     type: 'meta',
-    wow: '4-agent xAI orchestrated SSH + Kick API + atomic shared/ deploy',
+    wow: 'Static-first site with dynamic status isolated under shared/stream alias',
     status: 'live',
-  },
-  {
-    slug: 'lab-runner-core',
-    title: 'lab-runner-core',
-    subtitle: 'Isolated iframe lifecycle engine (load/unload/metrics)',
-    repo: 'private',
-    demoPath: '/lab',
-    type: 'private',
-    wow: 'Prevents demo bleed — explicit unload + performance telemetry',
-    status: 'todo-sim',
-  },
-  {
-    slug: 'thesis-web-backend-tap',
-    title: 'thesis-web-backend-tap',
-    subtitle: 'Static-first with optional backend hooks',
-    repo: 'private',
-    demoPath: '/api',
-    type: 'private',
-    wow: 'Graceful degradation — site works offline, backend is pure enhancement',
-    status: 'todo-sim',
   },
 ] as const;
 
+/**
+ * Lab tiles shown on /lab.
+ *
+ * Rule: only ship real, working demos here.
+ * If you need to sketch future work, use “Reference Templates” below (no demoPath),
+ * so nothing looks live until it is.
+ */
 export const BASE_LAB_TILES: LabTile[] = [
-  FEATURED.demo,
   {
-    name: 'Tier-2: Embedded demo (placeholder)',
-    blurb: 'Medium demo embedded via iframe to /demos/<name>/ once you add demos pipeline.',
+    name: 'Intent File Router',
+    blurb:
+      'Parses a natural-language intent and routes it to a canonical repo/file target. Demonstrates strict normalization, validation, and deterministic planning (with tests + CI gate).',
     tier: 2,
-    tags: ['viz', 'sim'],
+    tags: ['router', 'determinism', 'monorepo', 'tests'],
     href: '/lab',
-    demoPath: '/demos/example/',
+    demoPath: '/demos/intent-file-router/',
+    source: 'repo: exnulla-demos/apps/intent-file-router',
+  },
+
+  // === Reference Templates (NOT live) ===
+  {
+    name: 'Reference: Tier 1 (light) demo template',
+    blurb:
+      'Tier 1 is a tiny, fast demo that can be rendered inline or lazy-loaded. Add demoPath when the artifact exists under /demos/<slug>/.',
+    tier: 1,
+    tags: ['template', 'tier-1'],
+    href: '/lab',
+    // demoPath intentionally omitted
   },
   {
-    name: 'Tier-3: Heavy demo (placeholder)',
-    blurb: 'Full-page / external-host demo via iframe. Keep main site fast.',
-    tier: 3,
-    tags: ['heavy', 'webgl'],
+    name: 'Reference: Tier 2 (iframe) demo template',
+    blurb:
+      'Tier 2 is embedded via iframe to /demos/<slug>/. Keep the shell fast; isolate demo JS. Add demoPath only when deployed.',
+    tier: 2,
+    tags: ['template', 'tier-2', 'iframe'],
     href: '/lab',
+    // demoPath intentionally omitted
+  },
+  {
+    name: 'Reference: Tier 3 (heavy) demo template',
+    blurb:
+      'Tier 3 is heavy (WebGL / large bundles / external host). Use iframe + lifecycle controls; keep main site static-first.',
+    tier: 3,
+    tags: ['template', 'tier-3', 'heavy'],
+    href: '/lab',
+    // demoPath intentionally omitted
   },
 ];
 
-// === SIM PLACEHOLDERS for Proof-of-Talent (phase-two stubs) ===
-export const SIM_PLACEHOLDERS = [
-  {
-    name: 'Attest Pipeline Simulator',
-    blurb:
-      'Deterministic JSON attest → canonicalize → hash → reason engine. Coming soon – full iframe demo.',
-    tier: 2,
-    tags: ['provenance', 'crypto', 'attest'],
-    href: '/lab/attest-pipeline',
-    demoPath: '/demos/attest-pipeline/placeholder/',
-    source: 'repo: thesis-chain-test (private)',
-  },
-  {
-    name: 'Tenure Simulation',
-    blurb:
-      'Long-running state machine modeling time-based edge cases. Stubbed – real sim next push.',
-    tier: 2,
-    tags: ['simulation', 'state-machine', 'time'],
-    href: '/lab/tenure-sim',
-    demoPath: '/demos/tenure-sim/placeholder/',
-    source: 'private repo',
-  },
-  {
-    name: 'Lab Runner Core Demo',
-    blurb: 'Iframe lifecycle engine stress test. Placeholder – metrics + unload in action soon.',
-    tier: 1,
-    tags: ['ui', 'lifecycle', 'perf'],
-    href: '/lab/lab-runner-core',
-    demoPath: '/demos/lab-runner-core/placeholder/',
-    source: 'this repo (site/src)',
-  },
-  {
-    name: 'Backend Tap Integration',
-    blurb: 'Static-first with optional /api/exnulla/* hooks. Stub – graceful fallback demo.',
-    tier: 2,
-    tags: ['api', 'degradation', 'hybrid'],
-    href: '/lab/thesis-web-backend-tap',
-    demoPath: '/demos/backend-tap/placeholder/',
-    source: 'private repo',
-  },
-] as const;
-
-export const LAB_TILES: LabTile[] = [...BASE_LAB_TILES, ...SIM_PLACEHOLDERS];
+export const LAB_TILES: LabTile[] = [...BASE_LAB_TILES];
