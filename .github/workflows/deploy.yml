@@ -38,6 +38,12 @@ jobs:
           REPO="$(node -p "require('./demos/manifest.json').repo")"
           echo "ref=$REF" >> "$GITHUB_OUTPUT"
           echo "repo=$REPO" >> "$GITHUB_OUTPUT"
+      - name: Validate demos manifest ref format
+        shell: bash
+        run: |
+          set -euo pipefail
+          REF="${{ steps.demos_pin.outputs.ref }}"
+          [[ "$REF" =~ ^[0-9a-f]{40}$ ]] || { echo "Invalid demos ref: $REF"; exit 1; }
 
       # exnulla-demos (TEMP: main; replace with pin once you store a ref in exnulla-site)
       - name: Checkout exnulla-demos (pinned)
