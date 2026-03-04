@@ -21,7 +21,9 @@ site/src/generated/
 site/public/meta/version.json
 /assets/
 /demos/
-
+# allow demos manifest pin (required for CI deploy)
+!demos/
+!demos/manifest.json
 # --- local backup / temp files ---
 *.bak
 *.bak.*
