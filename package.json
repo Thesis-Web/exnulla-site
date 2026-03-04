@@ -1,7 +1,7 @@
 {
   "name": "exnulla-site",
   "private": true,
-  "packageManager": "npm@10",
+  "packageManager": "npm@10.8.2",
   "scripts": {
     "format": "prettier -w .",
     "format:check": "prettier -c .",
