@@ -28,6 +28,16 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 9
+      
+      - name: Read demos manifest pin
+        id: demos_pin
+        shell: bash
+        run: |
+          set -euo pipefail
+          REF="$(node -p "require('./demos/manifest.json').ref")"
+          REPO="$(node -p "require('./demos/manifest.json').repo")"
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+          echo "repo=$REPO" >> "$GITHUB_OUTPUT"
 
       # exnulla-demos (TEMP: main; replace with pin once you store a ref in exnulla-site)
       - name: Checkout exnulla-demos (main)
