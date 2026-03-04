@@ -33,160 +33,163 @@ export type LabTile = {
 
 export const LINKS = {
   // Primary: Kick then Twitch
-  kick: "https://kick.com/ExNulla",
-  twitch: "https://twitch.tv/ExNulla",
+  kick: 'https://kick.com/ExNulla',
+  twitch: 'https://twitch.tv/ExNulla',
 
-  youtube: "https://www.youtube.com/@ExNulla",
-  linkedin: "https://www.linkedin.com/in/exnulla",
-  github: "https://github.com/Thesis-Web",
+  youtube: 'https://www.youtube.com/@ExNulla',
+  linkedin: 'https://www.linkedin.com/in/exnulla',
+  github: 'https://github.com/Thesis-Web',
 
-  x: "https://x.com/ExNulla",
-  instagram: "https://instagram.com/ExNulla",
-  facebook: "https://facebook.com/ExNulla",
-  tiktok: "https://tiktok.com/@ExNulla",
+  x: 'https://x.com/ExNulla',
+  instagram: 'https://instagram.com/ExNulla',
+  facebook: 'https://facebook.com/ExNulla',
+  tiktok: 'https://tiktok.com/@ExNulla',
 
   // Secondary only (LinkedIn is primary contact funnel)
-  email: "mailto:exnulla.huson@gmail.com",
+  email: 'mailto:exnulla.huson@gmail.com',
 } as const;
 
 export const FEATURED = {
   project: <ProjectCard>{
-    title: "ExNulla Site: Digital CV + Interactive Lab",
+    title: 'ExNulla Site: Digital CV + Interactive Lab',
     outcome:
-      "Static-first credibility + embedded proof-of-work demos, deployed behind Nginx with atomic releases.",
-    href: "/projects/exnulla-site",
-    tags: ["astro", "nginx", "static-first", "atomic-releases"],
-    repo: "https://github.com/Thesis-Web/exnulla-site",
+      'Static-first credibility + embedded proof-of-work demos, deployed behind Nginx with atomic releases.',
+    href: '/projects/exnulla-site',
+    tags: ['astro', 'nginx', 'static-first', 'atomic-releases'],
+    repo: 'https://github.com/Thesis-Web/exnulla-site',
   },
 
   // NOTE: Keep this around as a “shape” example, but we do not surface it in LAB_TILES.
   demo: <LabTile>{
-    name: "Lab Tile Template (not shown)",
-    blurb: "Reference object for LabTile shape; not used directly.",
+    name: 'Lab Tile Template (not shown)',
+    blurb: 'Reference object for LabTile shape; not used directly.',
     tier: 1,
-    tags: ["template"],
-    href: "/lab",
-    source: "repo: exnulla-site (site/src)",
+    tags: ['template'],
+    href: '/lab',
+    source: 'repo: exnulla-site (site/src)',
   },
 } as const;
 
 export const PROJECT_CARDS: ProjectCard[] = [
   FEATURED.project,
   {
-    title: "Stream Ops: OBS + automation stack",
-    outcome: "Repeatable streaming pipeline with overlays, multi-RTMP, and reliability hygiene.",
-    href: "/projects/stream-ops",
-    tags: ["stream-ops", "obs", "automation"],
+    title: 'Stream Ops: OBS + automation stack',
+    outcome: 'Repeatable streaming pipeline with overlays, multi-RTMP, and reliability hygiene.',
+    href: '/projects/stream-ops',
+    tags: ['stream-ops', 'obs', 'automation'],
   },
   {
-    title: "Space Server: thermal / architecture notes",
-    outcome: "Structured engineering narrative + trade-off analysis, packaged for public review.",
-    href: "/projects/space-server",
-    tags: ["thermal", "systems", "architecture"],
+    title: 'Space Server: thermal / architecture notes',
+    outcome: 'Structured engineering narrative + trade-off analysis, packaged for public review.',
+    href: '/projects/space-server',
+    tags: ['thermal', 'systems', 'architecture'],
   },
 ];
 
 export const PROJECT_DETAILS: ProjectDetail[] = [
   {
-    slug: "exnulla-site",
-    title: "ExNulla Site",
-    kicker: "Static-first portfolio + lab",
+    slug: 'exnulla-site',
+    title: 'ExNulla Site',
+    kicker: 'Static-first portfolio + lab',
     outcome:
-      "Astro static build served behind Nginx, with deploy hygiene designed for atomic releases + rollback.",
-    tags: ["astro", "nginx", "static-first", "cicd"],
-    repo: "https://github.com/Thesis-Web/exnulla-site",
+      'Astro static build served behind Nginx, with deploy hygiene designed for atomic releases + rollback.',
+    tags: ['astro', 'nginx', 'static-first', 'cicd'],
+    repo: 'https://github.com/Thesis-Web/exnulla-site',
     links: [
-      { label: "Live site", href: "https://exnulla.com" },
-      { label: "Repo", href: "https://github.com/Thesis-Web/exnulla-site" },
+      { label: 'Live site', href: 'https://exnulla.com' },
+      { label: 'Repo', href: 'https://github.com/Thesis-Web/exnulla-site' },
     ],
     sections: [
       {
-        heading: "Problem",
+        heading: 'Problem',
         body: [
-          "Need a credible, fast, static-first site that reads like a runnable portfolio—not a brochure.",
-          "Must support lab demos without turning the entire site into a JS-heavy app.",
+          'Need a credible, fast, static-first site that reads like a runnable portfolio—not a brochure.',
+          'Must support lab demos without turning the entire site into a JS-heavy app.',
         ],
       },
       {
-        heading: "Constraints",
+        heading: 'Constraints',
         body: [
-          "Single droplet + Nginx; must be simple to operate and recover.",
-          "Atomic-ish deployments and hygiene guardrails to prevent accidental loss of scaffold.",
+          'Single droplet + Nginx; must be simple to operate and recover.',
+          'Atomic-ish deployments and hygiene guardrails to prevent accidental loss of scaffold.',
         ],
       },
       {
-        heading: "Approach",
+        heading: 'Approach',
         body: [
-          "Astro for static generation; pages optimized for scanability (CV / Projects / Lab / Links).",
-          "Demos isolated (iframe / separate artifact) so the main site stays fast.",
+          'Astro for static generation; pages optimized for scanability (CV / Projects / Lab / Links).',
+          'Demos isolated (iframe / separate artifact) so the main site stays fast.',
         ],
       },
       {
-        heading: "Result",
+        heading: 'Result',
         body: [
-          "Predictable build output under site/dist and Nginx-served static content.",
-          "Structured IA ready for project slugs + future demo pipeline.",
+          'Predictable build output under site/dist and Nginx-served static content.',
+          'Structured IA ready for project slugs + future demo pipeline.',
         ],
       },
     ],
   },
   {
-    slug: "stream-ops",
-    title: "Stream Ops",
-    kicker: "Reliable live production",
+    slug: 'stream-ops',
+    title: 'Stream Ops',
+    kicker: 'Reliable live production',
     outcome:
-      "Operational discipline for streaming: repeatability, overlays, automation, and failure-mode mitigation.",
-    tags: ["obs", "automation", "ops"],
+      'Operational discipline for streaming: repeatability, overlays, automation, and failure-mode mitigation.',
+    tags: ['obs', 'automation', 'ops'],
     links: [
-      { label: "Kick", href: LINKS.kick },
-      { label: "Twitch", href: LINKS.twitch },
-      { label: "YouTube", href: LINKS.youtube },
+      { label: 'Kick', href: LINKS.kick },
+      { label: 'Twitch', href: LINKS.twitch },
+      { label: 'YouTube', href: LINKS.youtube },
     ],
     sections: [
       {
-        heading: "Problem",
+        heading: 'Problem',
         body: [
-          "Live production is fragile: audio, scenes, RTMP endpoints, assets, and operator fatigue.",
-          "Need a system that’s boring and repeatable.",
+          'Live production is fragile: audio, scenes, RTMP endpoints, assets, and operator fatigue.',
+          'Need a system that’s boring and repeatable.',
         ],
       },
       {
-        heading: "Approach",
+        heading: 'Approach',
         body: [
-          "Standardized scene/asset layout, consistent naming, and minimal ‘magic’ config.",
-          "Automations where it reduces operator load (not where it increases brittleness).",
+          'Standardized scene/asset layout, consistent naming, and minimal ‘magic’ config.',
+          'Automations where it reduces operator load (not where it increases brittleness).',
         ],
       },
       {
-        heading: "Result",
+        heading: 'Result',
         body: [
-          "More consistent live sessions with faster recovery when something breaks.",
-          "Foundation for publishing “lab proof” clips and case studies.",
+          'More consistent live sessions with faster recovery when something breaks.',
+          'Foundation for publishing “lab proof” clips and case studies.',
         ],
       },
     ],
   },
   {
-    slug: "space-server",
-    title: "Space Server",
-    kicker: "Systems thinking (thermal + architecture)",
-    outcome: "Engineering narrative: constraints-first architecture exploration with structured documentation.",
-    tags: ["systems", "thermal", "architecture"],
+    slug: 'space-server',
+    title: 'Space Server',
+    kicker: 'Systems thinking (thermal + architecture)',
+    outcome:
+      'Engineering narrative: constraints-first architecture exploration with structured documentation.',
+    tags: ['systems', 'thermal', 'architecture'],
     sections: [
       {
-        heading: "Problem",
-        body: ["Modeling compute in GEO under extreme thermal constraints requires disciplined trade-off framing."],
-      },
-      {
-        heading: "Approach",
+        heading: 'Problem',
         body: [
-          "Document baseline assumptions, derive requirements, and iterate with explicit constraints.",
-          "Separate speculation from validated engineering claims.",
+          'Modeling compute in GEO under extreme thermal constraints requires disciplined trade-off framing.',
         ],
       },
       {
-        heading: "Result",
-        body: ["Readable technical narrative suitable for review and extension."],
+        heading: 'Approach',
+        body: [
+          'Document baseline assumptions, derive requirements, and iterate with explicit constraints.',
+          'Separate speculation from validated engineering claims.',
+        ],
+      },
+      {
+        heading: 'Result',
+        body: ['Readable technical narrative suitable for review and extension.'],
       },
     ],
   },
@@ -199,24 +202,24 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
  */
 export const PROOF_OF_TALENT = [
   {
-    slug: "intent-file-router",
-    title: "intent-file-router",
-    subtitle: "Deterministic intent → repo/file target plan",
-    repo: "https://github.com/Thesis-Project/exnulla-demos",
-    demoPath: "/demos/intent-file-router/index.html",
-    type: "public",
-    wow: "Strict normalization + validation + deterministic plan output; tested + CI gated",
-    status: "live",
+    slug: 'intent-file-router',
+    title: 'intent-file-router',
+    subtitle: 'Deterministic intent → repo/file target plan',
+    repo: 'https://github.com/Thesis-Project/exnulla-demos',
+    demoPath: '/demos/intent-file-router/index.html',
+    type: 'public',
+    wow: 'Strict normalization + validation + deterministic plan output; tested + CI gated',
+    status: 'live',
   },
   {
-    slug: "exnulla-stream-ops",
-    title: "exnulla-stream-ops",
-    subtitle: "Reactive live status runner (stream/status.json)",
-    repo: "https://github.com/Thesis-Web/exnulla-site",
-    demoPath: "/stream/status.json",
-    type: "meta",
-    wow: "Static-first site with dynamic status isolated under shared/stream alias",
-    status: "live",
+    slug: 'exnulla-stream-ops',
+    title: 'exnulla-stream-ops',
+    subtitle: 'Reactive live status runner (stream/status.json)',
+    repo: 'https://github.com/Thesis-Web/exnulla-site',
+    demoPath: '/stream/status.json',
+    type: 'meta',
+    wow: 'Static-first site with dynamic status isolated under shared/stream alias',
+    status: 'live',
   },
 ] as const;
 
@@ -229,42 +232,42 @@ export const PROOF_OF_TALENT = [
  */
 export const BASE_LAB_TILES: LabTile[] = [
   {
-    name: "Intent File Router",
+    name: 'Intent File Router',
     blurb:
-      "Parses a natural-language intent and routes it to a canonical repo/file target. Demonstrates strict normalization, validation, and deterministic planning (with tests + CI gate).",
+      'Parses a natural-language intent and routes it to a canonical repo/file target. Demonstrates strict normalization, validation, and deterministic planning (with tests + CI gate).',
     tier: 2,
-    tags: ["router", "determinism", "monorepo", "tests"],
-    href: "/lab",
-    demoPath: "/demos/intent-file-router/index.html",
-    source: "repo: exnulla-demos/apps/intent-file-router",
+    tags: ['router', 'determinism', 'monorepo', 'tests'],
+    href: '/lab',
+    demoPath: '/demos/intent-file-router/index.html',
+    source: 'repo: exnulla-demos/apps/intent-file-router',
   },
 
   // === Reference Templates (NOT live) ===
   {
-    name: "Reference: Tier 1 (light) demo template",
+    name: 'Reference: Tier 1 (light) demo template',
     blurb:
-      "Tier 1 is a tiny, fast demo that can be rendered inline or lazy-loaded. Add demoPath when the artifact exists under /demos/<slug>/.",
+      'Tier 1 is a tiny, fast demo that can be rendered inline or lazy-loaded. Add demoPath when the artifact exists under /demos/<slug>/.',
     tier: 1,
-    tags: ["template", "tier-1"],
-    href: "/lab",
+    tags: ['template', 'tier-1'],
+    href: '/lab',
     // demoPath intentionally omitted
   },
   {
-    name: "Reference: Tier 2 (iframe) demo template",
+    name: 'Reference: Tier 2 (iframe) demo template',
     blurb:
-      "Tier 2 is embedded via iframe to /demos/<slug>/. Keep the shell fast; isolate demo JS. Add demoPath only when deployed.",
+      'Tier 2 is embedded via iframe to /demos/<slug>/. Keep the shell fast; isolate demo JS. Add demoPath only when deployed.',
     tier: 2,
-    tags: ["template", "tier-2", "iframe"],
-    href: "/lab",
+    tags: ['template', 'tier-2', 'iframe'],
+    href: '/lab',
     // demoPath intentionally omitted
   },
   {
-    name: "Reference: Tier 3 (heavy) demo template",
+    name: 'Reference: Tier 3 (heavy) demo template',
     blurb:
-      "Tier 3 is heavy (WebGL / large bundles / external host). Use iframe + lifecycle controls; keep main site static-first.",
+      'Tier 3 is heavy (WebGL / large bundles / external host). Use iframe + lifecycle controls; keep main site static-first.',
     tier: 3,
-    tags: ["template", "tier-3", "heavy"],
-    href: "/lab",
+    tags: ['template', 'tier-3', 'heavy'],
+    href: '/lab',
     // demoPath intentionally omitted
   },
 ];

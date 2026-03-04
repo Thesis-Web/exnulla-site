@@ -35,7 +35,7 @@ This spec defines the **deterministic, repeatable pipeline** for building + sync
 1. **Demos must be copied into the site _before_ `astro build`.**  
    Astro copies `site/public/**` into `site/dist/**`. If you sync demo dist after site build, it will not ship.
 
-2. **Demo must work at `/demos/<slug>/` with relative assets.**  
+2. **Demo must work at `/demos/<slug>/` with relative assets.**
    - Prefer Vite `base: './'` so assets resolve under any prefix.
    - If you use absolute `base`, it MUST be `/demos/<slug>/`.
 
@@ -52,6 +52,7 @@ This spec defines the **deterministic, repeatable pipeline** for building + sync
 ## 3) Reference commands (manual pipeline)
 
 Assume you’re running on the droplet with:
+
 - `~/repos/exnulla-demos`
 - `~/repos/exnulla-site`
 
@@ -125,11 +126,13 @@ Also ensure Nginx is not returning a tiny directory listing or an unexpected `in
 ### 4.2 Demo page loads but buttons do nothing
 
 **Cause:** runtime error in JS bundle; often due to:
+
 - missing assets because base path is wrong
 - unsupported APIs / polyfills
 - exception thrown before event handlers attach
 
 **Checks:**
+
 - open DevTools console in the iframe window
 - confirm `GET /demos/<slug>/assets/*.js` returns 200
 - confirm `vite base` is correct (`./` recommended)
@@ -153,6 +156,7 @@ Also ensure Nginx is not returning a tiny directory listing or an unexpected `in
 Create: `~/repos/exnulla-site/scripts/deploy-demo.sh`
 
 Responsibilities:
+
 1. Build demo in `exnulla-demos`
 2. Sync dist into `exnulla-site/site/public/demos/<slug>/`
 3. Build site
@@ -164,6 +168,7 @@ Responsibilities:
 Create: `~/repos/exnulla-demos/scripts/build-demo.sh`
 
 Responsibilities:
+
 - `pnpm ci:gate`
 - `pnpm -C apps/<slug> build`
 - sanity check `dist/index.html`
@@ -179,6 +184,7 @@ You can build **outside Docker** on the droplet and still have a correct static 
 ### 6.2 When Docker becomes the right answer
 
 Use Docker for builds when you need:
+
 - deterministic toolchains (Node version, pnpm version, libc, etc.)
 - CI parity with the droplet and other machines
 - a single “build artifact producer” that can be run anywhere
@@ -189,6 +195,7 @@ Use Docker for builds when you need:
 - **Droplet can still do host builds** for rapid iteration, but should be able to run the same Docker build to reproduce.
 
 If you want strict determinism end-to-end, we can add:
+
 - `exnulla-site/Dockerfile.build` that:
   - checks out pinned SHAs (site + demos)
   - builds demo(s)
