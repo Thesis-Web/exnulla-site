@@ -40,11 +40,11 @@ jobs:
           echo "repo=$REPO" >> "$GITHUB_OUTPUT"
 
       # exnulla-demos (TEMP: main; replace with pin once you store a ref in exnulla-site)
-      - name: Checkout exnulla-demos (main)
+      - name: Checkout exnulla-demos (pinned)
         uses: actions/checkout@v4
         with:
-          repository: Thesis-Project/exnulla-demos
-          ref: main
+          repository: ${{ steps.demos_pin.outputs.repo }}
+          ref: ${{ steps.demos_pin.outputs.ref }}
           path: exnulla-demos
 
       - name: Install deps (exnulla-demos)
