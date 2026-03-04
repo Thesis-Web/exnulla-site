@@ -13,7 +13,8 @@ jobs:
       cancel-in-progress: false
 
     steps:
-      - name: Checkout
+      # exnulla-site
+      - name: Checkout exnulla-site
         uses: actions/checkout@v4
 
       - name: Setup Node
@@ -22,6 +23,39 @@ jobs:
           node-version: 20
           cache: npm
 
+      # pnpm for exnulla-demos build
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      # exnulla-demos (TEMP: main; replace with pin once you store a ref in exnulla-site)
+      - name: Checkout exnulla-demos (main)
+        uses: actions/checkout@v4
+        with:
+          repository: Thesis-Project/exnulla-demos
+          ref: main
+          path: exnulla-demos
+
+      - name: Install deps (exnulla-demos)
+        run: pnpm install --frozen-lockfile
+        working-directory: exnulla-demos
+
+      - name: Build intent-file-router demo
+        run: pnpm -C apps/intent-file-router build
+        working-directory: exnulla-demos
+
+      - name: Sync demo dist into exnulla-site public
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p site/public/demos/intent-file-router
+          rsync -a --delete \
+            exnulla-demos/apps/intent-file-router/dist/ \
+            site/public/demos/intent-file-router/
+          test -f site/public/demos/intent-file-router/index.html
+
+      # exnulla-site build
       - name: Install deps (root)
         run: npm ci
 
@@ -33,6 +67,14 @@ jobs:
         run: npm run build
         working-directory: site
 
+      - name: Assert build invariants (runner)
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f site/dist/meta/version.json
+          test -f site/dist/demos/intent-file-router/index.html
+
+      # deploy
       - name: Load SSH key (agent)
         uses: webfactory/ssh-agent@v0.9.0
         with:
