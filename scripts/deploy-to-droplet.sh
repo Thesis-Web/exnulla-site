@@ -13,7 +13,7 @@ LOCAL_DIST="${LOCAL_DIST:-site/dist}"
 
 echo "Deploying ${LOCAL_DIST} -> ${DEPLOY_USER}@${DEPLOY_HOST}:${REMOTE_RELEASE_DIR}"
 
-ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '${REMOTE_RELEASE_DIR}' '${DEPLOY_PATH}/releases' '${DEPLOY_PATH}/shared'"
+ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '${DEPLOY_PATH}/releases' '${DEPLOY_PATH}/shared' '${REMOTE_RELEASE_DIR}'"
 
 rsync -az --delete "${LOCAL_DIST}/" "${DEPLOY_USER}@${DEPLOY_HOST}:${REMOTE_RELEASE_DIR}/"
 
@@ -26,6 +26,10 @@ set -euo pipefail
 if [ -d "${DEPLOY_PATH}/current" ] && [ ! -L "${DEPLOY_PATH}/current" ]; then
   mv "${DEPLOY_PATH}/current" "${DEPLOY_PATH}/current.dir.bak.$(date -u +%Y%m%dT%H%M%SZ)"
 fi
+
+# REQUIRED invariants before flip
+test -f "$REMOTE_RELEASE_DIR/meta/version.json"
+test -f "$REMOTE_RELEASE_DIR/demos/intent-file-router/index.html"
 
 ln -sfnT "${REMOTE_RELEASE_DIR}" "${DEPLOY_PATH}/current"
 
