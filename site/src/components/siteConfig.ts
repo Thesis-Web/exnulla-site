@@ -29,6 +29,7 @@ export type LabTile = {
   href: string;
   source?: string;
   demoPath?: string;
+  docsPath?: string;
 };
 
 export const LINKS = {
@@ -205,7 +206,7 @@ export const PROOF_OF_TALENT = [
     slug: 'intent-file-router',
     title: 'intent-file-router',
     subtitle: 'Deterministic intent → repo/file target plan',
-    repo: 'https://github.com/Thesis-Project/exnulla-demos',
+    repo: 'https://github.com/Thesis-Web/exnulla-demos',
     demoPath: '/demos/intent-file-router/index.html',
     type: 'public',
     wow: 'Strict normalization + validation + deterministic plan output; tested + CI gated',
@@ -239,6 +240,7 @@ export const BASE_LAB_TILES: LabTile[] = [
     tags: ['router', 'determinism', 'monorepo', 'tests'],
     href: '/lab',
     demoPath: '/demos/intent-file-router/index.html',
+    docsPath: '/docs/intent-file-router',
     source: 'repo: exnulla-demos/apps/intent-file-router',
   },
 

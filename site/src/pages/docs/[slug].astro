@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import fs from "fs";
+import path from "path";
+
+const { slug } = Astro.params;
+
+const docsDir = path.join(process.cwd(), "site/src/content/docs");
+const docFile = path.join(docsDir, `${slug}.md`);
+
+let content = "";
+
+if (fs.existsSync(docFile)) {
+  content = fs.readFileSync(docFile, "utf8");
+} else {
+  content = `# Documentation Not Found
+
+No documentation exists yet for **${slug}**.
+`;
+}
+---
+
+<Layout title={`Docs – ${slug}`}>
+  <main class="docsPage">
+    <div class="panel">
+      <article class="docsContent">
+        <div set:html={content}></div>
+      </article>
+    </div>
+  </main>
+</Layout>

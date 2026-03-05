@@ -63,6 +63,7 @@ const tierLabel = (t: 1|2|3) => (t === 1 ? "Tier 1 (light)" : t === 2 ? "Tier 2 
             Run
           </button>
           {d.demoPath ? <a class="btn ghost" href={d.demoPath} target="_blank" rel="noreferrer">Open artifact</a> : null}
+          {d.docsPath ? <a class="btn ghost" href={d.docsPath}>Docs</a> : null}
         </div>
 
         {d.source ? <p class="small" style="margin-top:10px">src: {d.source}</p> : null}

@@ -1,0 +1,236 @@
+# ExNulla Docs Page CSS Profile
+Version: 1.0.0
+
+## Intent
+
+Provide a **documentation page look & feel** that matches the existing ExNulla site (dark, glassy panels, mono code styling), while keeping implementation low-friction:
+
+- **Use the site’s global CSS** as the baseline.
+- Add **minimal, additive** doc-specific styling (ideally a single wrapper class).
+- Avoid introducing a new design system for docs.
+
+This is a *presentation profile* for `/docs/<slug>/` pages.
+
+---
+
+## Constraints
+
+- **Static-first**: docs render as Astro pages.
+- **No heavy redesign**: match existing panels/typography.
+- **Accessible**: readable font sizes, contrast, link affordances, keyboard focus.
+- **Low maintenance**: simple markup conventions; minimal CSS.
+- **No CSS collisions**: all doc-specific rules should be scoped under a wrapper (e.g. `.docsPage`).
+
+---
+
+## Layout
+
+### Page skeleton
+
+- Use the standard site shell (nav + background).
+- Main content should be constrained:
+  - `max-width`: ~900–1100px
+  - centered with generous vertical rhythm
+- Content should be a **single column** by default.
+
+Recommended structure:
+
+- Title block (H1, short summary)
+- Meta row (demo slug, last updated, links)
+- TOC (optional; collapsible)
+- Body (markdown content)
+- Footer actions (Run Demo / Back to Lab)
+
+---
+
+## Visual language
+
+### Match existing look
+
+Docs should reuse the same “glass panel” feel visible on Lab:
+
+- Subtle border
+- Soft shadow
+- Dark translucent background
+- Rounded corners
+- Low-saturation accent highlights
+
+Docs should **not** look like a blog. It should read like an engineering doc.
+
+### Typography
+
+- Default: site body font
+- Code: site mono font (or existing `.mono`)
+- Headings:
+  - H1: large, strong
+  - H2: medium, separated by a subtle divider or spacing
+  - H3/H4: progressively smaller, no excessive decoration
+- Paragraph line-length: keep ~70–90 chars comfortable reading.
+
+### Spacing
+
+- Use consistent vertical rhythm:
+  - paragraphs: 10–14px margin
+  - headings: extra top spacing
+  - lists: tight but readable
+
+---
+
+## Components (Markdown rendering targets)
+
+These map to typical markdown output and should be styled to match ExNulla.
+
+### Panels / sections
+
+- Wrap primary doc content in a panel container.
+- Use section dividers to break major areas.
+
+### Links
+
+- Standard inline links should:
+  - be visibly link-colored
+  - have hover underline (or subtle underline)
+  - maintain readability on dark background
+
+### Code
+
+**Inline code**
+- Slightly brighter background chip
+- Mono font
+- Not too tall; avoid heavy borders
+
+**Code blocks**
+- Full-width within content column
+- Darker background than panel
+- Subtle border
+- Horizontal scroll for long lines
+- Optional “copy” button later (non-goal for v1)
+
+### Tables
+
+- Full-width within content column
+- Sticky header optional later (non-goal)
+- Alternating row backgrounds subtle
+- Borders low-contrast
+
+### Callouts
+
+Support 2–3 callout types:
+
+- Note / Info
+- Warning
+- Success
+
+Callouts should look like “system panels” (not emoji-heavy).
+
+### “Action bar” buttons
+
+Docs pages should include two prominent CTA buttons:
+
+- **Run Demo** → `/lab` + auto-load, or directly to `/demos/<slug>/` depending on your runner model
+- **Back to Lab** → `/lab`
+
+Buttons should use the same button classes as the rest of the site.
+
+---
+
+## CSS Scoping Strategy
+
+### The rule
+
+All doc-specific rules must be scoped under:
+
+- `.docsPage` (outer wrapper)
+
+Example:
+
+```css
+.docsPage h1 { ... }
+.docsPage pre { ... }
+```
+
+This prevents docs tweaks from affecting the rest of the site.
+
+---
+
+## Minimal additive CSS (recommended)
+
+If the global CSS already defines panel, mono, divider, etc., then the docs CSS should be very small.
+
+Add a single file (or section) such as:
+
+- `site/src/styles/docs.css` **imported by global**
+  - OR add a `/* Docs */` section in the existing global stylesheet.
+
+### Suggested selectors (minimal)
+
+> **Note:** keep values aligned with your existing tokens; treat below as semantic targets, not mandatory numbers.
+
+- `.docsPage` – layout wrapper (max-width, padding)
+- `.docsPanel` – reuse or alias the existing panel class
+- `.docsMetaRow` – small meta line under title
+- `.docsToc` – optional TOC panel
+- `.docsPage pre` / `.docsPage code` – code styling
+- `.docsPage table` – table styling
+- `.docsCallout` variants – callouts
+
+---
+
+## Content authoring conventions
+
+To keep authoring easy, use markdown first, with *light* HTML only when needed:
+
+- Prefer headings + lists over custom markup.
+- Use fenced code blocks with language tags.
+- For callouts, if you want zero custom markdown plugins, use:
+
+```html
+<div class="docsCallout info">
+  <div class="docsCalloutTitle">Note</div>
+  <p>Short message.</p>
+</div>
+```
+
+(Only in the few places you need callouts.)
+
+---
+
+## Accessibility requirements
+
+- Ensure focus ring is visible for:
+  - links
+  - buttons
+  - TOC toggles
+- Ensure code blocks are scrollable without breaking layout.
+- Respect reduced motion preferences if animations are used later.
+
+---
+
+## Non-goals (v1)
+
+- No search
+- No client-side TOC generation (unless Astro content pipeline already supports it)
+- No syntax highlighting customization beyond defaults
+- No “copy code” buttons
+- No multi-column docs layout
+
+---
+
+## Acceptance Criteria
+
+A docs page is considered “CSS-profile compliant” if:
+
+- It visually matches the ExNulla theme (dark + glass panels).
+- Markdown content is readable, well-spaced, and consistent.
+- Code blocks, tables, and links render cleanly.
+- Styling changes are scoped under `.docsPage`.
+- No new global regressions are introduced.
+
+---
+
+## Next implementation step (when you’re ready)
+
+1. Add `/docs/<slug>/` Astro page that renders markdown.
+2. Wrap content with `<main class="docsPage">`.
+3. Apply existing panel class (or `.docsPanel`) around the rendered markdown.
+4. Add minimal scoped CSS additions if required.
