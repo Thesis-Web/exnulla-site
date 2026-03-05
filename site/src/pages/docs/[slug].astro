@@ -1,31 +1,34 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import fs from "fs";
-import path from "path";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  return [{ params: { slug: "intent-file-router" } }];
+}
 
 const { slug } = Astro.params;
 
-const docsDir = path.join(process.cwd(), "site/src/content/docs");
-const docFile = path.join(docsDir, `${slug}.md`);
+const docs = import.meta.glob("../../content/docs/*.md", {
+  as: "raw",
+  eager: true,
+}) as Record<string, string>;
 
-let content = "";
+const key = `../../content/docs/${slug}.md`;
 
-if (fs.existsSync(docFile)) {
-  content = fs.readFileSync(docFile, "utf8");
-} else {
-  content = `# Documentation Not Found
+const content =
+  docs[key] ??
+  `# Documentation Not Found
 
 No documentation exists yet for **${slug}**.
 `;
-}
 ---
 
-<Layout title={`Docs – ${slug}`}>
-  <main class="docsPage">
-    <div class="panel">
-      <article class="docsContent">
-        <div set:html={content}></div>
-      </article>
-    </div>
-  </main>
-</Layout>
+<BaseLayout title={`Docs — ${slug}`}>
+  <div class="kicker">Documentation</div>
+  <h1 class="h1">{slug}</h1>
+
+  <div class="hr"></div>
+
+  <article class="card">
+    <pre class="code" style="white-space: pre-wrap; margin: 0;">{content}</pre>
+  </article>
+</BaseLayout>
