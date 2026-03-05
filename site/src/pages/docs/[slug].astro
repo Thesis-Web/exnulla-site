@@ -8,7 +8,8 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 
 const docs = import.meta.glob("../../content/docs/*.md", {
-  as: "raw",
+  query: "?raw",
+  import: "default",
   eager: true,
 }) as Record<string, string>;
 
