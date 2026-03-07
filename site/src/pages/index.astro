@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { LINKS, PROOF_OF_TALENT } from "../components/siteConfig";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { LINKS, PROOF_OF_TALENT } from '../components/siteConfig';
 ---
 
 <BaseLayout
@@ -11,14 +11,12 @@ import { LINKS, PROOF_OF_TALENT } from "../components/siteConfig";
   <h1 class="h1">Systems Architecture. Deterministic Execution.</h1>
 
   <p class="sub">
-    Static-first portfolio with isolated simulations, atomic releases,
-    and verifiable build provenance.
+    Static-first portfolio with isolated simulations, atomic releases, and verifiable build
+    provenance.
   </p>
 
   <div class="btnrow">
-    <a class="btn primary" href={LINKS.kick} target="_blank" rel="noreferrer">
-      Watch Live
-    </a>
+    <a class="btn primary" href={LINKS.kick} target="_blank" rel="noreferrer"> Watch Live </a>
     <a class="btn ghost" href="/projects">Projects</a>
     <a class="btn ghost" href="/lab">Lab</a>
     <a class="btn ghost" href="/meta">Meta</a>
@@ -29,8 +27,8 @@ import { LINKS, PROOF_OF_TALENT } from "../components/siteConfig";
   <section>
     <h2>Design for Constraints</h2>
     <p>
-      Systems are shaped by limits. Architecture begins with constraints,
-      not features. This site reflects that discipline.
+      Systems are shaped by limits. Architecture begins with constraints, not features. This site
+      reflects that discipline.
     </p>
     <ul class="list">
       <li>Static-first rendering.</li>
@@ -45,13 +43,11 @@ import { LINKS, PROOF_OF_TALENT } from "../components/siteConfig";
   <section>
     <h2>Featured Case</h2>
     <p>
-      Deterministic attest pipeline for hostile JSON ingestion,
-      canonicalization, hashing, and rule-based decisioning.
+      Deterministic attest pipeline for hostile JSON ingestion, canonicalization, hashing, and
+      rule-based decisioning.
     </p>
     <div class="btnrow">
-      <a class="btn ghost" href="/projects/exnulla-site">
-        View Case Study
-      </a>
+      <a class="btn ghost" href="/projects/exnulla-site"> View Case Study </a>
     </div>
   </section>
 
@@ -59,9 +55,7 @@ import { LINKS, PROOF_OF_TALENT } from "../components/siteConfig";
 
   <section>
     <h2>Interactive Simulation</h2>
-    <p>
-      Isolated runtime simulation. Loaded on demand. No shell pollution.
-    </p>
+    <p>Isolated runtime simulation. Loaded on demand. No shell pollution.</p>
     <div class="btnrow">
       <a class="btn ghost" href="/lab">Open Lab</a>
     </div>
@@ -69,17 +63,11 @@ import { LINKS, PROOF_OF_TALENT } from "../components/siteConfig";
 
   <div class="hr"></div>
 
-  <!-- Terminal block will be inserted here in next step -->
-
   <div class="hr"></div>
 
   <section class="identity">
     <div class="identity-inner">
-      <img
-        src="/assets/James-Headshot.jpg"
-        alt="James Huson"
-        loading="lazy"
-      />
+      <img src="/assets/James-Headshot.jpg" alt="James Huson" loading="lazy" />
       <div>
         <strong>James Huson</strong>
         <div class="small">Systems Architect</div>
@@ -87,50 +75,56 @@ import { LINKS, PROOF_OF_TALENT } from "../components/siteConfig";
     </div>
 
     <div class="btnrow" style="justify-content:center;">
-      <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">
-        LinkedIn
-      </a>
-      <a class="btn ghost" href={LINKS.github} target="_blank" rel="noreferrer">
-        GitHub
-      </a>
-      <a class="btn ghost" href={LINKS.kick} target="_blank" rel="noreferrer">
-        Kick
-      </a>
+      <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer"> LinkedIn </a>
+      <a class="btn ghost" href={LINKS.github} target="_blank" rel="noreferrer"> GitHub </a>
+      <a class="btn ghost" href={LINKS.kick} target="_blank" rel="noreferrer"> Kick </a>
     </div>
   </section>
-<!-- PROOF-OF-TALENT SECTION — 6 creative architecture showcases -->
-<section class="proof-of-work py-16 border-t border-white/10">
-  <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-4xl font-bold mb-4">Proof of Talent</h2>
-    <p class="text-xl text-white/70 mb-12">6× systems I built that solve real problems most people ignore.</p>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {PROOF_OF_TALENT.map((item) => (
-        <div class="bg-zinc-950 border border-white/10 rounded-2xl p-8 hover:border-white/30 transition-all group">
-          <div class="flex justify-between items-start mb-6">
-            <div>
-              <h3 class="text-2xl font-semibold group-hover:text-white transition-colors">{item.title}</h3>
-              <p class="text-white/60 text-sm mt-1">{item.subtitle}</p>
+
+  <section class="proof-of-work py-16 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-4">Proof of Talent</h2>
+      <p class="text-xl text-white/70 mb-12">
+        6× systems I built that solve real problems most people ignore.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          PROOF_OF_TALENT.map((item) => (
+            <div class="bg-zinc-950 border border-white/10 rounded-2xl p-8 hover:border-white/30 transition-all group proof-card">
+              <div class="flex justify-between items-start mb-6">
+                <div>
+                  <h3 class="text-2xl font-semibold group-hover:text-white transition-colors">
+                    {item.title}
+                  </h3>
+                  <p class="text-white/60 text-sm mt-1">{item.subtitle}</p>
+                </div>
+                <span class="px-3 py-1 text-xs rounded-full border border-white/20 text-white/60">
+                  {item.type}
+                </span>
+              </div>
+
+              <p class="text-white/80 text-sm leading-relaxed mb-8">{item.wow}</p>
+
+              <div class="action-group">
+                <a class="btn ghost" href={item.repo} target="_blank" rel="noreferrer">
+                  View Repo
+                </a>
+
+                {item.demoPath && item.status === 'live' && (
+                  <a class="btn primary" href={item.demoPath}>
+                    Live Demo
+                  </a>
+                )}
+
+                {item.status === 'todo-sim' && <span class="pill">Sim coming next push</span>}
+              </div>
             </div>
-            <span class="px-3 py-1 text-xs rounded-full border border-white/20 text-white/60">{item.type}</span>
-          </div>
-          
-          <p class="text-white/80 text-sm leading-relaxed mb-8">{item.wow}</p>
-          
-          <a href={item.repo} target="_blank" class="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
-            View repo →
-          </a>
-          {item.demoPath && item.status === 'live' && (
-            <a href={item.demoPath} class="ml-4 text-green-400 text-sm">→ live demo</a>
-          )}
-          {item.status === 'todo-sim' && (
-            <span class="ml-4 text-amber-400 text-sm">sim coming next push</span>
-          )}
-        </div>
-      ))}
+          ))
+        }
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <style>
     .identity {
@@ -152,6 +146,18 @@ import { LINKS, PROOF_OF_TALENT } from "../components/siteConfig";
       object-fit: cover;
       border: 1px solid var(--border);
       background: var(--card);
+    }
+
+    .proof-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .proof-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
   </style>
 </BaseLayout>

@@ -1,14 +1,15 @@
 ---
-import SiteHeader from "../components/SiteHeader.astro";
-import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
 type Props = {
   title: string;
   description?: string;
   active?: string;
 };
-const { title, description = "Digital CV + Interactive Lab", active = "" } = Astro.props;
+const { title, description = 'Digital CV + Interactive Lab', active = '' } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,7 +22,7 @@ const { title, description = "Digital CV + Interactive Lab", active = "" } = Ast
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
     <style>
-      :root{
+      :root {
         --bg: #0b0e14;
         --fg: #e8eefc;
         --muted: #a7b0c7;
@@ -30,50 +31,158 @@ const { title, description = "Digital CV + Interactive Lab", active = "" } = Ast
         --good: #35d07f;
         --warn: #f6c177;
       }
-      *{ box-sizing:border-box; }
-      html,body{ height:100%; }
-      body{
-        margin:0; background: radial-gradient(1200px 800px at 20% -10%, rgba(86,115,255,.25), transparent 60%),
-                         radial-gradient(900px 600px at 85% 0%, rgba(53,208,127,.15), transparent 55%),
-                         var(--bg);
-        color:var(--fg);
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-        line-height:1.55;
+      * {
+        box-sizing: border-box;
       }
-      main{ max-width:1100px; margin:0 auto; padding:28px 18px 0; }
-      a{ color:inherit; }
-      .kicker{ color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-size:12px; }
-      .h1{ font-size:44px; line-height:1.06; margin:10px 0 10px; }
-      .sub{ color:var(--muted); font-size:18px; max-width:70ch; }
-      .grid{ display:grid; gap:14px; }
-      @media (min-width: 860px){
-        .grid-2{ grid-template-columns: 1.2fr .8fr; }
-        .grid-3{ grid-template-columns: repeat(3, 1fr); }
+      html,
+      body {
+        height: 100%;
       }
-      .card{
+      body {
+        margin: 0;
+        background:
+          radial-gradient(1200px 800px at 20% -10%, rgba(86, 115, 255, 0.25), transparent 60%),
+          radial-gradient(900px 600px at 85% 0%, rgba(53, 208, 127, 0.15), transparent 55%),
+          var(--bg);
+        color: var(--fg);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          'Apple Color Emoji',
+          'Segoe UI Emoji';
+        line-height: 1.55;
+      }
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 28px 18px 0;
+      }
+      a {
+        color: inherit;
+      }
+      .kicker {
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 12px;
+      }
+      .h1 {
+        font-size: 44px;
+        line-height: 1.06;
+        margin: 10px 0 10px;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 18px;
+        max-width: 70ch;
+      }
+      .grid {
+        display: grid;
+        gap: 14px;
+      }
+      @media (min-width: 860px) {
+        .grid-2 {
+          grid-template-columns: 1.2fr 0.8fr;
+        }
+        .grid-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .card {
         background: color-mix(in oklab, var(--card) 92%, transparent);
-        border:1px solid var(--border);
-        border-radius:16px;
-        padding:16px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 16px;
       }
-      .card h2{ margin:0 0 8px; font-size:18px; }
-      .pillrow{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-      .pill{ font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid var(--border); color:var(--muted); }
-      .btnrow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
-      .btn{
-        display:inline-flex; align-items:center; justify-content:center;
-        padding:10px 14px; border-radius:12px; text-decoration:none; font-weight:700; font-size:14px;
-        border:1px solid var(--border);
+      .card h2 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+      .pillrow {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .pill {
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+      .btnrow {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 14px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        border: 1px solid var(--border);
         background: transparent;
+        transition:
+          transform 120ms ease,
+          border-color 120ms ease,
+          background-color 120ms ease,
+          color 120ms ease;
       }
-      .btn.primary{ background: var(--fg); color: var(--bg); }
-      .btn.ghost{ color: var(--fg); }
-      .btn:hover{ transform: translateY(-1px); }
-      .list{ margin:10px 0 0; padding-left:18px; color: var(--muted); }
-      .list li{ margin:6px 0; }
-      .hr{ height:1px; background:var(--border); margin:22px 0; }
-      .small{ color:var(--muted); font-size:14px; }
-      code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
+      .btn.primary {
+        background: var(--fg);
+        color: var(--bg);
+      }
+      .btn.ghost {
+        color: var(--fg);
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        border-color: color-mix(in oklab, var(--fg) 22%, var(--border));
+      }
+      .btn:focus-visible {
+        outline: 2px solid color-mix(in oklab, var(--fg) 72%, transparent);
+        outline-offset: 2px;
+      }
+      .action-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: auto;
+        padding-top: 8px;
+      }
+      .list {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+      .list li {
+        margin: 6px 0;
+      }
+      .hr {
+        height: 1px;
+        background: var(--border);
+        margin: 22px 0;
+      }
+      .small {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      code {
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+          monospace;
+      }
     </style>
   </head>
   <body>

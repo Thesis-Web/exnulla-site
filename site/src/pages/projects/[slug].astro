@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { PROJECT_DETAILS, LINKS } from "../../components/siteConfig";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PROJECT_DETAILS, LINKS } from '../../components/siteConfig';
 
 export function getStaticPaths() {
   return PROJECT_DETAILS.map((p) => ({ params: { slug: p.slug } }));
@@ -10,16 +10,12 @@ const { slug } = Astro.params;
 const project = PROJECT_DETAILS.find((p) => p.slug === slug);
 
 if (!project) {
-  // Astro will still build only known slugs; this is defensive.
   throw new Error(`Unknown project slug: ${slug}`);
 }
 ---
-<BaseLayout
-  title={`${project.title} — ExNulla`}
-  description={project.outcome}
-  active="projects"
->
-  <div class="kicker">{project.kicker ?? "Project"}</div>
+
+<BaseLayout title={`${project.title} — ExNulla`} description={project.outcome} active="projects">
+  <div class="kicker">{project.kicker ?? 'Project'}</div>
   <h1 class="h1">{project.title}</h1>
   <p class="sub">{project.outcome}</p>
 
@@ -29,7 +25,13 @@ if (!project) {
 
   <div class="btnrow">
     <a class="btn ghost" href="/projects">← All projects</a>
-    {project.repo ? <a class="btn ghost" href={project.repo} target="_blank" rel="noreferrer">Repo</a> : null}
+    {
+      project.repo ? (
+        <a class="btn ghost" href={project.repo} target="_blank" rel="noreferrer">
+          Repo
+        </a>
+      ) : null
+    }
     <a class="btn primary" href={LINKS.kick} target="_blank" rel="noreferrer">Watch Live (Kick)</a>
     <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
   </div>
@@ -37,27 +39,40 @@ if (!project) {
   <div class="hr"></div>
 
   <div class="grid" style="gap:14px">
-    {project.sections.map((s) => (
-      <section class="card">
-        <h2>{s.heading}</h2>
-        <ul class="list">
-          {s.body.map((line) => <li>{line}</li>)}
-        </ul>
-      </section>
-    ))}
+    {
+      project.sections.map((s) => (
+        <section class="card">
+          <h2>{s.heading}</h2>
+          <ul class="list">
+            {s.body.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
   </div>
 
-  {project.links?.length ? (
-    <>
-      <div class="hr"></div>
-      <section class="card">
-        <h2>Links</h2>
-        <ul class="list">
-          {project.links.map((l) => (
-            <li><a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel={l.href.startsWith("http") ? "noreferrer" : undefined}>{l.label}</a></li>
-          ))}
-        </ul>
-      </section>
-    </>
-  ) : null}
+  {
+    project.links?.length ? (
+      <>
+        <div class="hr" />
+        <section class="card">
+          <h2>Links</h2>
+          <div class="btnrow">
+            {project.links.map((l) => (
+              <a
+                class="btn ghost"
+                href={l.href}
+                target={l.href.startsWith('http') ? '_blank' : undefined}
+                rel={l.href.startsWith('http') ? 'noreferrer' : undefined}
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
+        </section>
+      </>
+    ) : null
+  }
 </BaseLayout>
