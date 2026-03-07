@@ -1,31 +1,48 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { PROJECT_CARDS } from "../../components/siteConfig";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PROJECT_CARDS } from '../../components/siteConfig';
 ---
-<BaseLayout title="Projects — ExNulla" description="Curated case studies: problem, constraints, trade-offs, result." active="projects">
+
+<BaseLayout
+  title="Projects — ExNulla"
+  description="Curated case studies: problem, constraints, trade-offs, result."
+  active="projects"
+>
   <div class="kicker">Projects</div>
   <h1 class="h1">Case Studies</h1>
   <p class="sub">
     Structured narrative:
-    <strong>problem → constraints → architecture → trade-offs → result</strong>.
-    Each tile opens a readable detail page.
+    <strong>problem → constraints → architecture → trade-offs → result</strong>. Each tile opens a
+    readable detail page.
   </p>
 
   <div class="hr"></div>
 
   <div class="grid grid-3">
-    {PROJECT_CARDS.map((p) => (
-      <article class="card">
-        <h2 style="font-size:16px; margin:0 0 8px">{p.title}</h2>
-        <p class="small" style="margin:0">{p.outcome}</p>
-        <div class="pillrow">
-          {p.tags.map((t) => <span class="pill">{t}</span>)}
-        </div>
-        <div class="btnrow">
-          <a class="btn ghost" href={p.href}>Open</a>
-          {p.repo ? <a class="btn ghost" href={p.repo} target="_blank" rel="noreferrer">Repo</a> : null}
-        </div>
-      </article>
-    ))}
+    {
+      PROJECT_CARDS.map((p) => (
+        <article class="card">
+          <h2 style="font-size:16px; margin:0 0 8px">{p.title}</h2>
+          <p class="small" style="margin:0">
+            {p.outcome}
+          </p>
+          <div class="pillrow">
+            {p.tags.map((t) => (
+              <span class="pill">{t}</span>
+            ))}
+          </div>
+          <div class="btnrow">
+            <a class="btn ghost" href={p.href}>
+              Open
+            </a>
+            {p.repo ? (
+              <a class="btn ghost" href={p.repo} target="_blank" rel="noreferrer">
+                Repo
+              </a>
+            ) : null}
+          </div>
+        </article>
+      ))
+    }
   </div>
 </BaseLayout>

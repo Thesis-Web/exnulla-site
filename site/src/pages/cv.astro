@@ -1,22 +1,31 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { LINKS, PROJECT_CARDS } from "../components/siteConfig";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { LINKS, PROJECT_CARDS } from '../components/siteConfig';
 ---
-<BaseLayout title="CV — ExNulla" description="Digital CV: skills evidence, timeline, and case studies." active="cv">
+
+<BaseLayout
+  title="CV — ExNulla"
+  description="Digital CV: skills evidence, timeline, and case studies."
+  active="cv"
+>
   <div class="kicker">CV</div>
   <h1 class="h1">Digital CV</h1>
 
   <div class="headshot">
     <a href={LINKS.linkedin} target="_blank" rel="noreferrer" title="Open LinkedIn">
       <img src="/assets/James-Headshot.jpg" alt="James — Headshot" loading="eager" />
-    </a>  </div>
+    </a>
+  </div>
   <p class="sub">
-    Evidence-driven CV: what I ship, how I think, and where the proof lives.
-    Prefer a fast scan? Hit <a href="/projects"><strong>Projects</strong></a> or the <a href="/links"><strong>Links</strong></a> hub.
+    Evidence-driven CV: what I ship, how I think, and where the proof lives. Prefer a fast scan? Hit <a
+      href="/projects"><strong>Projects</strong></a
+    > or the <a href="/links"><strong>Links</strong></a> hub.
   </p>
 
   <div class="btnrow">
-    <a class="btn primary" href={LINKS.linkedin} target="_blank" rel="noreferrer">Connect on LinkedIn</a>
+    <a class="btn primary" href={LINKS.linkedin} target="_blank" rel="noreferrer"
+      >Connect on LinkedIn</a
+    >
     <a class="btn ghost" href="/projects">View Projects</a>
     <a class="btn ghost" href="/lab">Open the Lab</a>
   </div>
@@ -27,10 +36,19 @@ import { LINKS, PROJECT_CARDS } from "../components/siteConfig";
     <div class="card">
       <h2>Focus areas</h2>
       <ul class="list">
-        <li><strong>Systems architecture:</strong> constraints, trade-offs, failure modes, verification.</li>
-        <li><strong>Infrastructure:</strong> Linux, Nginx, CI/CD hygiene, atomic deploys, observability basics.</li>
-        <li><strong>Product execution:</strong> scope control, risk reduction, measurable outcomes.</li>
-        <li><strong>Communication:</strong> translate between business ↔ engineering, document decisions.</li>
+        <li>
+          <strong>Systems architecture:</strong> constraints, trade-offs, failure modes, verification.
+        </li>
+        <li>
+          <strong>Infrastructure:</strong> Linux, Nginx, CI/CD hygiene, atomic deploys, observability
+          basics.
+        </li>
+        <li>
+          <strong>Product execution:</strong> scope control, risk reduction, measurable outcomes.
+        </li>
+        <li>
+          <strong>Communication:</strong> translate between business ↔ engineering, document decisions.
+        </li>
       </ul>
       <div class="pillrow">
         <span class="pill">Node</span><span class="pill">Linux</span><span class="pill">CI/CD</span>
@@ -47,7 +65,8 @@ import { LINKS, PROJECT_CARDS } from "../components/siteConfig";
         <li>Make rollback cheap; make deployment boring.</li>
       </ul>
       <p class="small" style="margin-top:12px">
-        This site is the reference implementation: minimal surface area, strong hygiene, repeatable deploys.
+        This site is the reference implementation: minimal surface area, strong hygiene, repeatable
+        deploys.
       </p>
     </div>
   </section>
@@ -58,11 +77,14 @@ import { LINKS, PROJECT_CARDS } from "../components/siteConfig";
     <h2>Timeline (high level)</h2>
     <ul class="list">
       <li><strong>Now:</strong> building ExNulla as a public proof-of-work portfolio and lab.</li>
-      <li><strong>Near-term:</strong> ship curated case studies + 1–3 runnable demos with version stamping.</li>
+      <li>
+        <strong>Near-term:</strong> ship curated case studies + 1–3 runnable demos with version stamping.
+      </li>
       <li><strong>Ongoing:</strong> stream builds + document trade-offs, not just outcomes.</li>
     </ul>
     <p class="small" style="margin-top:10px">
-      If you want a traditional PDF resume, we can generate one later, but this site is the canonical source.
+      If you want a traditional PDF resume, we can generate one later, but this site is the
+      canonical source.
     </p>
   </section>
 
@@ -71,26 +93,60 @@ import { LINKS, PROJECT_CARDS } from "../components/siteConfig";
   <section>
     <h2 style="margin:0 0 10px">Case studies (curated)</h2>
     <div class="grid grid-3">
-      {PROJECT_CARDS.slice(0, 6).map((p) => (
-        <article class="card">
-          <h2 style="font-size:16px; margin:0 0 8px">{p.title}</h2>
-          <p class="small" style="margin:0">{p.outcome}</p>
-          <div class="pillrow">
-            {p.tags.map((t) => <span class="pill">{t}</span>)}
-          </div>
-          <div class="btnrow">
-            <a class="btn ghost" href={p.href}>Open</a>
-            {p.repo ? <a class="btn ghost" href={p.repo} target="_blank" rel="noreferrer">Repo</a> : null}
-          </div>
-        </article>
-      ))}
+      {
+        PROJECT_CARDS.slice(0, 6).map((p) => (
+          <article class="card">
+            <h2 style="font-size:16px; margin:0 0 8px">{p.title}</h2>
+            <p class="small" style="margin:0">
+              {p.outcome}
+            </p>
+            <div class="pillrow">
+              {p.tags.map((t) => (
+                <span class="pill">{t}</span>
+              ))}
+            </div>
+            <div class="btnrow">
+              <a class="btn ghost" href={p.href}>
+                Open
+              </a>
+              {p.repo ? (
+                <a class="btn ghost" href={p.repo} target="_blank" rel="noreferrer">
+                  Repo
+                </a>
+              ) : null}
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
   <style>
-    .headshot{ margin-top:16px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
-    .headshot img{ width:140px; height:140px; border-radius:18px; object-fit:cover; border:1px solid var(--border); background:var(--card); }
-    .headshot a{ display:inline-flex; border-radius:18px; cursor:pointer; }
-    .headshot a:hover img{ border-color: color-mix(in oklab, var(--border) 60%, var(--fg)); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
-    .headshot a:hover img{ transform: translateY(-1px); }
+    .headshot {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .headshot img {
+      width: 140px;
+      height: 140px;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: var(--card);
+    }
+    .headshot a {
+      display: inline-flex;
+      border-radius: 18px;
+      cursor: pointer;
+    }
+    .headshot a:hover img {
+      border-color: color-mix(in oklab, var(--border) 60%, var(--fg));
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+    .headshot a:hover img {
+      transform: translateY(-1px);
+    }
   </style>
 </BaseLayout>

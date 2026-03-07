@@ -1,5 +1,5 @@
 ---
-const fallbackUrl = "https://www.twitch.tv/exnulla";
+const fallbackUrl = 'https://www.twitch.tv/exnulla';
 ---
 
 <a id="watch-btn" href={fallbackUrl} target="_blank" rel="noreferrer" class="btn ghost watch">
@@ -20,7 +20,9 @@ const fallbackUrl = "https://www.twitch.tv/exnulla";
 
       if (data.live === true || data.isLive === true) {
         dot.classList.add('live');
-        const title = data.title ? ` — ${data.title.slice(0, 45)}${data.title.length > 45 ? '...' : ''}` : '';
+        const title = data.title
+          ? ` — ${data.title.slice(0, 45)}${data.title.length > 45 ? '...' : ''}`
+          : '';
         text.textContent = `LIVE NOW${title}`;
         btn.href = data.url || fallbackUrl;
       } else {
@@ -41,20 +43,37 @@ const fallbackUrl = "https://www.twitch.tv/exnulla";
 </script>
 
 <style>
-  .btn{
-    text-decoration:none;
-    border-radius:12px;
-    padding:9px 12px;
-    font-weight:600;
-    font-size:14px;
-    border:1px solid var(--border);
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
+  .btn {
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 9px 12px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
   }
-  .ghost{ background:transparent; color:var(--fg); }
-  .watch{ transition: border-color 120ms ease, background 120ms ease, color 120ms ease; }
-  .watch:hover{ background:color-mix(in oklab, var(--card) 75%, transparent); }
-  .dot{ width:10px; height:10px; border-radius:999px; background:#ef4444; }
-  .dot.live{ background:#22c55e; }
+  .ghost {
+    background: transparent;
+    color: var(--fg);
+  }
+  .watch {
+    transition:
+      border-color 120ms ease,
+      background 120ms ease,
+      color 120ms ease;
+  }
+  .watch:hover {
+    background: color-mix(in oklab, var(--card) 75%, transparent);
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #ef4444;
+  }
+  .dot.live {
+    background: #22c55e;
+  }
 </style>

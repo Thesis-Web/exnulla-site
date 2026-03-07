@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Meta — ExNulla" description="Build provenance + version metadata." active="">
@@ -29,7 +29,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="card">
     <h2>Raw JSON</h2>
     <p class="small">
-      <a class="btn ghost" href="/meta/version.json" target="_blank" rel="noreferrer">Open /meta/version.json</a>
+      <a class="btn ghost" href="/meta/version.json" target="_blank" rel="noreferrer"
+        >Open /meta/version.json</a
+      >
     </p>
     <pre class="small" id="v-raw" style="white-space: pre-wrap;">Loading…</pre>
   </section>
@@ -42,24 +44,24 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       };
 
       try {
-        const res = await fetch("/meta/version.json", { cache: "no-store" });
+        const res = await fetch('/meta/version.json', { cache: 'no-store' });
         if (!res.ok) throw new Error(`GET /meta/version.json -> ${res.status}`);
         const v = await res.json();
 
-        set("v-sha", v.sha ?? v.gitSha ?? "unknown");
-        set("v-built", v.builtAt ?? v.buildTimestampUtc ?? "unknown");
-        set("v-node", v.buildEnv?.node ?? "unknown");
-        set("v-platform", `${v.buildEnv?.platform ?? "unknown"}/${v.buildEnv?.arch ?? "unknown"}`);
-        set("v-runner", v.buildEnv?.runner ?? "unknown");
-        set("v-ci", String(v.buildEnv?.ci ?? false));
+        set('v-sha', v.sha ?? v.gitSha ?? 'unknown');
+        set('v-built', v.builtAt ?? v.buildTimestampUtc ?? 'unknown');
+        set('v-node', v.buildEnv?.node ?? 'unknown');
+        set('v-platform', `${v.buildEnv?.platform ?? 'unknown'}/${v.buildEnv?.arch ?? 'unknown'}`);
+        set('v-runner', v.buildEnv?.runner ?? 'unknown');
+        set('v-ci', String(v.buildEnv?.ci ?? false));
 
-        set("v-raw", JSON.stringify(v, null, 2));
+        set('v-raw', JSON.stringify(v, null, 2));
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e);
-        set("v-error", msg);
-        const el = document.getElementById("v-error");
-        if (el) el.style.display = "block";
-        set("v-raw", msg);
+        set('v-error', msg);
+        const el = document.getElementById('v-error');
+        if (el) el.style.display = 'block';
+        set('v-raw', msg);
       }
     })();
   </script>
