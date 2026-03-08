@@ -372,33 +372,34 @@ export const BASE_LAB_TILES: LabTile[] = [
     docsPath: '/docs/intent-file-router',
     source: 'repo: exnulla-demos/apps/intent-file-router',
   },
-
-  // === Reference Templates (NOT live) ===
   {
-    name: 'Reference: Tier 1 (light) demo template',
+    name: 'Orbital Compute Node Sizing Sandbox',
     blurb:
-      'Tier 1 is a tiny, fast demo that can be rendered inline or lazy-loaded. Add demoPath when the artifact exists under /demos/<slug>/.',
-    tier: 1,
-    tags: ['template', 'tier-1'],
-    href: '/lab',
-    // demoPath intentionally omitted
-  },
-  {
-    name: 'Reference: Tier 2 (iframe) demo template',
-    blurb:
-      'Tier 2 is embedded via iframe to /demos/<slug>/. Keep the shell fast; isolate demo JS. Add demoPath only when deployed.',
+      'COMING SOON — Interactive sizing sandbox for a 50 kW orbital compute node. Adjust compute load, thermal assumptions, and radiator temperature, then see what binds first: power, heat rejection, or packaging.',
     tier: 2,
-    tags: ['template', 'tier-2', 'iframe'],
+    tags: ['coming-soon', 'orbital', 'thermal', 'systems'],
     href: '/lab',
+    source: 'spec: exnulla-demos/docs/*orbital-node-sizing-50kw*',
     // demoPath intentionally omitted
   },
   {
-    name: 'Reference: Tier 3 (heavy) demo template',
+    name: 'Identity Without Disclosure',
     blurb:
-      'Tier 3 is heavy (WebGL / large bundles / external host). Use iframe + lifecycle controls; keep main site static-first.',
-    tier: 3,
-    tags: ['template', 'tier-3', 'heavy'],
+      'COMING SOON — Privacy-by-design visualizer for predicate attestations. See how a system can verify properties like uniqueness or eligibility without exposing identity material, while still preventing cross-vendor gaming.',
+    tier: 2,
+    tags: ['coming-soon', 'identity', 'privacy', 'protocol'],
     href: '/lab',
+    source: 'spec: exnulla-demos/docs/*identity-without-disclosure*',
+    // demoPath intentionally omitted
+  },
+  {
+    name: 'Safe Agent Pipeline',
+    blurb:
+      'COMING SOON — Guardrail-first AI pipeline demo built around schema gates, redaction, injection resistance, budgets, cache behavior, and auditable traces. Designed to show how AI features can be shipped without giving up control.',
+    tier: 2,
+    tags: ['coming-soon', 'agents', 'guardrails', 'audit'],
+    href: '/lab',
+    source: 'spec: exnulla-demos/docs/*safe-agent-pipeline*',
     // demoPath intentionally omitted
   },
 ];
