@@ -1,67 +1,154 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { LINKS, PROOF_OF_TALENT } from '../components/siteConfig';
+import { LINKS } from '../components/siteConfig';
 ---
 
 <BaseLayout
-  title="Systems Architecture — ExNulla"
-  description="Static-first portfolio with isolated simulations, atomic releases, and verifiable build provenance."
+  title="ExNulla — Systems Architecture"
+  description="Systems architecture, public proof-of-work, and deterministic execution."
   active=""
 >
-  <h1 class="h1">Systems Architecture. Deterministic Execution.</h1>
+  <div class="kicker">ExNulla</div>
+  <h1 class="h1">I build systems that can survive contact with reality.</h1>
 
   <p class="sub">
-    Static-first portfolio with isolated simulations, atomic releases, and verifiable build
-    provenance.
+    ExNulla is where I prove how I think: constraints first, architecture before noise, and delivery
+    that can be inspected instead of merely claimed. This is not a brochure. It is a working proof
+    surface.
   </p>
 
   <div class="btnrow">
-    <a class="btn primary" href={LINKS.kick} target="_blank" rel="noreferrer"> Watch Live </a>
-    <a class="btn ghost" href="/projects">Projects</a>
-    <a class="btn ghost" href="/lab">Lab</a>
-    <a class="btn ghost" href="/meta">Meta</a>
+    <a class="btn primary" href="/projects">View Projects</a>
+    <a class="btn ghost" href="/cv">Read the CV</a>
+    <a class="btn ghost" href="/lab">Open the Lab</a>
+    <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
   </div>
 
   <div class="hr"></div>
 
-  <section>
-    <h2>Design for Constraints</h2>
-    <p>
-      Systems are shaped by limits. Architecture begins with constraints, not features. This site
-      reflects that discipline.
-    </p>
-    <ul class="list">
-      <li>Static-first rendering.</li>
-      <li>Explicit runtime isolation.</li>
-      <li>Atomic deploys with rollback.</li>
-      <li>Build provenance on every release.</li>
-    </ul>
-  </section>
+  <section class="grid grid-2">
+    <div>
+      <h2>Why this exists</h2>
+      <p>
+        I did not come into software through a normal lane. I came in the same way I built
+        businesses: define the problem, map the constraints, design the system, ship the work, and
+        improve what breaks.
+      </p>
+      <p>
+        ExNulla is the public version of that operating model. The site, the case studies, the
+        demos, the stream, and the surrounding funnel all serve one purpose: make the work visible
+        enough that nobody has to guess what I can do.
+      </p>
+    </div>
 
-  <div class="hr"></div>
-
-  <section>
-    <h2>Featured Case</h2>
-    <p>
-      Deterministic attest pipeline for hostile JSON ingestion, canonicalization, hashing, and
-      rule-based decisioning.
-    </p>
-    <div class="btnrow">
-      <a class="btn ghost" href="/projects/attest-pipeline"> View Case Study </a>
+    <div class="card">
+      <h2>What you will find here</h2>
+      <ul class="list">
+        <li>
+          <strong>Projects:</strong> architecture decisions, trade-offs, and delivery discipline.
+        </li>
+        <li>
+          <strong>CV:</strong> the operator behind the system, framed through execution rather than claims.
+        </li>
+        <li><strong>Lab:</strong> runnable proof where the ideas stop being theory.</li>
+        <li>
+          <strong>Meta:</strong> build/version provenance and the operating discipline behind the site.
+        </li>
+      </ul>
     </div>
   </section>
 
   <div class="hr"></div>
 
   <section>
-    <h2>Interactive Simulation</h2>
-    <p>Isolated runtime simulation. Loaded on demand. No shell pollution.</p>
-    <div class="btnrow">
-      <a class="btn ghost" href="/lab">Open Lab</a>
+    <h2>Three ways to read ExNulla</h2>
+    <div class="grid grid-3">
+      <article class="card">
+        <h2 style="font-size:18px; margin:0 0 8px">Architecture</h2>
+        <p class="small" style="margin:0 0 12px">
+          Case studies built to show reasoning, constraints, and the shape of the solution—not just
+          the polished outcome.
+        </p>
+        <div class="btnrow">
+          <a class="btn ghost" href="/projects">Open Projects</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2 style="font-size:18px; margin:0 0 8px">Operator</h2>
+        <p class="small" style="margin:0 0 12px">
+          The digital CV explains the person behind the system: builder, operator, and developer
+          architect moving in public.
+        </p>
+        <div class="btnrow">
+          <a class="btn ghost" href="/cv">Open CV</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2 style="font-size:18px; margin:0 0 8px">Proof</h2>
+        <p class="small" style="margin:0 0 12px">
+          The lab is where design becomes executable. Simulations are isolated, intentional, and
+          shipped as proof—not as decoration.
+        </p>
+        <div class="btnrow">
+          <a class="btn ghost" href="/lab">Open Lab</a>
+        </div>
+      </article>
     </div>
   </section>
 
   <div class="hr"></div>
+
+  <section class="card">
+    <div class="kicker">Featured case</div>
+    <h2 style="margin-top:4px">Attest Pipeline</h2>
+    <p>
+      Deterministic identity attestation for hostile JSON ingestion, canonicalization, hashing, and
+      cross-institution matching—without turning KYC into a long-term PII honeypot.
+    </p>
+    <p class="small">
+      This is the kind of work I want to be known for: architecture that closes real abuse paths
+      while reducing operational and data-risk surface area.
+    </p>
+    <div class="btnrow">
+      <a class="btn ghost" href="/projects/attest-pipeline">View Case Study</a>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="grid grid-2">
+    <div class="card">
+      <h2>Built in public, from zero</h2>
+      <p class="small" style="margin:0 0 12px">
+        The ExNulla ecosystem did not come from an existing employer, audience, or software career
+        path. It was built from zero as a working system: brand, repos, site, demos, stream, and
+        market-facing proof.
+      </p>
+      <ul class="list">
+        <li>Architecture, implementation, and delivery in the open.</li>
+        <li>
+          Public signal designed to compound: site, stream, social, and repos feeding each other.
+        </li>
+        <li>Proof-of-work first, credential story second.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Operating stance</h2>
+      <ul class="list">
+        <li>Start with limits, not features.</li>
+        <li>Prefer systems that are inspectable, testable, and cheap to recover.</li>
+        <li>Use AI aggressively, but keep judgment and accountability human.</li>
+        <li>Move fast where ambiguity is low; slow down where the architecture matters.</li>
+      </ul>
+      <p class="small" style="margin-top:12px">
+        I am not trying to look like a conventional candidate. I am trying to be legible to the
+        people who know what good systems work looks like.
+      </p>
+    </div>
+  </section>
 
   <div class="hr"></div>
 
@@ -70,94 +157,16 @@ import { LINKS, PROOF_OF_TALENT } from '../components/siteConfig';
       <img src="/assets/James-Headshot.jpg" alt="James Huson" loading="lazy" />
       <div>
         <strong>James Huson</strong>
-        <div class="small">Systems Architect</div>
+        <div class="small">Developer architecture, systems thinking, and public proof-of-work.</div>
       </div>
     </div>
 
     <div class="btnrow" style="justify-content:center;">
-      <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer"> LinkedIn </a>
-      <a class="btn ghost" href={LINKS.github} target="_blank" rel="noreferrer"> GitHub </a>
-      <a class="btn ghost" href={LINKS.kick} target="_blank" rel="noreferrer"> Kick </a>
+      <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+      <a class="btn ghost" href="https://github.com/Thesis-Web" target="_blank" rel="noreferrer"
+        >GitHub</a
+      >
+      <a class="btn ghost" href={LINKS.kick} target="_blank" rel="noreferrer">Kick</a>
     </div>
   </section>
-
-  <section class="proof-of-work py-16 border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-4xl font-bold mb-4">Proof of Talent</h2>
-      <p class="text-xl text-white/70 mb-12">
-        6× systems I built that solve real problems most people ignore.
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {
-          PROOF_OF_TALENT.map((item) => (
-            <div class="bg-zinc-950 border border-white/10 rounded-2xl p-8 hover:border-white/30 transition-all group proof-card">
-              <div class="flex justify-between items-start mb-6">
-                <div>
-                  <h3 class="text-2xl font-semibold group-hover:text-white transition-colors">
-                    {item.title}
-                  </h3>
-                  <p class="text-white/60 text-sm mt-1">{item.subtitle}</p>
-                </div>
-                <span class="px-3 py-1 text-xs rounded-full border border-white/20 text-white/60">
-                  {item.type}
-                </span>
-              </div>
-
-              <p class="text-white/80 text-sm leading-relaxed mb-8">{item.wow}</p>
-
-              <div class="action-group">
-                <a class="btn ghost" href={item.repo} target="_blank" rel="noreferrer">
-                  View Repo
-                </a>
-
-                {item.demoPath && item.status === 'live' && (
-                  <a class="btn primary" href={item.demoPath}>
-                    Live Demo
-                  </a>
-                )}
-
-                {item.status === 'todo-sim' && <span class="pill">Sim coming next push</span>}
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <style>
-    .identity {
-      text-align: center;
-      padding-top: 20px;
-    }
-
-    .identity-inner {
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .identity img {
-      width: 90px;
-      height: 90px;
-      border-radius: 16px;
-      object-fit: cover;
-      border: 1px solid var(--border);
-      background: var(--card);
-    }
-
-    .proof-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .proof-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-  </style>
 </BaseLayout>
