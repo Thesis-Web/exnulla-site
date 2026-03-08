@@ -132,6 +132,53 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
     ],
   },
   {
+    slug: 'attest-pipeline',
+    title: 'Attest Pipeline',
+    kicker: 'Identity without disclosure',
+    outcome:
+      'Deterministic ingest pipeline for hostile KYC/AML payloads: canonicalization, SHA-based attestation, and cross-institution identity matching without creating a PII honeypot.',
+    tags: ['attestation', 'identity', 'canonicalization', 'kyc', 'cryptography'],
+    sections: [
+      {
+        heading: 'Problem',
+        body: [
+          'Traditional KYC pipelines tend to centralize sensitive user data, which creates a high-value PII target and operational risk across every institution that touches it.',
+          'Institutions still need to detect duplicate or abusive account creation across regional banking partners without sharing raw personal data.',
+        ],
+      },
+      {
+        heading: 'Constraints',
+        body: [
+          'Input payloads are hostile-by-default JSON and cannot be trusted structurally or semantically on arrival.',
+          'Equivalent payloads must yield equivalent attest artifacts across institutions.',
+          'The system must avoid using raw PII as the core matching primitive.',
+        ],
+      },
+      {
+        heading: 'Approach',
+        body: [
+          'Sim wallets and simulated KYC/AML JSON payloads are generated, normalized, and canonicalized before hashing so that formatting variance does not change the resulting identity artifact.',
+          'Regional banking partners receive the canonicalized payload form and produce signed SHA attestations rather than exchanging raw user identity records.',
+          'The result is a stable, cryptographically matchable identity proof that supports cross-bank comparison while minimizing disclosure.',
+        ],
+      },
+      {
+        heading: 'Why It Matters',
+        body: [
+          'This closes an anti-gaming gap: the same person attempting to open accounts across multiple institutions can be matched through attest artifacts without each bank becoming a long-term PII warehouse.',
+          'The design shifts the system from storing everything forever toward proving enough, disclosing less, and verifying deterministically.',
+        ],
+      },
+      {
+        heading: 'Result',
+        body: [
+          'KYC decisioning can operate on deterministic attest outputs instead of raw identity copies.',
+          'Cross-bank identity matching becomes possible without turning the platform into a centralized honeypot of sensitive personal data.',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'stream-ops',
     title: 'Stream Ops',
     kicker: 'Reliable live production',
