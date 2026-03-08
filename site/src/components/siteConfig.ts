@@ -149,7 +149,7 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
         heading: 'Result',
         body: [
           'The result is a portfolio that behaves like production infrastructure: predictable build outputs, atomic promotion, rollback-friendly serving, and a clean route structure for case studies and demos.',
-          'Most portfolio sites showcase taste; this one also showcases operational discipline.',
+          'Most portfolio sites showcase taste; I chose to showcase operational discipline.',
         ],
       },
     ],
@@ -213,7 +213,7 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
         heading: 'Result',
         body: [
           'The end state is a more deterministic live pipeline: direct outputs, consolidated operator view, reproducible countdown/media assets, and less dependence on fuzzy UI state.',
-          'That is a transferable engineering signal: the ability to turn a fragile, high-pressure workflow into an auditable operating system.',
+          'This is my transferable engineering signal: my ability to turn a fragile, high-pressure workflow into an auditable operating system.',
         ],
       },
     ],
