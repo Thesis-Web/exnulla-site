@@ -14,6 +14,14 @@ const aiDevkitBlueprint =
 const aiDevkitSpec =
   engineeringDocs['../content/engineering/ai-devkit-engineering-spec.md'] ??
   '# Missing Engineering Spec Markdown';
+
+const orchestrationLabBlueprint =
+  engineeringDocs['../content/engineering/orchestration-lab-blueprint.md'] ??
+  '# Missing Orchestration Lab Blueprint Markdown';
+
+const orchestrationLabSpec =
+  engineeringDocs['../content/engineering/orchestration-lab-engineering-spec.md'] ??
+  '# Missing Orchestration Lab Engineering Spec Markdown';
 ---
 
 <BaseLayout
@@ -745,24 +753,6 @@ const aiDevkitSpec =
     <p>
       Environment requirements, allowed inputs, and tool expectations must be explicit. Invisible
       ambient state is a major source of drift and operational failure.
-    </p>
-  </section>
-
-  <div class="hr"></div>
-
-  <section class="card">
-    <h2>Canonical Source Status</h2>
-
-    <p>
-      The canonical markdown for this case exists conceptually in the process and in the build
-      system behavior, but the final standalone blueprint/spec source files are not yet mirrored
-      into this site. That is a source-control gap, not an architectural gap.
-    </p>
-
-    <p>
-      The current page therefore documents the real operating model first. The canonical markdown
-      appendices for this case will be inserted once the finalized source artifacts are recovered
-      and committed.
     </p>
   </section>
 
