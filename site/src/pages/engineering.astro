@@ -33,7 +33,8 @@ const aiDevkitSpec =
 
   <div class="pillrow">
     <span class="pill">Case 01 — Thesis Chain AI DevKit</span>
-    <span class="pill">Canonical Source Material Included</span>
+    <span class="pill">Case 02 — Human Agentic Pipeline</span>
+    <span class="pill">Canonical Source Material Included Where Available</span>
     <span class="pill">All Rights Reserved</span>
   </div>
 
@@ -533,6 +534,400 @@ const aiDevkitSpec =
     <p>
       The shortest honest summary is this: safe agent systems are built by distrusting them
       correctly.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Case 02 — Human Agentic Pipeline</h2>
+
+    <p>
+      This case study documents the operating model behind a human-led agentic development pipeline.
+      The objective is not to simulate autonomous magic. The objective is to design a system in
+      which AI can accelerate engineering work without dissolving accountability, architectural
+      control, or verification discipline.
+    </p>
+
+    <p>
+      In this model, AI is routed into bounded roles inside a controlled workflow. Humans retain
+      authority over judgment, quality control, infrastructure, and final acceptance. The system is
+      designed to produce auditable artifacts, visible checkpoints, deterministic handoff
+      boundaries, and repeatable outputs rather than vague conversational momentum.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Problem Definition</h2>
+
+    <p>
+      Most “agentic” workflows fail for one of two reasons. Either they are too loose and devolve
+      into expensive improvisation, or they are so tool-driven that no one can explain where
+      authority lives, why a change happened, or whether the output still matches the original
+      specification.
+    </p>
+
+    <p>The engineering problem addressed here is therefore:</p>
+
+    <p>
+      <strong>
+        How do you structure a human-led, AI-assisted development system that can produce meaningful
+        velocity while preserving deterministic phase order, verification gates, explicit authority
+        boundaries, and drift resistance?
+      </strong>
+    </p>
+
+    <p>
+      The answer is not “more autonomy.” The answer is architecture. Agentic systems only become
+      useful when their behavior is constrained more like a build pipeline and less like a free-form
+      assistant.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Operating Constraints</h2>
+
+    <ul class="list">
+      <li>
+        <strong>Strict Phase Order</strong><br />
+        Work must progress in a declared sequence. Architecture cannot be skipped, verification cannot
+        be hand-waved, and implementation cannot silently rewrite system intent.
+      </li>
+      <li>
+        <strong>No Spec Drift</strong><br />
+        The process is anchored to canonical blueprints and engineering specs. If the output cannot be
+        traced back to those anchors, it is drift.
+      </li>
+      <li>
+        <strong>No Hidden Authority</strong><br />
+        Roles are separated. An implementation agent does not gain architectural authority merely by writing
+        code first.
+      </li>
+      <li>
+        <strong>Artifact-Based Work</strong><br />
+        Each phase should emit inspectable artifacts rather than conversational summaries. The system
+        should leave behind evidence, not just momentum.
+      </li>
+      <li>
+        <strong>Assumptions Must Collapse to Zero</strong><br />
+        If critical assumptions remain, the process is not ready to progress. Guessing is treated as a
+        process failure, not a creative virtue.
+      </li>
+      <li>
+        <strong>Idempotent Passes</strong><br />
+        Every pass should be independently reproducible. Partial patches, hand-wavy edits, and unbounded
+        “just improve it” loops are not acceptable operating modes.
+      </li>
+      <li>
+        <strong>Human Final Authority</strong><br />
+        Human reviewers own the right to accept, reject, redirect, or halt the system at any stage.
+      </li>
+    </ul>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Blueprint Architecture</h2>
+
+    <p>
+      The blueprint for a human agentic pipeline starts by defining role boundaries and execution
+      order before discussing implementation. In a healthy agentic system, “who may decide what” is
+      as important as “what code gets written.”
+    </p>
+
+    <p>
+      The structure I use is phase-driven and role-separated. The architect locks anchors and
+      non-negotiables first. Tooling may only express what the architecture already allows.
+      Implementation is scope-constrained to the approved tree. Verification must halt the system on
+      drift rather than negotiate with it.
+    </p>
+
+    <ul class="list">
+      <li>
+        <strong>Phase 0 — Spec Anchors</strong><br />
+        Establish canonical files, anchor quotes, and derived non-negotiables. This is where the system
+        proves it understands the assignment before it starts building.
+      </li>
+      <li>
+        <strong>Phase 1 — Architecture Plan</strong><br />
+        Define exact file tree, module boundaries, dependencies, and compliance mapping. No unanchored
+        structure is permitted.
+      </li>
+      <li>
+        <strong>Phase 1b — Tooling Checklist</strong><br />
+        Confirm what CI commands, configs, and repo expectations are required. The tooling agent is not
+        allowed to introduce whimsical changes.
+      </li>
+      <li>
+        <strong>Phase 1c — Verification Gate</strong><br />
+        Confirm drift check is empty, anchor coverage is complete, and assumptions are zero before implementation
+        begins.
+      </li>
+      <li>
+        <strong>Phase 2 — Core Implementation</strong><br />
+        Emit only files already justified by the architecture plan. No speculative expansion. No structure
+        creep.
+      </li>
+      <li>
+        <strong>Phase 3 — Hardening</strong><br />
+        Fix lint, type, and build failures without reopening architecture. Hardening is for compliance
+        and polish, not redesign.
+      </li>
+    </ul>
+
+    <p>
+      This structure matters because it prevents the most common failure mode in AI-heavy
+      development: implementation racing ahead of architecture and forcing the system to rationalize
+      drift after the fact.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Engineering Specifications</h2>
+
+    <p>
+      The engineering spec for this operating model does not merely describe features. It defines
+      behavioral law for the build process itself. That includes output format, file authority,
+      acceptance gates, CI discipline, and what kinds of changes are explicitly forbidden.
+    </p>
+
+    <p>In practical terms, the spec must answer these questions:</p>
+
+    <ul class="list">
+      <li>Which files are canonical inputs to the build?</li>
+      <li>What exact artifacts must each phase emit?</li>
+      <li>What counts as drift?</li>
+      <li>What work is allowed in hardening versus architecture?</li>
+      <li>How are assumptions surfaced and eliminated?</li>
+      <li>How does verification prove coverage rather than imply it?</li>
+      <li>How is output constrained so the system remains reproducible?</li>
+    </ul>
+
+    <h3>1. Output Discipline</h3>
+    <p>
+      Full-file emission matters because it prevents hidden partial edits, accidental omissions, and
+      conversational patch ambiguity. The system should produce complete artifacts, not vague change
+      suggestions.
+    </p>
+
+    <h3>2. Structure Discipline</h3>
+    <p>
+      New files may only exist if they are explicitly defined in the spec or derived in the
+      architecture plan with anchor mapping. Unanchored structure is drift.
+    </p>
+
+    <h3>3. Verification Discipline</h3>
+    <p>
+      Verification is not a final glance at output quality. It is a formal gate with required proof:
+      drift check empty, anchor coverage present, assumptions empty.
+    </p>
+
+    <h3>4. CI Discipline</h3>
+    <p>
+      The process assumes lint, typecheck, and build are mandatory. The agentic workflow is not
+      complete because it “looks right.” It is complete when the repo gates are green.
+    </p>
+
+    <h3>5. Idempotency Discipline</h3>
+    <p>
+      Every pass should be reproducible from scratch. The pipeline should not rely on hidden chat
+      context, implicit globals, or fragile one-off edits that cannot be replayed.
+    </p>
+
+    <h3>6. No-Hidden-Globals Rule</h3>
+    <p>
+      Environment requirements, allowed inputs, and tool expectations must be explicit. Invisible
+      ambient state is a major source of drift and operational failure.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Canonical Source Status</h2>
+
+    <p>
+      The canonical markdown for this case exists conceptually in the process and in the build
+      system behavior, but the final standalone blueprint/spec source files are not yet mirrored
+      into this site. That is a source-control gap, not an architectural gap.
+    </p>
+
+    <p>
+      The current page therefore documents the real operating model first. The canonical markdown
+      appendices for this case will be inserted once the finalized source artifacts are recovered
+      and committed.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>CI/CD and Verification Model</h2>
+
+    <p>
+      CI/CD is the external enforcement mechanism for this workflow. It is where subjective process
+      claims become objective pass/fail behavior.
+    </p>
+
+    <ul class="list">
+      <li>
+        <strong>Lint Required</strong><br />
+        Formatting and static quality discipline are not optional postscript tasks.
+      </li>
+      <li>
+        <strong>Typecheck Required</strong><br />
+        The pipeline must prove structural correctness, not just visual plausibility.
+      </li>
+      <li>
+        <strong>Build Required</strong><br />
+        A finished pass that does not build is not finished.
+      </li>
+      <li>
+        <strong>No Tooling Drift</strong><br />
+        The pipeline should not modify root build systems, lint configs, or monorepo behavior unless that
+        change is explicitly allowed by the spec.
+      </li>
+      <li>
+        <strong>Verification Before Completion</strong><br />
+        Completion requires verification pass, anchor coverage, assumptions collapsed to zero, and no
+        drift alert.
+      </li>
+    </ul>
+
+    <p>
+      The point is simple: the repo gates are the truth surface. Any agentic process that bypasses
+      them is theater.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Agentic Development Pipeline</h2>
+
+    <p>
+      The workflow is deliberately closer to a supervised build engine than a conversational coding
+      assistant. Roles are isolated. Scope is constrained. Output is artifact-based. Verification
+      has veto power.
+    </p>
+
+    <ul class="list">
+      <li>
+        <strong>Architect Role</strong><br />
+        Defines anchors, non-negotiables, and architecture plan. Cannot silently implement.
+      </li>
+      <li>
+        <strong>Tooling Role</strong><br />
+        Confirms CI commands, repo expectations, and allowed configs. Cannot invent new stack decisions.
+      </li>
+      <li>
+        <strong>Implementation Role</strong><br />
+        Produces code only from the approved architecture tree. Cannot expand scope because a new idea
+        appears attractive mid-pass.
+      </li>
+      <li>
+        <strong>Verification Role</strong><br />
+        Must halt the pass on drift, missing anchor coverage, or unresolved assumptions.
+      </li>
+    </ul>
+
+    <p>
+      This role separation is not ceremony. It is what allows the system to scale reasoning without
+      allowing authority to become ambiguous.
+    </p>
+
+    <p>
+      The hidden advantage is economic as well. By decomposing work into explicit phases, you can
+      route simpler tasks to cheaper model tiers and reserve expensive reasoning for architecture,
+      synthesis, and conflict resolution rather than paying premium rates for every token in the
+      loop.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Human Roles</h2>
+
+    <p>
+      Human involvement is not a sign that the pipeline is unfinished. It is where system quality
+      actually comes from.
+    </p>
+
+    <ul class="list">
+      <li>
+        <strong>Inspection</strong><br />
+        Humans inspect whether the output actually satisfies the real-world intent, not just the literal
+        text of the prompt.
+      </li>
+      <li>
+        <strong>Quality Control</strong><br />
+        Humans catch misframed assumptions, strategic mismatches, and low-signal cleverness.
+      </li>
+      <li>
+        <strong>Infra and Deployment Authority</strong><br />
+        Humans retain ownership of environment changes, release discipline, secrets handling, and operational
+        boundaries.
+      </li>
+      <li>
+        <strong>Specification Control</strong><br />
+        Humans are responsible for tightening the blueprint/spec pair when the process reveals new ambiguity.
+      </li>
+    </ul>
+
+    <p>
+      In short: the machine accelerates structured work, but the human remains accountable for
+      engineering judgment.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Security and Drift Control</h2>
+
+    <p>
+      In this operating model, security and drift control are tightly linked. A system that cannot
+      explain why a file exists, why a behavior changed, or where authority came from is both a
+      process problem and a security problem.
+    </p>
+
+    <ul class="list">
+      <li>
+        <strong>Drift Halt</strong><br />
+        If assumptions remain, anchors are incomplete, output format is violated, or unanchored files
+        appear, the correct behavior is to stop the pass.
+      </li>
+      <li>
+        <strong>No Hidden Globals</strong><br />
+        Environment requirements must be explicit. Hidden state makes both reproducibility and security
+        worse.
+      </li>
+      <li>
+        <strong>Scope-Constrained Output</strong><br />
+        The implementation agent should not expand capability beyond what the architecture already justified.
+      </li>
+      <li>
+        <strong>OS-Neutral, Repo-Relative Behavior</strong><br />
+        Process portability matters. Repo-relative paths and explicit assumptions reduce accidental environmental
+        coupling.
+      </li>
+      <li>
+        <strong>Artifact Traceability</strong><br />
+        Every meaningful output should map back to a phase, a purpose, and a source authority.
+      </li>
+    </ul>
+
+    <p>
+      The shortest summary is this: a safe agentic pipeline is not one that “does more.” It is one
+      that fails visibly, explains itself, and refuses to outrun its own specification.
     </p>
   </section>
 
