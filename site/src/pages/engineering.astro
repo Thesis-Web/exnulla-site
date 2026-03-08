@@ -1,5 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const engineeringDocs = import.meta.glob('../content/engineering/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+const aiDevkitBlueprint =
+  engineeringDocs['../content/engineering/ai-devkit-blueprint.md'] ??
+  '# Missing Blueprint Markdown';
+
+const aiDevkitSpec =
+  engineeringDocs['../content/engineering/ai-devkit-engineering-spec.md'] ??
+  '# Missing Engineering Spec Markdown';
 ---
 
 <BaseLayout
@@ -13,8 +27,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <p class="sub">
     This page documents the engineering process used to design, build, and operate complex software
     systems. It is intentionally detailed and technical. The goal is not to showcase outcomes, but
-    to expose the architecture, constraints, and decision frameworks behind those outcomes.
+    to expose the architecture, constraints, decision frameworks, control layers, and operating
+    discipline behind those outcomes.
   </p>
+
+  <div class="pillrow">
+    <span class="pill">Case 01 — Thesis Chain AI DevKit</span>
+    <span class="pill">Canonical Source Material Included</span>
+    <span class="pill">All Rights Reserved</span>
+  </div>
 
   <div class="hr"></div>
 
@@ -23,15 +44,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <p>
       Most portfolios show finished artifacts. This page shows the work behind those artifacts. It
-      describes how problems are framed, how constraints are defined, how systems are architected,
-      how AI-assisted development pipelines are structured, and how inspection and security are
-      enforced.
+      documents how problems are framed, how constraints are locked, how blueprints and engineering
+      specs are written, how CI/CD is used as an enforcement mechanism, how AI-assisted development
+      is bounded, and where human inspection remains authoritative.
     </p>
 
     <p>
-      The intent is to remove ambiguity about how engineering decisions are made. This is the
-      process I use when designing systems, building infrastructure, developing products, or
-      evaluating technical opportunities.
+      The intent is to remove ambiguity about what someone is actually hiring when they hire me. The
+      output matters, but the process matters more. This page is meant for technical readers,
+      operators, founders, and engineering leadership who want to inspect the system behind the
+      artifact rather than stop at the artifact itself.
     </p>
   </section>
 
@@ -42,31 +64,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <p>
       The material presented here reflects proprietary engineering processes and system design work.
-      These processes, architectures, and development methodologies are intellectual property. All
-      rights reserved.
+      These processes, architectures, methodologies, and planning artifacts are intellectual
+      property. All rights reserved.
     </p>
 
     <p>
       This page is provided for evaluation purposes only to demonstrate engineering capability,
-      decision discipline, and architectural reasoning.
+      architectural reasoning, system discipline, and execution quality.
     </p>
   </section>
 
   <div class="hr"></div>
 
   <section class="card">
-    <h2>Case Study: Thesis Chain AI DevKit</h2>
+    <h2>Case 01 — Thesis Chain AI DevKit</h2>
 
     <p>
       This case study examines the engineering process behind the Thesis Chain AI DevKit. The DevKit
       exists to safely integrate AI-assisted development into production-grade engineering workflows
-      while controlling cost, behavior, and security risks.
+      while controlling cost, behavior, nondeterminism, and security risk.
     </p>
 
     <p>
       Rather than treating AI as an autonomous authority, the DevKit treats model output as
-      untrusted input. Guardrails, validation layers, and deterministic inspection systems surround
-      the model to ensure the engineering system remains predictable and auditable.
+      untrusted input. Guardrails, validation layers, budget controls, policy checks, and human
+      inspection surround the model so the engineering system remains predictable, auditable, and
+      reviewable.
     </p>
   </section>
 
@@ -76,14 +99,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h2>Problem Definition</h2>
 
     <p>
-      Modern AI models can accelerate engineering work dramatically, but naïve integration
-      introduces severe risks: prompt injection, uncontrolled costs, nondeterministic output, and
-      potential leakage of sensitive data.
+      Modern AI models can accelerate engineering work dramatically, but naive integration
+      introduces severe risk: prompt injection, uncontrolled costs, nondeterministic output,
+      accidental data disclosure, weak reviewability, and silent drift in system behavior.
     </p>
 
     <p>
       Most AI-assisted development tooling assumes the model can be trusted to generate correct or
-      safe output. In practice this assumption fails frequently.
+      safe output. In practice this assumption fails often enough to make an unconstrained approach
+      unacceptable in serious engineering environments.
     </p>
 
     <p>The engineering problem addressed by the Thesis Chain AI DevKit is therefore:</p>
@@ -91,7 +115,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p>
       <strong>
         How can AI-assisted development be integrated into real engineering workflows while
-        maintaining deterministic control, cost discipline, and security guarantees?
+        maintaining deterministic control, cost discipline, bounded authority, and meaningful
+        security guarantees?
       </strong>
     </p>
   </section>
@@ -109,8 +134,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <ul class="list">
       <li>
         <strong>Token Budget Control</strong><br />
-        AI usage must operate under strict token ceilings. Models are selected intentionally based on
-        task complexity to avoid unnecessary cost.
+        AI usage must operate under strict token ceilings. Models are selected intentionally by task class
+        to avoid unnecessary cost.
       </li>
 
       <li>
@@ -120,32 +145,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </li>
 
       <li>
-        <strong>Guardrail First Architecture</strong><br />
-        Every model interaction must pass through validation layers including prompt sanitization, schema
-        validation, and output inspection.
+        <strong>Guardrail-First Architecture</strong><br />
+        Every model interaction must pass through validation layers including prompt screening, context
+        restriction, redaction, schema validation, and disposition control.
       </li>
 
       <li>
         <strong>Model Stratification</strong><br />
         Different models are used for different classes of work. Expensive models are reserved for tasks
-        that require deeper reasoning. Lower cost models are used for mechanical or verification tasks.
+        that genuinely require deeper synthesis. Lower-cost models handle mechanical or narrow work.
       </li>
 
       <li>
-        <strong>Fail Closed System Behavior</strong><br />
+        <strong>Fail-Closed System Behavior</strong><br />
         If validation fails or a guardrail triggers, the system rejects the output rather than attempting
         to recover silently.
       </li>
 
       <li>
         <strong>Human Inspection Authority</strong><br />
-        Human engineers retain final authority over merges, deployments, and architectural decisions.
+        Human engineers retain final authority over merges, deployments, architecture, and policy changes.
       </li>
 
       <li>
         <strong>Security Isolation</strong><br />
-        Sensitive information and secrets must never enter AI prompts. The system must operate under the
-        assumption that model outputs could be malicious or incorrect.
+        Sensitive information and secrets must never enter model context. The system must operate under
+        the assumption that model output could be malicious, confused, or incorrect.
       </li>
     </ul>
   </section>
@@ -158,86 +183,77 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p>
       The blueprint phase exists to lock system intent before implementation begins. Its purpose is
       not to describe code. Its purpose is to define the operational shape of the system: what the
-      system must do, what it must never do, how risk is bounded, where authority resides, and what
-      acceptance looks like before a single implementation choice is made.
+      system must do, what it must never do, how risk is bounded, where authority resides, how
+      inputs move, and what acceptance looks like before implementation starts.
     </p>
 
     <p>
       For the Thesis Chain AI DevKit, the blueprint establishes a guardrail-first architecture. The
       model is never placed at the center of the system. Instead, the model is wrapped inside a
       deterministic control envelope that constrains what context may be passed in, how requests are
-      formed, how outputs are parsed, and what conditions cause the system to reject the response
-      entirely.
+      formed, how outputs are parsed, and what conditions cause the system to reject the response.
     </p>
 
     <p>
       At blueprint level, the architecture is divided into ordered layers rather than loose feature
-      ideas. This matters because order determines safety. Cheap and deterministic checks execute
+      ideas. That matters because order determines safety. Cheap and deterministic checks execute
       first. Expensive and probabilistic work executes later, only after the input has been reduced,
-      normalized, and validated.
+      normalized, screened, and validated.
     </p>
 
     <ul class="list">
       <li>
         <strong>Input Boundary</strong><br />
-        The system begins by defining what material is even eligible to enter the AI path. Raw source
-        content, prompts, user instructions, repository data, and execution context are treated as separate
-        classes of input with different trust levels.
+        Raw source content, prompts, instructions, repository diffs, and execution context are treated
+        as separate classes of input with different trust levels.
       </li>
-
       <li>
         <strong>Redaction and Sanitization Layer</strong><br />
-        Before any model call is considered, sensitive information, secret-bearing content, irrelevant
-        data, and structurally dangerous prompt material must be removed or transformed. This prevents
-        accidental leakage and reduces the attack surface for prompt injection.
+        Secret-bearing content, irrelevant data, and structurally dangerous prompt material are removed
+        or transformed before a provider call is even possible.
       </li>
-
       <li>
         <strong>Context Minimization Layer</strong><br />
-        Only the minimum useful context should move forward. The blueprint rejects the common pattern
-        of dumping large amounts of repository state into a model prompt. The design intent is to reduce
-        token waste, reduce confusion, and preserve causal clarity between input and output.
+        Only the minimum useful context should move forward. This prevents whole-repo dumping, wasted
+        spend, and low-signal prompts.
       </li>
-
       <li>
         <strong>Budget and Routing Layer</strong><br />
-        The system determines whether the task is worth an AI call at all, and if so, which model tier
-        should receive it. This is where cost control becomes an architectural feature rather than an
-        afterthought.
+        The system decides whether a task deserves an AI call at all, and if it does, which model tier
+        should receive it.
       </li>
-
       <li>
         <strong>Provider Abstraction Layer</strong><br />
-        Model providers are treated as interchangeable execution surfaces, not sources of truth. The blueprint
-        intentionally avoids coupling core engineering logic to one model vendor or one model family.
+        Providers are execution surfaces, not sources of truth. Core engineering logic is not coupled
+        to one vendor.
       </li>
-
       <li>
         <strong>Schema and Validation Layer</strong><br />
-        The model output is not accepted as free-form prose. It must land inside a defined output contract.
-        If parsing fails, if required fields are absent, or if the output violates expected structure,
-        the response is rejected.
+        Output must fit a declared contract. If parsing fails or required structure is absent, the result
+        is rejected.
       </li>
-
       <li>
         <strong>Decision Boundary Layer</strong><br />
-        Even valid model output does not automatically gain authority. The system determines whether the
-        result is advisory, review-required, blocked, or safe to surface as a candidate artifact. This
-        preserves human control.
+        Even valid model output does not become authority automatically. The system classifies it as blocked,
+        advisory, review-required, or safe to surface.
       </li>
-
       <li>
         <strong>Audit and Replay Layer</strong><br />
-        Every meaningful execution path should be inspectable after the fact. The blueprint assumes that
-        a useful engineering system must be reviewable, explainable, and diagnosable under failure.
+        Every meaningful run should be inspectable after the fact. Useful engineering systems must be
+        reviewable, explainable, and diagnosable under failure.
       </li>
     </ul>
+  </section>
 
-    <p>
-      This blueprint style is intentionally restrictive. It prevents “smart assistant” drift by
-      forcing the system to behave like a bounded engineering subsystem instead of an
-      improvisational copilot.
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Canonical Blueprint Markdown</h2>
+    <p class="small">
+      The following appendix is mirrored locally from the AI DevKit source material and displayed
+      here as canonical markdown.
     </p>
+    <pre class="code-block"><code>{aiDevkitBlueprint}</code></pre>
   </section>
 
   <div class="hr"></div>
@@ -268,92 +284,283 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </ul>
 
     <p>
-      For the Thesis Chain AI DevKit, the engineering spec should be understood as a discipline
-      document, not just a technical one. It translates the system from “AI should help here” into
-      precise, enforceable behavior.
+      For the Thesis Chain AI DevKit, the engineering spec acts as a discipline document. It
+      translates “AI should help here” into precise, enforceable behavior.
     </p>
 
     <h3>1. Module Boundaries</h3>
-
     <p>
       The spec separates the system into modules with narrow responsibilities: input preparation,
       sanitization, routing, provider calls, parsing, validation, budget accounting, result
-      classification, and human inspection. This is done to eliminate hidden behavior. If a module
-      cannot be named and bounded, it is not ready to be implemented.
+      classification, and human inspection. If a module cannot be named and bounded, it is not ready
+      to be implemented.
     </p>
 
     <h3>2. Ordered Guardrails</h3>
-
     <p>
-      The spec fixes the order of operations. Guardrails do not exist as optional helpers. They are
-      part of the mainline execution path. This prevents later implementation from skipping risk
-      controls in the name of convenience.
+      Guardrails are fixed in sequence. They are not optional helpers. They are part of the main
+      execution path.
     </p>
 
     <h3>3. Output Contracts</h3>
-
     <p>
-      The spec defines what a valid model response looks like. Structured output contracts matter
-      because they make downstream handling deterministic. Free-form responses create hidden
-      interpretation costs and unstable failure modes.
+      The spec defines what a valid response looks like. Structured output contracts reduce hidden
+      interpretation costs and unstable downstream behavior.
     </p>
 
     <h3>4. Failure Semantics</h3>
-
     <p>
-      The spec identifies when the system must stop. A failed validation is not a soft suggestion. A
-      malformed response, budget breach, unsafe context match, or policy violation should terminate
-      the path and surface a visible failure state.
+      The spec identifies when the system must stop. A malformed response, budget breach, unsafe
+      context match, or policy violation should terminate the path and surface a visible failure
+      state.
     </p>
 
     <h3>5. Token and Cost Discipline</h3>
-
     <p>
-      Token use is specified as part of system design. Work is divided into classes: mechanical,
-      evaluative, synthesis-heavy, and ambiguous. These classes map to different model tiers and
-      different budget thresholds. The result is that cost control becomes reproducible rather than
-      emotional.
+      Work is divided into classes: mechanical, evaluative, synthesis-heavy, and ambiguous. These
+      classes map to different model tiers and different budget thresholds.
     </p>
 
     <h3>6. Inspection Requirements</h3>
-
     <p>
       The spec defines what must be visible to a human reviewer: prompt class, sanitized input
       summary, chosen model tier, token consumption, validation results, classification outcome, and
-      final disposition. Visibility is a core engineering feature because AI systems are otherwise
-      too opaque to operate reliably over time.
+      final disposition.
     </p>
 
     <h3>7. Non-Negotiables</h3>
-
     <p>
-      The strongest specs contain non-negotiables that implementation is not allowed to reinterpret.
-      Examples include no hidden globals, no silent fallback behavior, no speculative scope
-      expansion, no unbounded model calls, and no accepting model output as trusted state without
-      validation and review.
-    </p>
-
-    <p>
-      This is the difference between using AI as a novelty layer and integrating it as a disciplined
-      subsystem inside a real engineering environment.
+      The strongest specs contain non-negotiables that implementation is not allowed to reinterpret:
+      no hidden globals, no silent fallback behavior, no speculative scope expansion, no unbounded
+      model calls, and no accepting model output as trusted state without validation and review.
     </p>
   </section>
 
   <div class="hr"></div>
 
   <section class="card">
-    <h2>Next Sections</h2>
+    <h2>Canonical Engineering Spec Markdown</h2>
+    <p class="small">
+      The following appendix is mirrored locally from the AI DevKit source material and displayed
+      here as canonical markdown.
+    </p>
+    <pre class="code-block"><code>{aiDevkitSpec}</code></pre>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>CI/CD Integration</h2>
 
     <p>
-      The following sections document the remaining engineering process used to construct this
-      system.
+      CI/CD is not just a deployment mechanism. In systems like this, CI/CD is part of the control
+      surface. It enforces the difference between “interesting idea” and “repeatable engineering
+      behavior.”
+    </p>
+
+    <p>For an AI-assisted workflow, CI/CD must enforce at least four things:</p>
+
+    <ul class="list">
+      <li>
+        <strong>Deterministic execution paths</strong><br />
+        Cheap deterministic checks should run first and block unnecessary model calls.
+      </li>
+      <li>
+        <strong>Bounded permissions</strong><br />
+        CI jobs should default to read-only behavior, especially around repository state and merge authority.
+      </li>
+      <li>
+        <strong>Auditable artifacts</strong><br />
+        Outputs should be storable, reviewable, and attributable to a run context.
+      </li>
+      <li>
+        <strong>Version-locked automation</strong><br />
+        Actions, templates, schemas, and policies should be pinned so behavior does not drift silently.
+      </li>
+    </ul>
+
+    <p>
+      In practice, this means the pipeline treats AI as a bounded advisory subsystem. It can inspect
+      PR diffs, produce structured comments, and surface contradictions or risk, but it does not
+      silently mutate production state.
+    </p>
+
+    <p>
+      The important point is architectural: CI/CD is where enforcement lives. If the rules are not
+      enforced in the pipeline, then they are preferences, not controls.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Agentic Development Pipeline</h2>
+
+    <p>
+      This is the part most people misunderstand. Agentic development does not mean “use the most
+      powerful model on everything.” It means divide work into classes, apply deterministic gates,
+      route tasks to the cheapest sufficient capability, inspect aggressively, and preserve human
+      authority over consequential decisions.
     </p>
 
     <ul class="list">
-      <li>CI/CD Integration</li>
-      <li>Agentic Development Pipeline</li>
-      <li>Human Inspection Roles</li>
-      <li>Security Architecture</li>
+      <li>
+        <strong>Loop Control</strong><br />
+        Agent loops must be bounded. Maximum calls, maximum retries, maximum token budgets, and explicit
+        stop conditions are part of the system contract.
+      </li>
+
+      <li>
+        <strong>Task-Class Routing</strong><br />
+        Mechanical checks, narrow verification, contradiction detection, and low-ambiguity work should
+        go to cheaper model tiers or deterministic tooling first. Higher-cost reasoning should be reserved
+        for synthesis-heavy or ambiguous tasks.
+      </li>
+
+      <li>
+        <strong>Inspection Before Escalation</strong><br />
+        The system should not escalate spend just because a model produced an answer. It should inspect
+        quality, confidence, structure, and policy conformance before deciding whether more expensive
+        reasoning is justified.
+      </li>
+
+      <li>
+        <strong>Human-in-the-Loop as Authority</strong><br />
+        Human review is not an apology for the system. It is the authority boundary. Humans own interpretation,
+        exception handling, merge authority, and architectural direction.
+      </li>
+
+      <li>
+        <strong>Token Cost as Design Input</strong><br />
+        Token usage is not a dashboard vanity metric. It is an input into architectural choices. Model
+        selection, prompt size, context shape, cache strategy, and retry policy all exist to prevent spending
+        from becoming chaotic.
+      </li>
+
+      <li>
+        <strong>Auditability Over Cleverness</strong><br />
+        A boring, inspectable loop is superior to a clever opaque loop. In practice, predictable bounded
+        systems outperform magical-looking systems over time.
+      </li>
     </ul>
+
+    <p>
+      This is why I do not treat model choice as a status symbol. I treat it as routing policy.
+      Different work deserves different tools. Better systems come from disciplined orchestration,
+      not maximal model spend.
+    </p>
   </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Human Inspection Roles</h2>
+
+    <p>
+      Human inspection remains central in any serious AI-assisted engineering system. The goal is
+      not to remove humans from the loop. The goal is to remove low-value repetitive work while
+      preserving human judgment where ambiguity, business context, risk, or architecture matter.
+    </p>
+
+    <ul class="list">
+      <li>
+        <strong>Quality Control</strong><br />
+        Humans validate whether the output is actually useful, not merely well-formed.
+      </li>
+      <li>
+        <strong>Architectural Arbitration</strong><br />
+        Humans decide when a system behavior is technically possible but strategically wrong.
+      </li>
+      <li>
+        <strong>Infra and Policy Control</strong><br />
+        Humans own permissions, deployment boundaries, policy changes, and escalation paths.
+      </li>
+      <li>
+        <strong>Exception Handling</strong><br />
+        Humans interpret edge cases, conflict states, and cross-domain ambiguity.
+      </li>
+    </ul>
+
+    <p>
+      In other words: AI can accelerate analysis, summarization, contradiction discovery, and report
+      generation. It should not silently inherit decision authority just because it is fast.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Security Architecture</h2>
+
+    <p>
+      Security is not a final checklist item. In AI-assisted systems it must be designed into every
+      upstream layer: input handling, context assembly, provider boundaries, output validation, CI
+      permissions, and operational review.
+    </p>
+
+    <ul class="list">
+      <li>
+        <strong>Prompt Injection Resistance</strong><br />
+        PR authors, diffs, and input payloads are untrusted. Context must be screened before the provider
+        call.
+      </li>
+      <li>
+        <strong>Data Exfiltration Prevention</strong><br />
+        Sensitive paths, secrets, PII, and irrelevant configuration must be denied or redacted before
+        context assembly.
+      </li>
+      <li>
+        <strong>Least-Privilege Automation</strong><br />
+        Default pipeline permissions should be read-only unless explicit write behavior is required and
+        reviewed.
+      </li>
+      <li>
+        <strong>Authority Separation</strong><br />
+        AI output may be structured and useful without being authoritative. Deterministic checks and human
+        review remain the source of actual control.
+      </li>
+      <li>
+        <strong>Supply-Chain Discipline</strong><br />
+        Dependencies, Actions versions, templates, and schemas should be pinned so automation does not
+        drift into unknown behavior.
+      </li>
+      <li>
+        <strong>Visible Failure States</strong><br />
+        Unsafe or malformed behavior should surface as explicit failure. Silent recovery hides risk.
+      </li>
+    </ul>
+
+    <p>
+      The shortest honest summary is this: safe agent systems are built by distrusting them
+      correctly.
+    </p>
+  </section>
+
+  <style>
+    .code-block {
+      margin: 14px 0 0;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #0a101b;
+      color: var(--fg);
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .code-block code {
+      display: block;
+      font-family:
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+        monospace;
+    }
+
+    h3 {
+      margin: 16px 0 8px;
+      font-size: 16px;
+    }
+  </style>
 </BaseLayout>
