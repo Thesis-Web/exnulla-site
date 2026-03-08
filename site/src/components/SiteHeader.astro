@@ -130,6 +130,7 @@ const nav = [
     .inner {
       align-items: stretch;
       flex-direction: column;
+      gap: 12px;
     }
 
     .logo {
@@ -139,14 +140,14 @@ const nav = [
     .nav {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 8px;
       width: 100%;
     }
 
     .item {
       display: block;
       text-align: center;
-      padding: 10px 12px;
+      padding: 8px 10px;
       border: 1px solid var(--border);
       background: color-mix(in oklab, var(--card) 70%, transparent);
     }
@@ -154,7 +155,7 @@ const nav = [
     .cta {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 8px;
       width: 100%;
     }
 
@@ -167,7 +168,9 @@ const nav = [
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 48px;
+      min-height: 42px;
+      padding: 8px 10px;
+      font-size: 13px;
       text-align: center;
     }
   }
@@ -175,7 +178,7 @@ const nav = [
   @media (max-width: 520px) {
     .nav,
     .cta {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

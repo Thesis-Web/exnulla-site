@@ -169,4 +169,52 @@ import { LINKS } from '../components/siteConfig';
       <a class="btn ghost" href={LINKS.kick} target="_blank" rel="noreferrer">Kick</a>
     </div>
   </section>
+
+  <style>
+    .identity {
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .identity-inner {
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+      width: 100%;
+    }
+
+    .identity-inner img {
+      width: min(100%, 360px);
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      .identity-inner img {
+        width: min(100%, 300px);
+      }
+
+      .identity .btnrow {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        width: 100%;
+        justify-content: stretch !important;
+      }
+
+      .identity .btnrow .btn {
+        width: 100%;
+      }
+
+      .identity .btnrow .btn:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
 </BaseLayout>
