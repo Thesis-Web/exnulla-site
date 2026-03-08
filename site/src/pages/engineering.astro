@@ -1,0 +1,359 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Engineering Process — ExNulla"
+  description="A technical walkthrough of the systems engineering process behind ExNulla projects."
+  active="engineering"
+>
+  <div class="kicker">Engineering Process</div>
+  <h1 class="h1">What to Expect From Me</h1>
+
+  <p class="sub">
+    This page documents the engineering process used to design, build, and operate complex software
+    systems. It is intentionally detailed and technical. The goal is not to showcase outcomes, but
+    to expose the architecture, constraints, and decision frameworks behind those outcomes.
+  </p>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Why This Page Exists</h2>
+
+    <p>
+      Most portfolios show finished artifacts. This page shows the work behind those artifacts. It
+      describes how problems are framed, how constraints are defined, how systems are architected,
+      how AI-assisted development pipelines are structured, and how inspection and security are
+      enforced.
+    </p>
+
+    <p>
+      The intent is to remove ambiguity about how engineering decisions are made. This is the
+      process I use when designing systems, building infrastructure, developing products, or
+      evaluating technical opportunities.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Important Notice</h2>
+
+    <p>
+      The material presented here reflects proprietary engineering processes and system design work.
+      These processes, architectures, and development methodologies are intellectual property. All
+      rights reserved.
+    </p>
+
+    <p>
+      This page is provided for evaluation purposes only to demonstrate engineering capability,
+      decision discipline, and architectural reasoning.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Case Study: Thesis Chain AI DevKit</h2>
+
+    <p>
+      This case study examines the engineering process behind the Thesis Chain AI DevKit. The DevKit
+      exists to safely integrate AI-assisted development into production-grade engineering workflows
+      while controlling cost, behavior, and security risks.
+    </p>
+
+    <p>
+      Rather than treating AI as an autonomous authority, the DevKit treats model output as
+      untrusted input. Guardrails, validation layers, and deterministic inspection systems surround
+      the model to ensure the engineering system remains predictable and auditable.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Problem Definition</h2>
+
+    <p>
+      Modern AI models can accelerate engineering work dramatically, but naïve integration
+      introduces severe risks: prompt injection, uncontrolled costs, nondeterministic output, and
+      potential leakage of sensitive data.
+    </p>
+
+    <p>
+      Most AI-assisted development tooling assumes the model can be trusted to generate correct or
+      safe output. In practice this assumption fails frequently.
+    </p>
+
+    <p>The engineering problem addressed by the Thesis Chain AI DevKit is therefore:</p>
+
+    <p>
+      <strong>
+        How can AI-assisted development be integrated into real engineering workflows while
+        maintaining deterministic control, cost discipline, and security guarantees?
+      </strong>
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Engineering Constraints</h2>
+
+    <p>
+      Before architecture begins, the system must operate under explicit constraints. These
+      constraints shape every architectural decision and prevent design drift.
+    </p>
+
+    <ul class="list">
+      <li>
+        <strong>Token Budget Control</strong><br />
+        AI usage must operate under strict token ceilings. Models are selected intentionally based on
+        task complexity to avoid unnecessary cost.
+      </li>
+
+      <li>
+        <strong>Deterministic Behavior</strong><br />
+        Outputs must be inspectable and reproducible wherever possible. AI responses are never treated
+        as authoritative system state.
+      </li>
+
+      <li>
+        <strong>Guardrail First Architecture</strong><br />
+        Every model interaction must pass through validation layers including prompt sanitization, schema
+        validation, and output inspection.
+      </li>
+
+      <li>
+        <strong>Model Stratification</strong><br />
+        Different models are used for different classes of work. Expensive models are reserved for tasks
+        that require deeper reasoning. Lower cost models are used for mechanical or verification tasks.
+      </li>
+
+      <li>
+        <strong>Fail Closed System Behavior</strong><br />
+        If validation fails or a guardrail triggers, the system rejects the output rather than attempting
+        to recover silently.
+      </li>
+
+      <li>
+        <strong>Human Inspection Authority</strong><br />
+        Human engineers retain final authority over merges, deployments, and architectural decisions.
+      </li>
+
+      <li>
+        <strong>Security Isolation</strong><br />
+        Sensitive information and secrets must never enter AI prompts. The system must operate under the
+        assumption that model outputs could be malicious or incorrect.
+      </li>
+    </ul>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Blueprint Architecture</h2>
+
+    <p>
+      The blueprint phase exists to lock system intent before implementation begins. Its purpose is
+      not to describe code. Its purpose is to define the operational shape of the system: what the
+      system must do, what it must never do, how risk is bounded, where authority resides, and what
+      acceptance looks like before a single implementation choice is made.
+    </p>
+
+    <p>
+      For the Thesis Chain AI DevKit, the blueprint establishes a guardrail-first architecture. The
+      model is never placed at the center of the system. Instead, the model is wrapped inside a
+      deterministic control envelope that constrains what context may be passed in, how requests are
+      formed, how outputs are parsed, and what conditions cause the system to reject the response
+      entirely.
+    </p>
+
+    <p>
+      At blueprint level, the architecture is divided into ordered layers rather than loose feature
+      ideas. This matters because order determines safety. Cheap and deterministic checks execute
+      first. Expensive and probabilistic work executes later, only after the input has been reduced,
+      normalized, and validated.
+    </p>
+
+    <ul class="list">
+      <li>
+        <strong>Input Boundary</strong><br />
+        The system begins by defining what material is even eligible to enter the AI path. Raw source
+        content, prompts, user instructions, repository data, and execution context are treated as separate
+        classes of input with different trust levels.
+      </li>
+
+      <li>
+        <strong>Redaction and Sanitization Layer</strong><br />
+        Before any model call is considered, sensitive information, secret-bearing content, irrelevant
+        data, and structurally dangerous prompt material must be removed or transformed. This prevents
+        accidental leakage and reduces the attack surface for prompt injection.
+      </li>
+
+      <li>
+        <strong>Context Minimization Layer</strong><br />
+        Only the minimum useful context should move forward. The blueprint rejects the common pattern
+        of dumping large amounts of repository state into a model prompt. The design intent is to reduce
+        token waste, reduce confusion, and preserve causal clarity between input and output.
+      </li>
+
+      <li>
+        <strong>Budget and Routing Layer</strong><br />
+        The system determines whether the task is worth an AI call at all, and if so, which model tier
+        should receive it. This is where cost control becomes an architectural feature rather than an
+        afterthought.
+      </li>
+
+      <li>
+        <strong>Provider Abstraction Layer</strong><br />
+        Model providers are treated as interchangeable execution surfaces, not sources of truth. The blueprint
+        intentionally avoids coupling core engineering logic to one model vendor or one model family.
+      </li>
+
+      <li>
+        <strong>Schema and Validation Layer</strong><br />
+        The model output is not accepted as free-form prose. It must land inside a defined output contract.
+        If parsing fails, if required fields are absent, or if the output violates expected structure,
+        the response is rejected.
+      </li>
+
+      <li>
+        <strong>Decision Boundary Layer</strong><br />
+        Even valid model output does not automatically gain authority. The system determines whether the
+        result is advisory, review-required, blocked, or safe to surface as a candidate artifact. This
+        preserves human control.
+      </li>
+
+      <li>
+        <strong>Audit and Replay Layer</strong><br />
+        Every meaningful execution path should be inspectable after the fact. The blueprint assumes that
+        a useful engineering system must be reviewable, explainable, and diagnosable under failure.
+      </li>
+    </ul>
+
+    <p>
+      This blueprint style is intentionally restrictive. It prevents “smart assistant” drift by
+      forcing the system to behave like a bounded engineering subsystem instead of an
+      improvisational copilot.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Engineering Specifications</h2>
+
+    <p>
+      If the blueprint defines intent, the engineering specification defines execution. This is
+      where high-level architectural ideas are converted into a buildable, inspectable, and testable
+      system. In my process, the engineering spec is not a light outline. It is the document that
+      removes ambiguity from implementation.
+    </p>
+
+    <p>
+      The engineering spec for an AI-assisted development system must answer several questions
+      explicitly:
+    </p>
+
+    <ul class="list">
+      <li>What modules exist, and what are their exact responsibilities?</li>
+      <li>What data enters and leaves each boundary?</li>
+      <li>What conditions are blocking conditions versus warning conditions?</li>
+      <li>Where does the system fail closed?</li>
+      <li>What is human-reviewed, and what is machine-validated?</li>
+      <li>How are token budgets measured, enforced, and audited?</li>
+      <li>How are outputs replayed, inspected, and compared?</li>
+    </ul>
+
+    <p>
+      For the Thesis Chain AI DevKit, the engineering spec should be understood as a discipline
+      document, not just a technical one. It translates the system from “AI should help here” into
+      precise, enforceable behavior.
+    </p>
+
+    <h3>1. Module Boundaries</h3>
+
+    <p>
+      The spec separates the system into modules with narrow responsibilities: input preparation,
+      sanitization, routing, provider calls, parsing, validation, budget accounting, result
+      classification, and human inspection. This is done to eliminate hidden behavior. If a module
+      cannot be named and bounded, it is not ready to be implemented.
+    </p>
+
+    <h3>2. Ordered Guardrails</h3>
+
+    <p>
+      The spec fixes the order of operations. Guardrails do not exist as optional helpers. They are
+      part of the mainline execution path. This prevents later implementation from skipping risk
+      controls in the name of convenience.
+    </p>
+
+    <h3>3. Output Contracts</h3>
+
+    <p>
+      The spec defines what a valid model response looks like. Structured output contracts matter
+      because they make downstream handling deterministic. Free-form responses create hidden
+      interpretation costs and unstable failure modes.
+    </p>
+
+    <h3>4. Failure Semantics</h3>
+
+    <p>
+      The spec identifies when the system must stop. A failed validation is not a soft suggestion. A
+      malformed response, budget breach, unsafe context match, or policy violation should terminate
+      the path and surface a visible failure state.
+    </p>
+
+    <h3>5. Token and Cost Discipline</h3>
+
+    <p>
+      Token use is specified as part of system design. Work is divided into classes: mechanical,
+      evaluative, synthesis-heavy, and ambiguous. These classes map to different model tiers and
+      different budget thresholds. The result is that cost control becomes reproducible rather than
+      emotional.
+    </p>
+
+    <h3>6. Inspection Requirements</h3>
+
+    <p>
+      The spec defines what must be visible to a human reviewer: prompt class, sanitized input
+      summary, chosen model tier, token consumption, validation results, classification outcome, and
+      final disposition. Visibility is a core engineering feature because AI systems are otherwise
+      too opaque to operate reliably over time.
+    </p>
+
+    <h3>7. Non-Negotiables</h3>
+
+    <p>
+      The strongest specs contain non-negotiables that implementation is not allowed to reinterpret.
+      Examples include no hidden globals, no silent fallback behavior, no speculative scope
+      expansion, no unbounded model calls, and no accepting model output as trusted state without
+      validation and review.
+    </p>
+
+    <p>
+      This is the difference between using AI as a novelty layer and integrating it as a disciplined
+      subsystem inside a real engineering environment.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <h2>Next Sections</h2>
+
+    <p>
+      The following sections document the remaining engineering process used to construct this
+      system.
+    </p>
+
+    <ul class="list">
+      <li>CI/CD Integration</li>
+      <li>Agentic Development Pipeline</li>
+      <li>Human Inspection Roles</li>
+      <li>Security Architecture</li>
+    </ul>
+  </section>
+</BaseLayout>
