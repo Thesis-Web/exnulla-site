@@ -5,51 +5,88 @@ import { LINKS } from '../components/siteConfig';
 
 <BaseLayout
   title="Press Kit — ExNulla"
-  description="Logos, colors, short bio, and screenshots."
+  description="Background, positioning, and contact information for ExNulla."
   active="press-kit"
 >
   <div class="kicker">Press Kit</div>
   <h1 class="h1">Press Kit</h1>
   <p class="sub">
-    Logos, colors, short bio, and screenshots for collaborators, podcasts, or write-ups. Assets will
-    land in <code>/assets/branding</code> in M2/M3.
+    Background and contact context for collaborators, podcasts, recruiters, founders, and technical
+    write-ups.
   </p>
 
   <div class="btnrow">
-    <a class="btn primary" href={LINKS.youtube} target="_blank" rel="noreferrer">YouTube</a>
+    <a class="btn primary" href="/cv">Open CV</a>
+    <a class="btn ghost" href="/projects">View Projects</a>
     <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
     <a class="btn ghost" href="/contact">Contact</a>
   </div>
 
   <div class="hr"></div>
 
+  <section class="card">
+    <h2>Overview</h2>
+    <p>
+      ExNulla is a public engineering ecosystem built to demonstrate systems architecture,
+      infrastructure discipline, and execution in the open.
+    </p>
+    <p>
+      Built a complete public engineering ecosystem from initial concept to production —
+      architecture, repositories, CI/CD, infrastructure, demos, documentation, and developer
+      workflow — in 23 days as a single operator using a structured AI-assisted development
+      pipeline.
+    </p>
+  </section>
+
+  <div class="hr"></div>
+
   <section class="grid grid-2">
     <div class="card">
-      <h2>Short bio</h2>
-      <p class="small">
-        ExNulla is a public proof-of-work portfolio: systems architecture, infrastructure, and
-        product execution. Static-first case studies with runnable demos, shipped behind Nginx with
-        atomic releases.
-      </p>
+      <h2>What ExNulla demonstrates</h2>
       <ul class="list">
-        <li>Focus: architecture + infra + execution</li>
-        <li>Format: docs + demos + streams</li>
-        <li>CTA: live builds + LinkedIn</li>
+        <li>Constraints-first systems design rather than presentation-first portfolio work.</li>
+        <li>Deterministic build and deployment thinking across docs, code, and infrastructure.</li>
+        <li>
+          Public proof-of-work: case studies, runnable demos, streams, and engineering artifacts.
+        </li>
+        <li>
+          End-to-end operator ownership across design, architecture, build, deploy, and narrative.
+        </li>
       </ul>
     </div>
 
     <div class="card">
-      <h2>Brand (placeholder)</h2>
+      <h2>Relevant audiences</h2>
       <ul class="list">
-        <li><strong>Name:</strong> ExNulla</li>
-        <li><strong>Mark:</strong> “∅” (temporary glyph)</li>
-        <li><strong>Colors:</strong> dark base + high-contrast accents (refine later)</li>
+        <li>Hiring managers evaluating senior engineering judgment.</li>
+        <li>Founders looking for architecture plus execution, not just implementation.</li>
+        <li>Podcasts or media covering AI-assisted development and systems design.</li>
+        <li>Technical collaborators who want to inspect real artifacts instead of summaries.</li>
       </ul>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="grid grid-2">
+    <div class="card">
+      <h2>About James Huson</h2>
+      <p class="small">
+        James Huson is a systems-focused builder working across architecture, infrastructure,
+        deployment, documentation, and public technical narrative. ExNulla is the operating proof:
+        not a static portfolio, but a working engineering environment built and run in public.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Core themes</h2>
       <div class="pillrow">
-        <span class="pill">#0b0e14</span>
-        <span class="pill">#e8eefc</span>
-        <span class="pill">#101624</span>
-        <span class="pill">#22304a</span>
+        <span class="pill">Systems Architecture</span>
+        <span class="pill">Infrastructure</span>
+        <span class="pill">CI/CD</span>
+        <span class="pill">Static-First</span>
+        <span class="pill">Public Proof-of-Work</span>
+        <span class="pill">AI-Assisted Development</span>
       </div>
     </div>
   </section>
@@ -57,11 +94,15 @@ import { LINKS } from '../components/siteConfig';
   <div class="hr"></div>
 
   <section class="card">
-    <h2>Assets (TODO)</h2>
-    <ul class="list">
-      <li>Add logos (SVG/PNG) to <code>assets/branding/</code></li>
-      <li>Add screenshots to <code>assets/screenshots/</code></li>
-      <li>Add a one-sheet PDF export if needed</li>
-    </ul>
+    <h2>Contact and references</h2>
+    <div class="btnrow">
+      <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+      <a class="btn ghost" href={LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
+      <a class="btn ghost" href={LINKS.youtube} target="_blank" rel="noreferrer">YouTube</a>
+      <a class="btn ghost" href={LINKS.kick} target="_blank" rel="noreferrer">Kick</a>
+    </div>
+    <p class="small" style="margin-top:12px">
+      For interviews, collaborations, or technical discussions, use the contact page or LinkedIn.
+    </p>
   </section>
 </BaseLayout>
