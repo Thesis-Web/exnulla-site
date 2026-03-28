@@ -373,14 +373,13 @@ export const BASE_LAB_TILES: LabTile[] = [
     source: 'repo: exnulla-demos/apps/intent-file-router',
   },
   {
-    name: 'Orbital Compute Node Sizing Sandbox',
+    name: 'Orbital Thermal Trade System',
     blurb:
-      'COMING SOON — Interactive sizing sandbox for a 50 kW orbital compute node. Adjust compute load, thermal assumptions, and radiator temperature, then see what binds first: power, heat rejection, or packaging.',
+      'Live — Full orbital compute node thermal trade tool. Configure compute payload, thermal architecture, radiator sizing, and optional branches. Runtime-authoritative outputs. Token-gated — request access to run.',
     tier: 2,
-    tags: ['coming-soon', 'orbital', 'thermal', 'systems'],
-    href: '/lab',
-    source: 'spec: exnulla-demos/docs/*orbital-node-sizing-50kw*',
-    // demoPath intentionally omitted
+    tags: ['orbital', 'thermal', 'systems', 'runtime'],
+    href: 'https://orbital.exnulla.com',
+    source: 'repo: space-server-heat-dissipation (private)',
   },
   {
     name: 'Identity Without Disclosure',
