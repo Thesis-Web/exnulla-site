@@ -379,6 +379,7 @@ export const BASE_LAB_TILES: LabTile[] = [
     tier: 2,
     tags: ['orbital', 'thermal', 'systems', 'runtime'],
     href: 'https://orbital.exnulla.com',
+    demoPath: 'https://orbital.exnulla.com',
     source: 'repo: space-server-heat-dissipation (private)',
   },
   {
