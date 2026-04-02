@@ -10,22 +10,22 @@ const engineeringDocs = import.meta.glob('../content/engineering/*.md', {
 
 const aiDevkitBlueprint = marked.parse(
   engineeringDocs['../content/engineering/ai-devkit-blueprint.md'] ??
-  '# Missing Blueprint Markdown'
+    '# Missing Blueprint Markdown',
 );
 
 const aiDevkitSpec = marked.parse(
   engineeringDocs['../content/engineering/ai-devkit-engineering-spec.md'] ??
-  '# Missing Engineering Spec Markdown'
+    '# Missing Engineering Spec Markdown',
 );
 
 const orchestrationLabBlueprint = marked.parse(
   engineeringDocs['../content/engineering/orchestration-lab-blueprint.md'] ??
-  '# Missing Orchestration Lab Blueprint Markdown'
+    '# Missing Orchestration Lab Blueprint Markdown',
 );
 
 const orchestrationLabSpec = marked.parse(
   engineeringDocs['../content/engineering/orchestration-lab-engineering-spec.md'] ??
-  '# Missing Orchestration Lab Engineering Spec Markdown'
+    '# Missing Orchestration Lab Engineering Spec Markdown',
 );
 ---
 
@@ -963,7 +963,9 @@ const orchestrationLabSpec = marked.parse(
       background: #080d14;
       color: #8b949e;
       overflow-x: auto;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      font-family:
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+        monospace;
       font-size: 13px;
       line-height: 1.7;
     }
