@@ -402,6 +402,16 @@ export const BASE_LAB_TILES: LabTile[] = [
     source: 'spec: exnulla-demos/docs/*safe-agent-pipeline*',
     // demoPath intentionally omitted
   },
+  {
+    name: 'Conformance Runtime Engine',
+    blurb:
+      'Invitation only. Can an LLM-backed runtime meet government-grade engineering conformance specs? Upload a regulated certification package. Get source-cited findings back. Token-gated — request access.',
+    tier: 2,
+    tags: ['invitation-only', 'conformance', 'runtime', 'engineering'],
+    href: 'https://cers.exnulla.com',
+    demoPath: 'https://cers.exnulla.com',
+    source: 'repo: conformance-engine-runtime-system (private)',
+  },
 ];
 
 export const LAB_TILES: LabTile[] = [...BASE_LAB_TILES];
