@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const VIDEO_SRC = '/media/efficiency-of-time-james-huson.mp4';
+---
+
+<BaseLayout
+  title="The Efficiency of Time"
+  description="The Efficiency of Time — a short video essay by James Huson."
+  noindex={true}
+>
+  <div class="kicker">Video</div>
+  <h1 class="h1">The Efficiency of Time</h1>
+  <p class="sub">James Huson</p>
+
+  <div class="video-wrap">
+    <video controls playsinline preload="metadata">
+      <source src={VIDEO_SRC} type="video/mp4" />
+      <a href={VIDEO_SRC}>Download the video</a>
+    </video>
+  </div>
+</BaseLayout>
+
+<style>
+  .video-wrap {
+    margin-top: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>
