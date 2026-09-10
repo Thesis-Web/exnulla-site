@@ -1,5 +1,4 @@
 ---
-import WatchButton from './WatchButton.astro';
 import { LINKS } from './siteConfig';
 type Props = { active?: string };
 const { active = '' } = Astro.props;
@@ -34,7 +33,7 @@ const nav = [
 
     <div class="cta">
       <a class="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-      <WatchButton />
+      <a class="btn primary" href={LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
     </div>
   </div>
 </header>

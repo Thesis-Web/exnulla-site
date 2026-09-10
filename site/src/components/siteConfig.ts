@@ -28,6 +28,7 @@ export type LabTile = {
   tags: string[];
   href: string;
   source?: string;
+  repo?: string;
   demoPath?: string;
   docsPath?: string;
 };
@@ -116,7 +117,7 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
         heading: 'Problem',
         body: [
           'A serious portfolio cannot read like a brochure. It has to load fast, survive infra mistakes, and prove real engineering work without forcing the whole site into a heavy SPA runtime.',
-          'The site also had to support embedded lab demos, public case studies, live stream status, and iterative shipping on a single droplet without turning deployment into a trust fall.',
+          'The site also had to support embedded lab demos, public case studies, and iterative shipping on a single droplet without turning deployment into a trust fall.',
         ],
       },
       {
@@ -124,7 +125,7 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
         body: [
           'Production serving is static Nginx, not an always-on app server; this keeps the runtime simple and failure recovery legible.',
           'Atomic release discipline matters because a bad build can otherwise publish an empty or partial site. Build output is generated under site/dist, promoted into releases/<timestamp>, and only then exposed by flipping the current symlink.',
-          'The live stream indicator is intentionally isolated under shared/stream so normal site deploys do not overwrite runtime status state.',
+          'Dynamic behavior is isolated to sandboxed demo windows so normal site deploys remain static, fast, and easy to reason about.',
           'Interactive demos are built as separate artifacts and copied into /demos/<slug>/ so the main site remains fast while the lab can still host richer proof-of-work modules.',
         ],
       },
@@ -210,12 +211,7 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
       'A streaming system treated as an operations problem: reduce hidden state, reduce operator fatigue, remove brittle hops, generate assets from code where useful, and standardize the path from “going live” to “recovering when something breaks.”',
     tags: ['obs', 'automation', 'ops', 'runbooks', 'streamerbot'],
     repo: 'https://github.com/Thesis-Web/exnulla-stream-ops',
-    links: [
-      { label: 'Repo', href: 'https://github.com/Thesis-Web/exnulla-stream-ops' },
-      { label: 'Kick', href: LINKS.kick },
-      { label: 'Twitch', href: LINKS.twitch },
-      { label: 'YouTube', href: LINKS.youtube },
-    ],
+    links: [{ label: 'Repo', href: 'https://github.com/Thesis-Web/exnulla-stream-ops' }],
     sections: [
       {
         heading: 'Problem',
@@ -341,16 +337,6 @@ export const PROOF_OF_TALENT = [
     wow: 'Strict normalization + validation + deterministic plan output; tested + CI gated',
     status: 'live',
   },
-  {
-    slug: 'exnulla-stream-ops',
-    title: 'exnulla-stream-ops',
-    subtitle: 'Reactive live status runner (stream/status.json)',
-    repo: 'https://github.com/Thesis-Web/exnulla-site',
-    demoPath: '/stream/status.json',
-    type: 'meta',
-    wow: 'Static-first site with dynamic status isolated under shared/stream alias',
-    status: 'live',
-  },
 ] as const;
 
 /**
@@ -375,42 +361,46 @@ export const BASE_LAB_TILES: LabTile[] = [
   {
     name: 'Orbital Thermal Trade System',
     blurb:
-      'Live — Full orbital compute node thermal trade tool. Configure compute payload, thermal architecture, radiator sizing, and optional branches. Runtime-authoritative outputs. Token-gated — request access to run.',
+      'Interactive orbital compute node thermal trade tool. Configure compute payload, thermal architecture, radiator sizing, and optional branches with runtime-authoritative outputs.',
     tier: 2,
     tags: ['orbital', 'thermal', 'systems', 'runtime'],
     href: 'https://orbital.exnulla.com',
     demoPath: 'https://orbital.exnulla.com',
-    source: 'repo: space-server-heat-dissipation (private)',
+    repo: 'https://github.com/Thesis-Web/space-server-heat-dissipation',
+    source: 'repo: Thesis-Web/space-server-heat-dissipation',
   },
   {
     name: 'Identity Without Disclosure',
     blurb:
-      'COMING SOON — Privacy-by-design visualizer for predicate attestations. See how a system can verify properties like uniqueness or eligibility without exposing identity material, while still preventing cross-vendor gaming.',
+      'Privacy-by-design visualizer for predicate attestations. See how a system can verify properties like uniqueness or eligibility without exposing identity material, while still preventing cross-vendor gaming.',
     tier: 2,
     tags: ['coming-soon', 'identity', 'privacy', 'protocol'],
-    href: '/lab',
-    source: 'spec: exnulla-demos/docs/*identity-without-disclosure*',
+    href: 'https://github.com/Thesis-Web/exnulla-demos',
+    repo: 'https://github.com/Thesis-Web/exnulla-demos',
+    source: 'repo: Thesis-Web/exnulla-demos',
     // demoPath intentionally omitted
   },
   {
     name: 'Safe Agent Pipeline',
     blurb:
-      'COMING SOON — Guardrail-first AI pipeline demo built around schema gates, redaction, injection resistance, budgets, cache behavior, and auditable traces. Designed to show how AI features can be shipped without giving up control.',
+      'Guardrail-first AI pipeline built around schema gates, redaction, injection resistance, budgets, cache behavior, and auditable traces. Designed to show how AI features can be shipped without giving up control.',
     tier: 2,
     tags: ['coming-soon', 'agents', 'guardrails', 'audit'],
-    href: '/lab',
-    source: 'spec: exnulla-demos/docs/*safe-agent-pipeline*',
+    href: 'https://github.com/Thesis-Web/exnulla-demos',
+    repo: 'https://github.com/Thesis-Web/exnulla-demos',
+    source: 'repo: Thesis-Web/exnulla-demos',
     // demoPath intentionally omitted
   },
   {
     name: 'Conformance Runtime Engine',
     blurb:
-      'Invitation only. Can an LLM-backed runtime meet government-grade engineering conformance specs? Upload a regulated certification package. Get source-cited findings back. Token-gated — request access.',
+      'LLM-backed runtime for regulated certification packages. Upload a package and receive source-cited engineering findings with a conformance-oriented workflow.',
     tier: 2,
-    tags: ['invitation-only', 'conformance', 'runtime', 'engineering'],
+    tags: ['conformance', 'runtime', 'engineering', 'audit'],
     href: 'https://cers.exnulla.com',
     demoPath: 'https://cers.exnulla.com',
-    source: 'repo: conformance-engine-runtime-system (private)',
+    repo: 'https://github.com/Thesis-Web/conformance-engine-runtime-system',
+    source: 'repo: Thesis-Web/conformance-engine-runtime-system',
   },
 ];
 

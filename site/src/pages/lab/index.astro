@@ -15,12 +15,12 @@ const tierLabel = (t: 1 | 2 | 3) =>
   <h1 class="h1">ExNulla Lab</h1>
   <p class="sub">
     Click a tile to run it. Only one demo runs at a time. Demos are sandboxed and lifecycle-managed
-    to keep the shell fast.
+    to keep the shell fast; source links are available beside each artifact.
   </p>
 
   <div class="text-sm text-white/60 mt-4">
-    Three additional production demos are in build now: orbital sizing, identity without disclosure,
-    and safe agent pipeline.
+    The source is part of the proof. Public repositories are linked directly so the implementation,
+    specifications, and trade-offs can be inspected without requesting access.
   </div>
 
   <div class="hr"></div>
@@ -80,6 +80,11 @@ const tierLabel = (t: 1 | 2 | 3) =>
             {d.docsPath ? (
               <a class="btn ghost" href={d.docsPath}>
                 Docs
+              </a>
+            ) : null}
+            {d.repo ? (
+              <a class="btn ghost" href={d.repo} target="_blank" rel="noreferrer">
+                Source
               </a>
             ) : null}
           </div>
