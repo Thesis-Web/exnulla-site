@@ -384,9 +384,9 @@ export const BASE_LAB_TILES: LabTile[] = [
   {
     name: 'Safe Agent Pipeline',
     blurb:
-      'Modernized public simulator of the original guardrail-first design: typed policy, redaction, prompt-injection defense, bounded budgets, provider adapters, schema validation, and sealed audit traces.',
+      'Cortex-informed control-plane walkthrough: a project manager ingests a problem, designs bounded headless workers, listens for liveness and completion signals, and admits only verified artifacts.',
     tier: 2,
-    tags: ['agents', 'guardrails', 'audit', 'provider-boundary'],
+    tags: ['agents', 'project-manager', 'listeners', 'artifacts'],
     href: '/lab',
     demoPath: '/demos/safe-agent-pipeline/index.html',
     docsPath: 'https://github.com/Thesis-Web/exnulla-demos/blob/main/docs/engineering-specs/exnulla-demo-engineering-spec-safe-agent-pipeline-1-0-0.md',
