@@ -69,6 +69,10 @@ jobs:
         run: pnpm -C apps/safe-agent-pipeline build
         working-directory: exnulla-demos
 
+      - name: Build content-addressed-storage demo
+        run: pnpm -C apps/content-addressed-storage build
+        working-directory: exnulla-demos
+
       - name: Sync demo dist into exnulla-site public
         shell: bash
         run: |
@@ -88,6 +92,11 @@ jobs:
             exnulla-demos/apps/safe-agent-pipeline/dist/ \
             site/public/demos/safe-agent-pipeline/
           test -f site/public/demos/safe-agent-pipeline/index.html
+          mkdir -p site/public/demos/content-addressed-storage
+          rsync -a --delete \
+            exnulla-demos/apps/content-addressed-storage/dist/ \
+            site/public/demos/content-addressed-storage/
+          test -f site/public/demos/content-addressed-storage/index.html
 
       # exnulla-site build
       - name: Install deps (root)
@@ -109,6 +118,7 @@ jobs:
           test -f site/dist/demos/intent-file-router/index.html
           test -f site/dist/demos/identity-without-disclosure/index.html
           test -f site/dist/demos/safe-agent-pipeline/index.html
+          test -f site/dist/demos/content-addressed-storage/index.html
 
       # deploy
       - name: Load SSH key (agent)

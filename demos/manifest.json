@@ -1,6 +1,6 @@
 {
   "repo": "Thesis-Web/exnulla-demos",
-  "ref": "b844d030495f993f5a9fe8cfe1fc041d45b1c55e",
+  "ref": "e143499e6e36c18b4797afe8f61e05beb493a53c",
   "demos": [
     {
       "slug": "intent-file-router",
@@ -13,6 +13,10 @@
     {
       "slug": "safe-agent-pipeline",
       "distPath": "apps/safe-agent-pipeline/dist"
+    },
+    {
+      "slug": "content-addressed-storage",
+      "distPath": "apps/content-addressed-storage/dist"
     }
   ]
 }

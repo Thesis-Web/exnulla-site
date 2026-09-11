@@ -394,6 +394,18 @@ export const BASE_LAB_TILES: LabTile[] = [
     source: 'repo: Thesis-Web/exnulla-demos',
   },
   {
+    name: 'Content-Addressed Storage',
+    blurb:
+      'Store by what content is, not where you put it. Real client-side SHA-256 fingerprints, deduplication across addresses, an address that refuses to be silently repointed, and tampering caught the moment it is read back.',
+    tier: 2,
+    tags: ['storage', 'hashing', 'integrity', 'simulator'],
+    href: '/lab',
+    demoPath: '/demos/content-addressed-storage/index.html',
+    docsPath: 'https://github.com/Thesis-Web/exnulla-demos/blob/main/apps/content-addressed-storage/README.md',
+    repo: 'https://github.com/Thesis-Web/exnulla-demos',
+    source: 'repo: Thesis-Web/exnulla-demos',
+  },
+  {
     name: 'Conformance Runtime Engine',
     blurb:
       'LLM-backed runtime for regulated certification packages. Upload a package and receive source-cited engineering findings with a conformance-oriented workflow.',

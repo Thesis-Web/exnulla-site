@@ -32,6 +32,7 @@ test -f "$REMOTE_RELEASE_DIR/meta/version.json"
 test -f "$REMOTE_RELEASE_DIR/demos/intent-file-router/index.html"
 test -f "$REMOTE_RELEASE_DIR/demos/identity-without-disclosure/index.html"
 test -f "$REMOTE_RELEASE_DIR/demos/safe-agent-pipeline/index.html"
+test -f "$REMOTE_RELEASE_DIR/demos/content-addressed-storage/index.html"
 
 ln -sfnT "${REMOTE_RELEASE_DIR}" "${DEPLOY_PATH}/current"
 
