@@ -1,19 +1,76 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { LINKS } from '../components/siteConfig';
 
 type Props = {
   title: string;
   description?: string;
   active?: string;
   noindex?: boolean;
+  image?: string;
+  type?: 'website' | 'profile' | 'article';
 };
 const {
   title,
   description = 'Digital CV + Interactive Lab',
   active = '',
   noindex = false,
+  image = '/assets/James-Headshot.jpg',
+  type = 'website',
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageURL = new URL(image, Astro.site);
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'James Huson',
+  alternateName: 'ExNulla',
+  url: 'https://www.exnulla.com',
+  image: new URL('/assets/James-Headshot.jpg', Astro.site).toString(),
+  jobTitle: 'Applied AI Systems Engineer',
+  description:
+    'Applied AI systems engineer building auditable agent workflows, governed runtimes, and production delivery systems. Remote, Texas-based.',
+  email: 'exnulla.huson@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'TX',
+    addressCountry: 'US',
+  },
+  worksFor: {
+    '@type': 'Organization',
+    name: 'ExNulla / Thesis-Web',
+    url: 'https://www.exnulla.com',
+  },
+  sameAs: [
+    LINKS.linkedin,
+    LINKS.github,
+    LINKS.x,
+    LINKS.youtube,
+    LINKS.twitch,
+    LINKS.instagram,
+    LINKS.facebook,
+    LINKS.tiktok,
+  ],
+  knowsAbout: [
+    'AI systems architecture',
+    'Multi-agent orchestration',
+    'LLM application development',
+    'Agent workflows',
+    'TypeScript',
+    'Node.js',
+    'Python',
+    'PostgreSQL',
+    'CI/CD',
+    'DevOps',
+    'Systems architecture',
+    'Applied AI Engineering',
+    'AI Platform Engineering',
+    'Agent Infrastructure',
+  ],
+};
 ---
 
 <!doctype html>
@@ -24,9 +81,27 @@ const {
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
     <title>{title}</title>
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="James Huson — Applied AI Systems Engineer" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={imageURL} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL} />
+    <meta name="twitter:site" content="@ExNulla" />
+
+    {!noindex && (
+      <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    )}
 
     <style is:global>
       :root {
