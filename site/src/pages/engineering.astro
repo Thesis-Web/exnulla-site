@@ -30,8 +30,8 @@ const orchestrationLabSpec = marked.parse(
 ---
 
 <BaseLayout
-  title="Engineering Process — ExNulla"
-  description="A technical walkthrough of the systems engineering process behind ExNulla projects."
+  title="Engineering Process — James Huson | Applied AI Systems Engineer"
+  description="How James Huson designs and operates bounded, artifact-verified AI systems: the current Cortex-informed orchestration model, live public demos, and the design lineage behind them."
   active="engineering"
 >
   <div class="kicker">Engineering Process</div>
@@ -48,12 +48,10 @@ const orchestrationLabSpec = marked.parse(
   </p>
 
   <div class="pillrow">
-    <a class="pill" href="#case-ai-devkit">Case 01 — Thesis Chain AI DevKit</a>
-    <a class="pill" href="#case-agentic-pipeline">Case 02 — Human Agentic Pipeline</a>
-    <a class="pill" href="#case-agentic-pipeline"
-      >Canonical Source Material Included Where Available</a
-    >
-    <span class="pill">All Rights Reserved</span>
+    <a class="pill" href="#current-system">Current System — Cortex-Informed Orchestration</a>
+    <a class="pill" href="#evidence">Live Evidence</a>
+    <a class="pill" href="#case-ai-devkit">Foundation — Guardrail-First AI Runtime</a>
+    <span class="pill">Public engineering notes · selected source and live artifacts available</span>
   </div>
 
   <div class="hr"></div>
@@ -79,24 +77,92 @@ const orchestrationLabSpec = marked.parse(
   <div class="hr"></div>
 
   <section class="card">
-    <h2>Important Notice</h2>
+    <h2>Scope and Honesty Boundary</h2>
 
     <p>
-      The material presented here reflects proprietary engineering processes and system design work.
-      These processes, architectures, methodologies, and planning artifacts are intellectual
-      property. All rights reserved.
-    </p>
-
-    <p>
-      This page is provided for evaluation purposes only to demonstrate engineering capability,
-      architectural reasoning, system discipline, and execution quality.
+      These pages describe selected architecture and operating patterns from real, running systems.
+      They are provided for evaluation, not as a claim that every component is production-certified,
+      externally load-tested, or universally applicable. Where a public demo simulates something
+      deterministically rather than calling a real provider or moving real data, that is labeled
+      explicitly in the evidence table below.
     </p>
   </section>
 
   <div class="hr"></div>
 
+  <section class="card" id="current-system">
+    <h2>What I Build Now</h2>
+    <p>
+      I design and ship bounded AI systems as observable control planes. A project-manager role
+      decomposes a problem into isolated, non-overlapping jobs; specialized worker roles execute
+      them in isolation; listeners turn worker state (heartbeat, completion, blocked, silence) into
+      explicit signals instead of requiring anyone to poll or guess; and nothing is marked complete
+      until a verifier finds a real, readable artifact tied to that specific run. No worker's own
+      claim of "done" is ever trusted by itself.
+    </p>
+    <p>
+      This is the model behind Cortex, a Postgres-backed multi-agent orchestration system I built and
+      operate: a durable task ledger, content-addressed evidence storage, fence-token concurrency so
+      concurrent workers cannot collide on the same work, and an audit trail of every claim, block,
+      and completion. It is a real, live, self-operated system running on infrastructure I control —
+      not a public SaaS product, and not presented as one.
+    </p>
+    <div class="pillrow">
+      <span class="pill">No silent completion</span>
+      <span class="pill">No completion without an artifact</span>
+      <span class="pill">No worker without a liveness signal</span>
+      <span class="pill">No unbounded fan-out</span>
+      <span class="pill">No claim stronger than its evidence</span>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="card" id="evidence">
+    <h2>Live Evidence</h2>
+    <p>
+      Direct links to running, public artifacts rather than descriptions of them. Each is labeled by
+      what it actually is — a real implementation, or a deterministic simulation of a concept — so
+      there is no ambiguity about what you are looking at.
+    </p>
+    <ul class="list">
+      <li>
+        <strong>Safe Agent Pipeline</strong> — <a href="/demos/safe-agent-pipeline/index.html">live demo</a>.
+        Walks through PM ingest, bounded worker dispatch, listener signals, and artifact verification.
+        <em>Deterministic browser simulation — no real AI provider calls.</em>
+      </li>
+      <li>
+        <strong>Content-Addressed Storage</strong> — <a href="/demos/content-addressed-storage/index.html">live demo</a>.
+        Real SHA-256 computed client-side; demonstrates deduplication, immutable addressing, and
+        integrity checking. <em>Storage itself is an in-browser simulation, not a network service.</em>
+      </li>
+      <li>
+        <strong>Intent File Router</strong> — <a href="/demos/intent-file-router/index.html">live demo</a>
+        · <a href="https://github.com/Thesis-Web/exnulla-demos/tree/main/apps/intent-file-router">source</a>.
+        A real, tested (Vitest, unit-covered) deterministic routing and validation implementation.
+        <em>Does not perform an actual file transfer.</em>
+      </li>
+      <li>
+        <strong>Identity Without Disclosure</strong> — <a href="/demos/identity-without-disclosure/index.html">live demo</a>.
+        Simulates predicate attestation, vendor isolation, and epoch-bound bridging.
+        <em>Deterministic placeholder crypto — explicitly not production cryptography.</em>
+      </li>
+      <li>
+        <strong>Conformance Runtime Engine</strong> — <a href="https://cers.exnulla.com">live system</a>.
+        LLM-backed runtime for regulated certification packages with source-cited findings.
+      </li>
+      <li>
+        <strong>Orbital Thermal Trade System</strong> — <a href="https://orbital.exnulla.com">live system</a>.
+        Runtime-authoritative thermal/power trade computation behind a static-first interface.
+      </li>
+    </ul>
+  </section>
+
+  <div class="hr"></div>
+
   <section class="card">
-    <h2 id="case-ai-devkit">Case 01 — Thesis Chain AI DevKit</h2>
+    <h2 id="case-ai-devkit">Foundation — Guardrail-First AI Runtime</h2>
+    <p class="small">Foundation system · design lineage · public source available</p>
 
     <p>
       This case study examines the engineering process behind the Thesis Chain AI DevKit. The DevKit
@@ -272,7 +338,7 @@ const orchestrationLabSpec = marked.parse(
       The following appendix is mirrored locally from the AI DevKit source material and displayed
       here as canonical markdown.
     </p>
-    <div class="md-doc" set:html={aiDevkitBlueprint} />
+    <details class="md-appendix"><summary>Read the full document</summary><div class="md-doc" set:html={aiDevkitBlueprint} /></details>
   </section>
 
   <div class="hr"></div>
@@ -363,7 +429,7 @@ const orchestrationLabSpec = marked.parse(
       The following appendix is mirrored locally from the AI DevKit source material and displayed
       here as canonical markdown.
     </p>
-    <div class="md-doc" set:html={aiDevkitSpec} />
+    <details class="md-appendix"><summary>Read the full document</summary><div class="md-doc" set:html={aiDevkitSpec} /></details>
   </section>
 
   <div class="hr"></div>
@@ -558,7 +624,8 @@ const orchestrationLabSpec = marked.parse(
   <div class="hr"></div>
 
   <section class="card">
-    <h2 id="case-agentic-pipeline">Case 02 — Human Agentic Pipeline</h2>
+    <h2 id="case-agentic-pipeline">Current System — Cortex-Informed Headless Orchestration</h2>
+    <p class="small">Current system · live and operated daily · see "What I Build Now" above for the running implementation</p>
 
     <p>
       This case study documents the operating model behind a human-led agentic development pipeline.
@@ -713,7 +780,7 @@ const orchestrationLabSpec = marked.parse(
       The following appendix is mirrored locally from the orchestration lab blueprint and displayed
       here as canonical markdown.
     </p>
-    <div class="md-doc" set:html={orchestrationLabBlueprint} />
+    <details class="md-appendix"><summary>Read the full document</summary><div class="md-doc" set:html={orchestrationLabBlueprint} /></details>
   </section>
 
   <div class="hr"></div>
@@ -785,7 +852,7 @@ const orchestrationLabSpec = marked.parse(
       The following appendix is mirrored locally from the orchestration lab engineering spec and
       displayed here as canonical markdown.
     </p>
-    <div class="md-doc" set:html={orchestrationLabSpec} />
+    <details class="md-appendix"><summary>Read the full document</summary><div class="md-doc" set:html={orchestrationLabSpec} /></details>
   </section>
 
   <div class="hr"></div>
@@ -954,6 +1021,27 @@ const orchestrationLabSpec = marked.parse(
   </section>
 
   <style>
+    .md-appendix {
+      margin: 14px 0 0;
+    }
+    .md-appendix summary {
+      cursor: pointer;
+      color: var(--fg);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: color-mix(in oklab, var(--card) 92%, transparent);
+    }
+    .md-appendix summary:hover {
+      border-color: color-mix(in oklab, var(--fg) 22%, var(--border));
+    }
+    .md-appendix[open] summary {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
     /* Terminal-doc rendering — markdown parsed but styled distinct from page prose */
     .md-doc {
       margin: 14px 0 0;
