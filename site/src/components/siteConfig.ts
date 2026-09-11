@@ -372,24 +372,26 @@ export const BASE_LAB_TILES: LabTile[] = [
   {
     name: 'Identity Without Disclosure',
     blurb:
-      'Privacy-by-design visualizer for predicate attestations. See how a system can verify properties like uniqueness or eligibility without exposing identity material, while still preventing cross-vendor gaming.',
+      'Public interactive simulator for predicate attestations: freshness, vendor-local commitments, and explicit epoch-bound bridging without exposing identity material.',
     tier: 2,
-    tags: ['coming-soon', 'identity', 'privacy', 'protocol'],
-    href: 'https://github.com/Thesis-Web/exnulla-demos',
+    tags: ['identity', 'privacy', 'protocol', 'simulator'],
+    href: '/lab',
+    demoPath: '/demos/identity-without-disclosure/index.html',
+    docsPath: 'https://github.com/Thesis-Web/exnulla-demos/blob/main/docs/engineering-specs/exnulla-demo-engineering-spec-identity-without-disclosure-1-0-0.md',
     repo: 'https://github.com/Thesis-Web/exnulla-demos',
     source: 'repo: Thesis-Web/exnulla-demos',
-    // demoPath intentionally omitted
   },
   {
     name: 'Safe Agent Pipeline',
     blurb:
-      'Guardrail-first AI pipeline built around schema gates, redaction, injection resistance, budgets, cache behavior, and auditable traces. Designed to show how AI features can be shipped without giving up control.',
+      'Modernized public simulator of the original guardrail-first design: typed policy, redaction, prompt-injection defense, bounded budgets, provider adapters, schema validation, and sealed audit traces.',
     tier: 2,
-    tags: ['coming-soon', 'agents', 'guardrails', 'audit'],
-    href: 'https://github.com/Thesis-Web/exnulla-demos',
+    tags: ['agents', 'guardrails', 'audit', 'provider-boundary'],
+    href: '/lab',
+    demoPath: '/demos/safe-agent-pipeline/index.html',
+    docsPath: 'https://github.com/Thesis-Web/exnulla-demos/blob/main/docs/engineering-specs/exnulla-demo-engineering-spec-safe-agent-pipeline-1-0-0.md',
     repo: 'https://github.com/Thesis-Web/exnulla-demos',
     source: 'repo: Thesis-Web/exnulla-demos',
-    // demoPath intentionally omitted
   },
   {
     name: 'Conformance Runtime Engine',

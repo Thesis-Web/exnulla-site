@@ -61,6 +61,14 @@ jobs:
         run: pnpm -C apps/intent-file-router build
         working-directory: exnulla-demos
 
+      - name: Build identity-without-disclosure demo
+        run: pnpm -C apps/identity-without-disclosure build
+        working-directory: exnulla-demos
+
+      - name: Build safe-agent-pipeline demo
+        run: pnpm -C apps/safe-agent-pipeline build
+        working-directory: exnulla-demos
+
       - name: Sync demo dist into exnulla-site public
         shell: bash
         run: |
@@ -70,6 +78,16 @@ jobs:
             exnulla-demos/apps/intent-file-router/dist/ \
             site/public/demos/intent-file-router/
           test -f site/public/demos/intent-file-router/index.html
+          mkdir -p site/public/demos/identity-without-disclosure
+          rsync -a --delete \
+            exnulla-demos/apps/identity-without-disclosure/dist/ \
+            site/public/demos/identity-without-disclosure/
+          test -f site/public/demos/identity-without-disclosure/index.html
+          mkdir -p site/public/demos/safe-agent-pipeline
+          rsync -a --delete \
+            exnulla-demos/apps/safe-agent-pipeline/dist/ \
+            site/public/demos/safe-agent-pipeline/
+          test -f site/public/demos/safe-agent-pipeline/index.html
 
       # exnulla-site build
       - name: Install deps (root)
@@ -89,6 +107,8 @@ jobs:
           set -euo pipefail
           test -f site/dist/meta/version.json
           test -f site/dist/demos/intent-file-router/index.html
+          test -f site/dist/demos/identity-without-disclosure/index.html
+          test -f site/dist/demos/safe-agent-pipeline/index.html
 
       # deploy
       - name: Load SSH key (agent)

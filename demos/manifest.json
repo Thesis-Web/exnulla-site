@@ -1,10 +1,18 @@
 {
   "repo": "Thesis-Web/exnulla-demos",
-  "ref": "df628984a4e7ce146cf028281f9a2646df23b5c7",
+  "ref": "2efc93022babb02e667f615a221fa694d9779e10",
   "demos": [
     {
       "slug": "intent-file-router",
       "distPath": "apps/intent-file-router/dist"
+    },
+    {
+      "slug": "identity-without-disclosure",
+      "distPath": "apps/identity-without-disclosure/dist"
+    },
+    {
+      "slug": "safe-agent-pipeline",
+      "distPath": "apps/safe-agent-pipeline/dist"
     }
   ]
 }
