@@ -97,9 +97,67 @@ export const PROJECT_CARDS: ProjectCard[] = [
     tags: ['thermal', 'systems', 'architecture', 'compute'],
     repo: 'https://github.com/Thesis-Web/space-server-heat-dissipation',
   },
+  {
+    title: 'Nexus: policy-aware action router + authority governance layer',
+    outcome:
+      'A private-runtime authorization gateway for AI agents: identity and vault-backed credential handling, a governed lexicon/compile layer, an MCP adapter, and a 10-scenario policy test suite covering approval workflows, delegation limits, replay-attack detection, and default-deny access control.',
+    href: '/projects/nexus',
+    tags: ['policy-engine', 'iam', 'rbac', 'mcp', 'agent-governance'],
+    repo: 'https://github.com/Thesis-Web/nexus',
+  },
 ];
 
 export const PROJECT_DETAILS: ProjectDetail[] = [
+  {
+    slug: 'nexus',
+    title: 'Nexus',
+    kicker: 'Policy-aware action router + authority governance layer for AI agents',
+    outcome:
+      'A private-runtime authorization gateway that sits between AI agents and the actions they want to take: identity and vault-backed credentials, a governed lexicon/compile layer, an MCP adapter, and a 10-scenario policy test suite covering approval workflows, delegation limits, replay-attack detection, and default-deny access control.',
+    tags: ['policy-engine', 'iam', 'rbac', 'mcp', 'agent-governance', 'typescript'],
+    repo: 'https://github.com/Thesis-Web/nexus',
+    links: [{ label: 'Repo', href: 'https://github.com/Thesis-Web/nexus' }],
+    sections: [
+      {
+        heading: 'Problem',
+        body: [
+          'Once an AI agent can take real actions instead of only generating text, the actual engineering problem stops being "can the model do this" and becomes "who is allowed to authorize this, under what identity, and what happens when that authorization is replayed, forged, or exceeded."',
+          'Most agent stacks answer this with an API key and a prompt. Nexus exists because that is not an authorization system, it is a hope.',
+        ],
+      },
+      {
+        heading: 'Architecture',
+        body: [
+          'Nexus is a policy-aware action router: every action an agent wants to take passes through an authority-governance layer before it executes, not after.',
+          'Identity and credential handling are isolated into their own package (packages/identity-ref) with a dedicated vault connector (packages/connectors/vault), so credentials are never a first-class citizen of the routing or orchestration logic.',
+          'A model/data-boundary and egress-governance layer (packages/vanguard) sits alongside the router: what a model is allowed to see and send outward is a separate, explicit concern from what actions it is allowed to trigger.',
+          'A governed lexicon and compile layer (config/lexicon, config/compile, packages/contracts) turns declared intents into a fixed, checkable vocabulary instead of free-form strings.',
+          'An MCP (Model Context Protocol) adapter (packages/adapters/mcp) and a shipped nexus-mcp-proxy binary integrate the router with the current agent-tooling ecosystem rather than a bespoke one-off interface.',
+        ],
+      },
+      {
+        heading: 'Policy and Access Control',
+        body: [
+          'Authorization is enforced through key-based roles for admins and approvers (keys/admins, keys/approvers), not a single shared secret.',
+          'The system is tested against ten explicit adversarial and edge-case scenarios: default-deny, allow-read, allow-create, approval-approved, approval-denied, approval-timeout, replay-detected, policy-unsigned, broad-token-bypass, and delegation-exceeded.',
+          'That list is the actual acceptance criteria for an authority-governance layer: it has to fail closed by default, and it has to be provably resistant to replay and delegation abuse, not just documented against them.',
+        ],
+      },
+      {
+        heading: 'Engineering Discipline',
+        body: [
+          'The rate limiter is explicitly documented as a single-process, in-memory implementation with no cross-instance guarantee, with a SQLite-backed replacement deferred to post-POC rather than silently overstated.',
+          'A clean clone is expected to pass install, build, lint, typecheck, test, and a dedicated ci:gate before either CLI entry point (nexus, nexus-mcp-proxy) is considered provably working.',
+        ],
+      },
+      {
+        heading: 'Result',
+        body: [
+          'Nexus is the authority layer underneath the rest of this portfolio\'s AI-agent work: a real policy engine, a real identity/credential boundary, and a real MCP integration, not a wrapper around someone else\'s SaaS agent framework.',
+        ],
+      },
+    ],
+  },
   {
     slug: 'exnulla-site',
     title: 'ExNulla Site',
