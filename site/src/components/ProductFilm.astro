@@ -1,0 +1,155 @@
+---
+import { FILMS, type FilmId } from '../data/films';
+type Props = { film: FilmId };
+const { film } = Astro.props;
+const item = FILMS[film];
+---
+
+<figure class="product-film">
+  <div class="film-frame">
+    <video
+      controls
+      playsinline
+      preload="none"
+      poster={`/assets/films/${film}-poster.webp`}
+      width="1280"
+      height="800"
+      aria-label={`${item.name}: ${item.title} ${item.duration}-second illustrative product film.`}
+      aria-describedby={`film-note-${film}`}
+    >
+      <source src={`/assets/films/${film}.mp4`} type="video/mp4" />
+      <track kind="captions" src={`/assets/films/${film}.vtt`} srclang="en" label="English" />
+      <p><a href={`/assets/films/${film}.mp4`}>Download the {item.name} film</a>.</p>
+    </video>
+    <button
+      class="film-cover"
+      type="button"
+      hidden
+      aria-label={`Play the ${item.duration}-second ${item.name} film`}
+    >
+      <img src={`/assets/films/${film}-poster.webp`} alt="" width="1280" height="800" />
+      <span class="play-label"
+        ><span aria-hidden="true">▶</span> Watch film <span class="play-duration"
+          >0:{item.duration}</span
+        ></span
+      >
+    </button>
+  </div>
+  <figcaption id={`film-note-${film}`}>
+    <span>{item.duration}s · Illustrative product film · No audio</span>
+    <a href={film === 'overview' ? '/lab#product-films' : '#transcript'}
+      >Read the {film === 'overview' ? 'project summaries' : 'transcript'}
+      <span aria-hidden="true">↗</span></a
+    >
+  </figcaption>
+</figure>
+
+<script>
+  // Keep media idle until the visitor chooses to play; only one film plays at a time.
+  document.querySelectorAll<HTMLVideoElement>('.product-film video').forEach((video) => {
+    const cover = video.parentElement?.querySelector<HTMLButtonElement>('.film-cover');
+    if (cover) {
+      video.hidden = true;
+      cover.hidden = false;
+      cover.addEventListener('click', async () => {
+        cover.hidden = true;
+        video.hidden = false;
+        try {
+          await video.play();
+        } catch {
+          video.hidden = true;
+          cover.hidden = false;
+          const label = cover.querySelector('.play-label');
+          if (label) label.textContent = 'Try playing the film again';
+        }
+      });
+    }
+    video.addEventListener('play', () => {
+      document.querySelectorAll<HTMLVideoElement>('video').forEach((other) => {
+        if (other !== video) other.pause();
+      });
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) video.pause();
+    });
+  });
+</script>
+
+<style>
+  .product-film {
+    margin: 0;
+    min-width: 0;
+  }
+  .film-frame {
+    overflow: hidden;
+    border: 1px solid #2c454b;
+    border-radius: 14px;
+    background: #081218;
+  }
+  video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 8 / 5;
+    display: block;
+  }
+  video[hidden],
+  .film-cover[hidden] {
+    display: none;
+  }
+  .film-cover {
+    position: relative;
+    display: block;
+    padding: 0;
+    width: 100%;
+    border: 0;
+    background: #081218;
+    color: #0b1719;
+    cursor: pointer;
+  }
+  .film-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .film-cover:focus-visible {
+    outline: 3px solid #7de0c8;
+    outline-offset: -4px;
+  }
+  .play-label {
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #d5eee5;
+    border-radius: 6px;
+    font:
+      600 12px system-ui,
+      sans-serif;
+    box-shadow: 0 2px 15px #0006;
+  }
+  .play-duration {
+    padding-left: 8px;
+    border-left: 1px solid #9ab9ac;
+    color: #3d5e55;
+    font-size: 11px;
+  }
+  video:focus-visible {
+    outline: 3px solid #7de0c8;
+    outline-offset: -4px;
+  }
+  figcaption {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  figcaption a {
+    text-underline-offset: 3px;
+  }
+</style>

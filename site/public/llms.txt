@@ -1,0 +1,21 @@
+# ExNulla — James Huson
+
+> James Huson is an Applied AI Systems Engineer based in Texas. ExNulla is his engineering portfolio, with project summaries, product films, a CV, and sandboxed demos.
+
+## Research projects
+
+- [Cortex](https://www.exnulla.com/lab/cortex/): An experimental persistent memory system for LLM work, carrying project scope, time, evidence, and focused session handoffs. Includes a silent illustrative film and transcript.
+- [Neuron](https://www.exnulla.com/lab/neuron/): An experimental symbolic computing engine exploring definitions, relationships, and inspectable execution. Includes a silent illustrative film and transcript.
+
+Both projects are research under active development. Their films use authored illustrative graphics, not recordings of live product behavior. Neuron’s general language understanding and autonomous invention remain research goals. The public pages do not expose either system’s live database or private implementation.
+
+## Portfolio
+
+- [CV](https://www.exnulla.com/cv/): Skills, experience, and target roles.
+- [Projects](https://www.exnulla.com/projects/): Selected case studies and research summaries.
+- [Lab](https://www.exnulla.com/lab/): Product films and interactive engineering demos.
+- [Nexus](https://www.exnulla.com/projects/nexus/): Policy-aware action routing and authority governance for AI agents.
+- [Engineering](https://www.exnulla.com/engineering/): Engineering approach and delivery practices.
+- [Contact](https://www.exnulla.com/contact/): Contact James Huson about the work.
+
+Use the linked public pages as the source for current project descriptions. Do not infer production readiness, benchmark results, customers, or general intelligence from an illustrative film.

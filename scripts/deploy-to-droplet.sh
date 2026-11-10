@@ -33,6 +33,16 @@ test -f "$REMOTE_RELEASE_DIR/demos/intent-file-router/index.html"
 test -f "$REMOTE_RELEASE_DIR/demos/identity-without-disclosure/index.html"
 test -f "$REMOTE_RELEASE_DIR/demos/safe-agent-pipeline/index.html"
 test -f "$REMOTE_RELEASE_DIR/demos/content-addressed-storage/index.html"
+test -f "$REMOTE_RELEASE_DIR/lab/cortex/index.html"
+test -f "$REMOTE_RELEASE_DIR/lab/neuron/index.html"
+test -f "$REMOTE_RELEASE_DIR/video-sitemap.xml"
+test -f "$REMOTE_RELEASE_DIR/llms.txt"
+for film in overview cortex neuron; do
+  test -s "$REMOTE_RELEASE_DIR/assets/films/$film.mp4"
+  test -s "$REMOTE_RELEASE_DIR/assets/films/$film-poster.webp"
+  test -s "$REMOTE_RELEASE_DIR/assets/films/$film-poster.jpg"
+  test -s "$REMOTE_RELEASE_DIR/assets/films/$film.vtt"
+done
 
 ln -sfnT "${REMOTE_RELEASE_DIR}" "${DEPLOY_PATH}/current"
 

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { LAB_TILES } from '../../components/siteConfig';
+import FilmCards from '../../components/FilmCards.astro';
 
 const tierLabel = (t: 1 | 2 | 3) =>
   t === 1 ? 'Tier 1 (light)' : t === 2 ? 'Tier 2 (iframe)' : 'Tier 3 (heavy)';
@@ -8,20 +9,34 @@ const tierLabel = (t: 1 | 2 | 3) =>
 
 <BaseLayout
   title="Lab — ExNulla"
-  description="ExNulla Lab: curated sandbox demos (static-first, isolated as needed)."
+  description="Watch Cortex and Neuron product films by James Huson, then explore ExNulla’s sandboxed engineering demos. Persistent AI context, symbolic computing, and governed workflows."
   active="lab"
 >
   <div class="kicker">Lab</div>
   <h1 class="h1">ExNulla Lab</h1>
   <p class="sub">
-    Click a tile to run it. Only one demo runs at a time. Demos are sandboxed and lifecycle-managed
-    to keep the shell fast; source links are available beside each artifact.
+    A closer look at the work: short product films for the research, and sandboxed demos for the
+    systems you can try.
   </p>
 
-  <div class="text-sm text-white/60 mt-4">
-    The source is part of the proof. Public repositories are linked directly so the implementation,
-    specifications, and trade-offs can be inspected without requesting access.
-  </div>
+  <section
+    id="product-films"
+    aria-labelledby="films-heading"
+    style="margin:36px 0;scroll-margin-top:100px"
+  >
+    <div class="kicker">Research in motion</div>
+    <h2 id="films-heading">Two projects. A look at what comes next.</h2>
+    <p class="small">
+      Short, illustrative films introducing Cortex and Neuron. Each includes a project summary and a
+      readable transcript.
+    </p>
+    <FilmCards images />
+  </section>
+
+  <h2>Interactive engineering demos</h2>
+  <p class="small">
+    Click Run to load a demo. Only one runs at a time. Public source is linked where available.
+  </p>
 
   <div class="hr"></div>
 

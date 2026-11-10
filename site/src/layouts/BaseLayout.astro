@@ -26,6 +26,7 @@ const imageURL = new URL(image, Astro.site);
 const personLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': 'https://www.exnulla.com/#james-huson',
   name: 'James Huson',
   alternateName: 'ExNulla',
   url: 'https://www.exnulla.com',
@@ -55,6 +56,8 @@ const personLd = {
     LINKS.tiktok,
   ],
   knowsAbout: [
+    'Persistent context for LLM workflows',
+    'Symbolic computing',
     'AI systems architecture',
     'Multi-agent orchestration',
     'Anthropic Claude API',
@@ -105,9 +108,7 @@ const personLd = {
     <meta name="twitter:image" content={imageURL} />
     <meta name="twitter:site" content="@ExNulla" />
 
-    {!noindex && (
-      <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
-    )}
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(personLd)} />}
 
     <style is:global>
       :root {

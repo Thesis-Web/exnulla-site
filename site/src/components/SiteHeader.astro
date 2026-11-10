@@ -127,8 +127,9 @@ const nav = [
 
   @media (max-width: 820px) {
     .inner {
-      align-items: stretch;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
       gap: 12px;
     }
 
@@ -137,14 +138,19 @@ const nav = [
     }
 
     .nav {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      display: flex;
+      grid-column: 1 / -1;
+      grid-row: 2;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 6px;
       width: 100%;
+      padding-bottom: 4px;
     }
 
     .item {
       display: block;
+      flex: 0 0 auto;
       text-align: center;
       padding: 8px 10px;
       border: 1px solid var(--border);
@@ -152,10 +158,11 @@ const nav = [
     }
 
     .cta {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      display: flex;
+      grid-column: 2;
+      grid-row: 1;
       gap: 8px;
-      width: 100%;
+      width: auto;
     }
 
     .cta > * {
@@ -171,13 +178,6 @@ const nav = [
       padding: 8px 10px;
       font-size: 13px;
       text-align: center;
-    }
-  }
-
-  @media (max-width: 520px) {
-    .nav,
-    .cta {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

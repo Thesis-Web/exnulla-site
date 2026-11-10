@@ -1,0 +1,125 @@
+---
+import { FILMS } from '../data/films';
+const { images = false } = Astro.props;
+---
+
+<div class="film-cards">
+  {
+    (['cortex', 'neuron'] as const).map((id, i) => (
+      <article class:list={['film-card', id]}>
+        {images && (
+          <a href={`/lab/${id}`} tabindex="-1" aria-hidden="true">
+            <img
+              src={`/assets/films/${id}-poster.webp`}
+              alt=""
+              width="1280"
+              height="800"
+              loading="lazy"
+            />
+          </a>
+        )}
+        <div class="film-card-body">
+          <div class="film-card-top">
+            <>
+              <span>
+                0{i + 1} / {FILMS[id].eyebrow}
+              </span>
+              <span class="research-label">Research</span>
+            </>
+          </div>
+          <h2>
+            <a href={`/lab/${id}`}>
+              {FILMS[id].name}
+              <span aria-hidden="true">↗</span>
+            </a>
+          </h2>
+          <p>{FILMS[id].summary}</p>
+          <a class="film-link" href={`/lab/${id}`}>
+            Watch the {FILMS[id].duration}s film <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .film-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .film-card {
+    min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0e1720;
+  }
+  .film-card-body {
+    padding: 24px;
+  }
+  .film-card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #83cdbd;
+  }
+  .neuron .film-card-top {
+    color: #e9bf82;
+  }
+  .research-label {
+    color: var(--muted);
+  }
+  h2 {
+    margin: 17px 0 8px;
+    font-size: 30px;
+    font-weight: 550;
+    letter-spacing: -0.035em;
+  }
+  h2 a {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+  }
+  h2 a span {
+    color: var(--muted);
+    font-size: 24px;
+  }
+  p {
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 54ch;
+  }
+  .film-link {
+    color: #b8eddf;
+    font-size: 13px;
+    text-underline-offset: 5px;
+  }
+  .neuron .film-link {
+    color: #f1d5b0;
+  }
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid var(--border);
+  }
+  a:focus-visible {
+    outline: 2px solid #7de0c8;
+    outline-offset: 5px;
+  }
+  @media (max-width: 680px) {
+    .film-cards {
+      grid-template-columns: 1fr;
+    }
+    .film-card-body {
+      padding: 20px;
+    }
+  }
+</style>

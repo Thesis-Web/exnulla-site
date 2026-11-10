@@ -74,6 +74,20 @@ export const FEATURED = {
 
 export const PROJECT_CARDS: ProjectCard[] = [
   {
+    title: 'Cortex: persistent context for AI work',
+    outcome:
+      'An experimental memory system carrying project scope, time, evidence, and focused handoffs across LLM sessions. Watch the product film and read the research summary.',
+    href: '/lab/cortex',
+    tags: ['context-architecture', 'provenance', 'research'],
+  },
+  {
+    title: 'Neuron: experimental symbolic computing',
+    outcome:
+      'A native computing engine exploring definitions, relationships, and inspectable execution. Watch the product film and read the research summary.',
+    href: '/lab/neuron',
+    tags: ['c', 'systems-architecture', 'visualization', 'research'],
+  },
+  {
     title: 'ExNulla Site: static-first proof-of-work portfolio',
     outcome:
       'Astro + Nginx portfolio system with atomic releases, isolated demo artifacts, provenance-aware builds, and operational guardrails designed to survive real updates.',
@@ -153,7 +167,7 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
       {
         heading: 'Result',
         body: [
-          'Nexus is the authority layer underneath the rest of this portfolio\'s AI-agent work: a real policy engine, a real identity/credential boundary, and a real MCP integration, not a wrapper around someone else\'s SaaS agent framework.',
+          "Nexus is the authority layer underneath the rest of this portfolio's AI-agent work: a real policy engine, a real identity/credential boundary, and a real MCP integration, not a wrapper around someone else's SaaS agent framework.",
         ],
       },
     ],
@@ -435,7 +449,8 @@ export const BASE_LAB_TILES: LabTile[] = [
     tags: ['identity', 'privacy', 'protocol', 'simulator'],
     href: '/lab',
     demoPath: '/demos/identity-without-disclosure/index.html',
-    docsPath: 'https://github.com/Thesis-Web/exnulla-demos/blob/main/docs/engineering-specs/exnulla-demo-engineering-spec-identity-without-disclosure-1-0-0.md',
+    docsPath:
+      'https://github.com/Thesis-Web/exnulla-demos/blob/main/docs/engineering-specs/exnulla-demo-engineering-spec-identity-without-disclosure-1-0-0.md',
     repo: 'https://github.com/Thesis-Web/exnulla-demos',
     source: 'repo: Thesis-Web/exnulla-demos',
   },
@@ -447,7 +462,8 @@ export const BASE_LAB_TILES: LabTile[] = [
     tags: ['agents', 'project-manager', 'listeners', 'artifacts'],
     href: '/lab',
     demoPath: '/demos/safe-agent-pipeline/index.html',
-    docsPath: 'https://github.com/Thesis-Web/exnulla-demos/blob/main/docs/engineering-specs/exnulla-demo-engineering-spec-safe-agent-pipeline-1-0-0.md',
+    docsPath:
+      'https://github.com/Thesis-Web/exnulla-demos/blob/main/docs/engineering-specs/exnulla-demo-engineering-spec-safe-agent-pipeline-1-0-0.md',
     repo: 'https://github.com/Thesis-Web/exnulla-demos',
     source: 'repo: Thesis-Web/exnulla-demos',
   },
@@ -459,7 +475,8 @@ export const BASE_LAB_TILES: LabTile[] = [
     tags: ['storage', 'hashing', 'integrity', 'simulator'],
     href: '/lab',
     demoPath: '/demos/content-addressed-storage/index.html',
-    docsPath: 'https://github.com/Thesis-Web/exnulla-demos/blob/main/apps/content-addressed-storage/README.md',
+    docsPath:
+      'https://github.com/Thesis-Web/exnulla-demos/blob/main/apps/content-addressed-storage/README.md',
     repo: 'https://github.com/Thesis-Web/exnulla-demos',
     source: 'repo: Thesis-Web/exnulla-demos',
   },

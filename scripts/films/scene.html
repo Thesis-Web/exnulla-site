@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><title>ExNulla product film master</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      background: #081218;
+    }
+    canvas {
+      display: block;
+      width: 1280px;
+      height: 800px;
+    }
+  </style>
+  <canvas id="film" width="1280" height="800"></canvas>
+  <script>
+    /* Authored, synthetic motion graphics. No product runtime, data, or private assets. */
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    const W = 1280,
+      H = 800;
+    const teal = '#83e5cb',
+      gold = '#ebc28c',
+      white = '#eff5f2',
+      muted = '#91a6ac';
+    const pts = Array.from({ length: 180 }, (_, i) => {
+      const phi = Math.acos(1 - (2 * (i + 0.5)) / 180),
+        theta = i * 2.399963;
+      return {
+        x: Math.cos(theta) * Math.sin(phi),
+        y: Math.sin(theta) * Math.sin(phi),
+        z: Math.cos(phi),
+        i,
+      };
+    });
+    function line(x1, y1, x2, y2, color, width = 1) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+    function text(s, x, y, size, color = white, weight = 400) {
+      ctx.fillStyle = color;
+      ctx.font = `${weight} ${size}px Arial, sans-serif`;
+      ctx.fillText(s, x, y);
+    }
+    function mono(s, x, y, color = muted, size = 12) {
+      ctx.fillStyle = color;
+      ctx.font = `${size}px monospace`;
+      ctx.fillText(s, x, y);
+    }
+    function dot(x, y, r, c) {
+      ctx.fillStyle = c;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    function graph(t, accent) {
+      const angle = 0.3 + t * 0.024;
+      const p = pts.map((v) => {
+        const x = v.x * Math.cos(angle) + v.z * Math.sin(angle),
+          z = v.z * Math.cos(angle) - v.x * Math.sin(angle);
+        const scale = 1 + z * 0.16;
+        return { x: 941 + x * 258 * scale, y: 382 + v.y * 252 * scale, z, i: v.i };
+      });
+      ctx.save();
+      const glow = ctx.createRadialGradient(941, 382, 20, 941, 382, 360);
+      glow.addColorStop(0, '#1b7a6a1a');
+      glow.addColorStop(0.7, '#1b7a6a0a');
+      glow.addColorStop(1, '#1b7a6a00');
+      ctx.fillStyle = glow;
+      ctx.fillRect(600, 20, 680, 700);
+      ctx.setLineDash([3, 9]);
+      ctx.strokeStyle = '#39595266';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.ellipse(941, 382, 294, 294, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      for (let i = 0; i < p.length; i++)
+        for (let j = i + 1; j < p.length; j++) {
+          const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y, pts[i].z - pts[j].z);
+          if (d < 0.4) {
+            const depth = (p[i].z + p[j].z + 2) / 4;
+            const active = (i * 3 + j) % 29 === Math.floor(t * 0.5) % 29;
+            line(
+              p[i].x,
+              p[i].y,
+              p[j].x,
+              p[j].y,
+              active ? accent : `rgba(103,178,162,${0.04 + depth * 0.22})`,
+              active ? 1.3 : 0.7,
+            );
+            if (active) {
+              const u = (t * 0.25 + i * 0.13) % 1;
+              dot(p[i].x + (p[j].x - p[i].x) * u, p[i].y + (p[j].y - p[i].y) * u, 2.2, white);
+            }
+          }
+        }
+      p.sort((a, b) => a.z - b.z).forEach((v) => {
+        ctx.globalAlpha = 0.22 + (v.z + 1) * 0.34;
+        dot(v.x, v.y, v.i % 17 === 0 ? 3.7 : 1.8, v.i % 11 === 0 ? gold : accent);
+      });
+      ctx.globalAlpha = 1;
+      const labels = ['context', 'evidence', 'memory', 'connection', 'trace'];
+      [12, 42, 80, 116, 146].forEach((idx, k) => {
+        const v = p.find((n) => n.i === idx);
+        dot(v.x, v.y, 4, k % 2 ? gold : accent);
+        ctx.fillStyle = '#081218df';
+        ctx.fillRect(v.x + 9, v.y - 16, labels[k].length * 8 + 18, 24);
+        mono(labels[k], v.x + 16, v.y, muted, 12);
+      });
+      ctx.restore();
+    }
+    function cortexFlow(t) {
+      ctx.save();
+      ctx.globalAlpha = 0.17;
+      graph(t, teal);
+      ctx.restore();
+      const center = 941;
+      // An editorial diagram of continuity, with invented labels rather than live records.
+      ctx.fillStyle = '#0e2127';
+      ctx.strokeStyle = '#42685e';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(773, 254, 336, 258, 12);
+      ctx.fill();
+      ctx.stroke();
+      mono('PROJECT MEMORY', 797, 290, teal, 13);
+      line(797, 312, 1085, 312, '#34534e');
+      ['Scope', 'Evidence', 'Next step'].forEach((label, i) => {
+        const y = 352 + i * 56;
+        dot(802, y - 4, 3, teal);
+        text(label, 819, y, 20, '#d1e4df');
+        line(987, y - 7, 1076, y - 7, '#3c5e55', 2);
+      });
+      [
+        { label: 'SESSION 01', y: 166 },
+        { label: 'SESSION 02', y: 600 },
+      ].forEach(({ label, y }, i) => {
+        ctx.fillStyle = '#11292c';
+        ctx.strokeStyle = '#3a6156';
+        ctx.beginPath();
+        ctx.roundRect(852, y - 27, 178, 48, 6);
+        ctx.fill();
+        ctx.stroke();
+        mono(label, 890, y + 2, teal, 13);
+      });
+      line(center, 188, center, 252, '#568d7e', 1.5);
+      line(center, 513, center, 572, '#568d7e', 1.5);
+      const u = (t * 0.32) % 1;
+      dot(center, 188 + u * 64, 3.5, white);
+      dot(center, 513 + u * 59, 3.5, white);
+      mono('PICK UP WHERE THE WORK LEFT OFF', 790, 666, muted, 11);
+    }
+    const reel = [
+      {
+        brand: 'Cortex + Neuron',
+        eyebrow: 'TWO RESEARCH PROJECTS. ONE SYSTEMS MINDSET.',
+        lines: ['Keep context.', 'Make connections.'],
+        sub: 'An introduction to the work of James Huson.',
+        footer: 'PERSISTENT CONTEXT  /  SYMBOLIC COMPUTING',
+        color: teal,
+      },
+      {
+        brand: 'Cortex',
+        eyebrow: '01 / PERSISTENT CONTEXT FOR AI WORK',
+        lines: ['New session.', 'Same direction.'],
+        sub: 'Carry the scope, evidence, and next step forward.',
+        footer: 'PROJECT STATE  /  TIME  /  GROUNDING',
+        color: teal,
+      },
+      {
+        brand: 'Neuron',
+        eyebrow: '02 / EXPERIMENTAL SYMBOLIC COMPUTING',
+        lines: ['Follow the', 'connections.'],
+        sub: 'Explore the process behind the output.',
+        footer: 'SYMBOLS  /  RELATIONSHIPS  /  EXECUTION',
+        color: gold,
+      },
+      {
+        brand: 'ExNulla',
+        eyebrow: 'RESEARCH & ENGINEERING / JAMES HUSON',
+        lines: ['Ideas, built', 'into systems.'],
+        sub: 'Explore Cortex and Neuron at exnulla.com.',
+        footer: 'APPLIED AI SYSTEMS ENGINEER',
+        color: teal,
+      },
+    ];
+    const singles = {
+      cortex: [
+        {
+          brand: 'Cortex',
+          eyebrow: 'PERSISTENT CONTEXT FOR AI WORK',
+          lines: ['Pick up', 'the thread.'],
+          sub: 'A research project by James Huson.',
+          footer: 'CONTEXT THAT CARRIES FORWARD',
+          color: teal,
+        },
+        reel[1],
+        {
+          brand: 'Cortex',
+          eyebrow: 'RESEARCH & ENGINEERING / JAMES HUSON',
+          lines: ['Keep the work', 'connected.'],
+          sub: 'Explore Cortex at exnulla.com/lab/cortex.',
+          footer: 'PROJECT STATE  /  TIME  /  GROUNDING',
+          color: teal,
+        },
+      ],
+      neuron: [
+        {
+          brand: 'Neuron',
+          eyebrow: 'EXPERIMENTAL SYMBOLIC COMPUTING',
+          lines: ['See the', 'connections.'],
+          sub: 'A research project by James Huson.',
+          footer: 'THE PROCESS BEHIND THE OUTPUT',
+          color: gold,
+        },
+        {
+          brand: 'Neuron',
+          eyebrow: 'SYMBOLS / RELATIONSHIPS / EXECUTION',
+          lines: ['Follow', 'the process.'],
+          sub: 'A closer look at computation.',
+          footer: 'A WORKING RESEARCH SYSTEM',
+          color: gold,
+        },
+        {
+          brand: 'Neuron',
+          eyebrow: 'RESEARCH & ENGINEERING / JAMES HUSON',
+          lines: ['Make computation', 'visible.'],
+          sub: 'Explore Neuron at exnulla.com/lab/neuron.',
+          footer: 'EXPLORE THE PROCESS BEHIND THE OUTPUT',
+          color: gold,
+        },
+      ],
+    };
+    window.render = (id, t, poster = false) => {
+      const scenes = id === 'overview' ? reel : singles[id],
+        index = Math.min(Math.floor(t / 6), scenes.length - 1),
+        s = scenes[index];
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#081218';
+      ctx.fillRect(0, 0, W, H);
+      const bg = ctx.createLinearGradient(0, 0, 1280, 800);
+      bg.addColorStop(0, '#14242a');
+      bg.addColorStop(0.5, '#0a171d');
+      bg.addColorStop(1, '#081218');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+      for (let y = 104; y < 700; y += 24)
+        for (let x = 48; x < 1240; x += 24) dot(x, y, 0.55, '#557b782a');
+      if (id === 'cortex' || (id === 'overview' && index === 1)) cortexFlow(t);
+      else graph(t, s.color);
+      line(48, 88, 1232, 88, '#31444a');
+      line(48, 699, 1232, 699, '#31444a');
+      text('ex', 48, 59, 35, white, 700);
+      mono('EXNULLA / RESEARCH IN MOTION', 108, 53, muted, 12);
+      mono('ILLUSTRATIVE PRODUCT FILM', 1002, 53, muted, 12);
+      // Brief, soft transitions between the three or four editorial scenes.
+      const local = t % 6,
+        fade = poster ? 1 : Math.min(1, local / 0.45, (6 - local) / 0.45);
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, fade);
+      mono(s.eyebrow, 52, 160, s.color, 12);
+      text(s.brand, 48, 237, id === 'overview' && index === 0 ? 54 : 62, white, 500);
+      line(52, 271, 100, 271, s.color, 2);
+      s.lines.forEach((sline, i) =>
+        text(sline, 48, 377 + i * 78, sline.length > 15 ? 58 : 72, white, 500),
+      );
+      text(s.sub, 52, 522, 19, muted);
+      // The workflow is a conceptual illustration, never a product interface or receipt.
+      const names =
+        id === 'cortex' || (id === 'overview' && index === 1)
+          ? ['Scope', 'Evidence', 'Next step']
+          : ['Symbols', 'Connections', 'Process'];
+      names.forEach((label, i) => {
+        const x = 52 + i * 184;
+        ctx.fillStyle = '#14272c';
+        ctx.strokeStyle = '#35514f';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(x, 578, 160, 42, 5);
+        ctx.fill();
+        ctx.stroke();
+        dot(x + 17, 599, 3, s.color);
+        mono(label, x + 30, 603, '#c3d7d3', 13);
+        if (i < 2) text('→', x + 165, 604, 17, muted);
+      });
+      mono(s.footer, 52, 665, muted, 11);
+      ctx.restore();
+      mono('JAMES HUSON', 52, 740, white, 12);
+      mono('APPLIED AI SYSTEMS ENGINEER', 52, 764, muted, 10);
+      mono('EXNULLA.COM', 1092, 750, white, 13);
+      // Film progress and chapter marks.
+      const duration = id === 'overview' ? 24 : 18;
+      line(390, 748, 944, 748, '#31444a', 2);
+      line(390, 748, 390 + 554 * Math.min(t / duration, 1), 748, s.color, 2);
+      for (let i = 0; i < scenes.length; i++)
+        dot(390 + (i * 554) / scenes.length, 748, 3, '#7c9690');
+    };
+    window.record = async (id) => {
+      const duration = id === 'overview' ? 24 : 18;
+      const stream = canvas.captureStream(30),
+        chunks = [];
+      const recorder = new MediaRecorder(stream, {
+        mimeType: 'video/webm;codecs=vp9',
+        videoBitsPerSecond: 3500000,
+      });
+      const done = new Promise((resolve) => (recorder.onstop = resolve));
+      recorder.ondataavailable = (e) => chunks.push(e.data);
+      window.render(id, 0);
+      recorder.start();
+      const start = performance.now();
+      await new Promise((resolve) => {
+        function frame(now) {
+          const t = (now - start) / 1000;
+          window.render(id, Math.min(t, duration - 0.001));
+          if (t < duration) requestAnimationFrame(frame);
+          else resolve();
+        }
+        requestAnimationFrame(frame);
+      });
+      recorder.stop();
+      await done;
+      stream.getTracks().forEach((track) => track.stop());
+      const blob = new Blob(chunks, { type: 'video/webm' });
+      const reader = new FileReader();
+      return await new Promise((resolve) => {
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.readAsDataURL(blob);
+      });
+    };
+    window.render('overview', 2, true);
+  </script>
+</html>

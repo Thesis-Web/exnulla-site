@@ -31,7 +31,7 @@ const orchestrationLabSpec = marked.parse(
 
 <BaseLayout
   title="Engineering Process — James Huson | Applied AI Systems Engineer"
-  description="How James Huson designs and operates bounded, artifact-verified AI systems: the current Cortex-informed orchestration model, live public demos, and the design lineage behind them."
+  description="James Huson’s engineering approach: bounded AI workflows, artifact verification, orchestration foundations, and current Cortex and Neuron research."
   active="engineering"
 >
   <div class="kicker">Engineering Process</div>
@@ -48,10 +48,13 @@ const orchestrationLabSpec = marked.parse(
   </p>
 
   <div class="pillrow">
-    <a class="pill" href="#current-system">Current System — Cortex-Informed Orchestration</a>
+    <a class="pill" href="#current-system">Engineering foundation — AI orchestration</a>
+    <a class="pill" href="/lab/cortex">Cortex research</a>
+    <a class="pill" href="/lab/neuron">Neuron research</a>
     <a class="pill" href="#evidence">Live Evidence</a>
     <a class="pill" href="#case-ai-devkit">Foundation — Guardrail-First AI Runtime</a>
-    <span class="pill">Public engineering notes · selected source and live artifacts available</span>
+    <span class="pill">Public engineering notes · selected source and live artifacts available</span
+    >
   </div>
 
   <div class="hr"></div>
@@ -91,7 +94,7 @@ const orchestrationLabSpec = marked.parse(
   <div class="hr"></div>
 
   <section class="card" id="current-system">
-    <h2>What I Build Now</h2>
+    <h2>Engineering Foundation: Bounded AI Workflows</h2>
     <p>
       I design and ship bounded AI systems as observable control planes. A project-manager role
       decomposes a problem into isolated, non-overlapping jobs; specialized worker roles execute
@@ -101,11 +104,15 @@ const orchestrationLabSpec = marked.parse(
       claim of "done" is ever trusted by itself.
     </p>
     <p>
-      This is the model behind Cortex, a Postgres-backed multi-agent orchestration system I built and
-      operate: a durable task ledger, content-addressed evidence storage, fence-token concurrency so
-      concurrent workers cannot collide on the same work, and an audit trail of every claim, block,
-      and completion. It is a real, live, self-operated system running on infrastructure I control —
-      not a public SaaS product, and not presented as one.
+      Earlier Cortex orchestration work explored this model with a Postgres-backed task ledger,
+      content-addressed evidence, fence-token concurrency, and an audit trail of claims and
+      completions. That work is part of the design lineage documented below.
+    </p>
+    <p>
+      The current <a href="/lab/cortex">Cortex research</a> focuses on persistent context for LLM sessions:
+      project scope, time, evidence, and focused handoffs. <a href="/lab/neuron">Neuron</a>
+      explores symbolic computing and inspectable execution. The product films introduce both projects
+      without exposing the private implementation.
     </p>
     <div class="pillrow">
       <span class="pill">No silent completion</span>
@@ -127,33 +134,45 @@ const orchestrationLabSpec = marked.parse(
     </p>
     <ul class="list">
       <li>
-        <strong>Safe Agent Pipeline</strong> — <a href="/demos/safe-agent-pipeline/index.html">live demo</a>.
-        Walks through PM ingest, bounded worker dispatch, listener signals, and artifact verification.
+        <strong>Safe Agent Pipeline</strong> — <a href="/demos/safe-agent-pipeline/index.html"
+          >live demo</a
+        >. Walks through PM ingest, bounded worker dispatch, listener signals, and artifact
+        verification.
         <em>Deterministic browser simulation — no real AI provider calls.</em>
       </li>
       <li>
-        <strong>Content-Addressed Storage</strong> — <a href="/demos/content-addressed-storage/index.html">live demo</a>.
-        Real SHA-256 computed client-side; demonstrates deduplication, immutable addressing, and
-        integrity checking. <em>Storage itself is an in-browser simulation, not a network service.</em>
+        <strong>Content-Addressed Storage</strong> — <a
+          href="/demos/content-addressed-storage/index.html">live demo</a
+        >. Real SHA-256 computed client-side; demonstrates deduplication, immutable addressing, and
+        integrity checking. <em
+          >Storage itself is an in-browser simulation, not a network service.</em
+        >
       </li>
       <li>
-        <strong>Intent File Router</strong> — <a href="/demos/intent-file-router/index.html">live demo</a>
-        · <a href="https://github.com/Thesis-Web/exnulla-demos/tree/main/apps/intent-file-router">source</a>.
-        A real, tested (Vitest, unit-covered) deterministic routing and validation implementation.
+        <strong>Intent File Router</strong> — <a href="/demos/intent-file-router/index.html"
+          >live demo</a
+        >
+        · <a href="https://github.com/Thesis-Web/exnulla-demos/tree/main/apps/intent-file-router"
+          >source</a
+        >. A real, tested (Vitest, unit-covered) deterministic routing and validation
+        implementation.
         <em>Does not perform an actual file transfer.</em>
       </li>
       <li>
-        <strong>Identity Without Disclosure</strong> — <a href="/demos/identity-without-disclosure/index.html">live demo</a>.
-        Simulates predicate attestation, vendor isolation, and epoch-bound bridging.
+        <strong>Identity Without Disclosure</strong> — <a
+          href="/demos/identity-without-disclosure/index.html">live demo</a
+        >. Simulates predicate attestation, vendor isolation, and epoch-bound bridging.
         <em>Deterministic placeholder crypto — explicitly not production cryptography.</em>
       </li>
       <li>
-        <strong>Conformance Runtime Engine</strong> — <a href="https://cers.exnulla.com">live system</a>.
-        LLM-backed runtime for regulated certification packages with source-cited findings.
+        <strong>Conformance Runtime Engine</strong> — <a href="https://cers.exnulla.com"
+          >live system</a
+        >. LLM-backed runtime for regulated certification packages with source-cited findings.
       </li>
       <li>
-        <strong>Orbital Thermal Trade System</strong> — <a href="https://orbital.exnulla.com">live system</a>.
-        Runtime-authoritative thermal/power trade computation behind a static-first interface.
+        <strong>Orbital Thermal Trade System</strong> — <a href="https://orbital.exnulla.com"
+          >live system</a
+        >. Runtime-authoritative thermal/power trade computation behind a static-first interface.
       </li>
     </ul>
   </section>
@@ -338,7 +357,9 @@ const orchestrationLabSpec = marked.parse(
       The following appendix is mirrored locally from the AI DevKit source material and displayed
       here as canonical markdown.
     </p>
-    <details class="md-appendix"><summary>Read the full document</summary><div class="md-doc" set:html={aiDevkitBlueprint} /></details>
+    <details class="md-appendix">
+      <summary>Read the full document</summary><div class="md-doc" set:html={aiDevkitBlueprint} />
+    </details>
   </section>
 
   <div class="hr"></div>
@@ -429,7 +450,9 @@ const orchestrationLabSpec = marked.parse(
       The following appendix is mirrored locally from the AI DevKit source material and displayed
       here as canonical markdown.
     </p>
-    <details class="md-appendix"><summary>Read the full document</summary><div class="md-doc" set:html={aiDevkitSpec} /></details>
+    <details class="md-appendix">
+      <summary>Read the full document</summary><div class="md-doc" set:html={aiDevkitSpec} />
+    </details>
   </section>
 
   <div class="hr"></div>
@@ -624,8 +647,11 @@ const orchestrationLabSpec = marked.parse(
   <div class="hr"></div>
 
   <section class="card">
-    <h2 id="case-agentic-pipeline">Current System — Cortex-Informed Headless Orchestration</h2>
-    <p class="small">Current system · live and operated daily · see "What I Build Now" above for the running implementation</p>
+    <h2 id="case-agentic-pipeline">Design Lineage — Cortex-Informed Headless Orchestration</h2>
+    <p class="small">
+      Earlier orchestration design · see the <a href="/lab/cortex">Cortex research overview</a> for the
+      current public project description.
+    </p>
 
     <p>
       This case study documents the operating model behind a human-led agentic development pipeline.
@@ -780,7 +806,12 @@ const orchestrationLabSpec = marked.parse(
       The following appendix is mirrored locally from the orchestration lab blueprint and displayed
       here as canonical markdown.
     </p>
-    <details class="md-appendix"><summary>Read the full document</summary><div class="md-doc" set:html={orchestrationLabBlueprint} /></details>
+    <details class="md-appendix">
+      <summary>Read the full document</summary><div
+        class="md-doc"
+        set:html={orchestrationLabBlueprint}
+      />
+    </details>
   </section>
 
   <div class="hr"></div>
@@ -852,7 +883,12 @@ const orchestrationLabSpec = marked.parse(
       The following appendix is mirrored locally from the orchestration lab engineering spec and
       displayed here as canonical markdown.
     </p>
-    <details class="md-appendix"><summary>Read the full document</summary><div class="md-doc" set:html={orchestrationLabSpec} /></details>
+    <details class="md-appendix">
+      <summary>Read the full document</summary><div
+        class="md-doc"
+        set:html={orchestrationLabSpec}
+      />
+    </details>
   </section>
 
   <div class="hr"></div>
