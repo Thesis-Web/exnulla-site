@@ -91,6 +91,12 @@ and JSON report directory. The same check accepts the deployed origin.
 Keep the pinned existing demos in the build. Deploy through the existing release workflow,
 retain the previous release, and verify the public pages and media after promotion.
 
+The first automatic deployment exposed a pre-existing missing lockfile entry for the
+content-addressed-storage demo. The demos pin now includes that entry and the already-deployed
+intent-router presentation styles. A frozen install and all four demo builds pass; the built
+router asset hashes match the previous deployed assets. Pending files in the droplet's demos
+checkout were left in place.
+
 The droplet's Nginx MIME list does not include WebVTT. Its ExNulla virtual host needs the
 following location so caption assets return text/vtt. This is a one-time server configuration
 change; retain a copy of the prior virtual host and validate with nginx -t before reloading.
