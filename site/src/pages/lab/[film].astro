@@ -26,7 +26,7 @@ const ld = {
       '@type': 'VideoObject',
       '@id': `${url}#film`,
       name: `${item.name} — ${item.title}`,
-      description: `${item.description} Illustrative product film; no audio.`,
+      description: `${item.description} Recorded from the live engine; narrated in English with captions.`,
       thumbnailUrl: [`${PUBLIC_ORIGIN}/assets/films/${film}-poster.jpg`],
       uploadDate: FILM_PUBLISHED,
       duration: `PT${item.duration}S`,
@@ -88,8 +88,8 @@ const ld = {
 
   <section class="editorial" id="transcript">
     <div>
-      <div class="kicker">Film transcript</div><h2>The story in words.</h2><p class="small">
-        Silent film. All main titles are reproduced here.
+      <div class="kicker">Film transcript</div><h2>The narration in words.</h2><p class="small">
+        What the narrator says, by the second. The screen shows the engine as it ran.
       </p>
     </div>
     <ol class="transcript">

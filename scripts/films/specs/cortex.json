@@ -1,0 +1,52 @@
+{
+  "id": "cortex",
+  "voice": "en-GB-RyanNeural",
+  "rate": "-4%",
+  "poster_at": 5.0,
+  "segments": [
+    {
+      "scene": "01-title",
+      "from": "tab type+0.3",
+      "to": "end",
+      "len": 11,
+      "lead": 0.6,
+      "text": "Cortex is memory for work: state, time and grounding, held in a live engine, so that a new session does not start the project over."
+    },
+    {
+      "scene": "05-project",
+      "from": "loaded+0.3",
+      "to": "typed",
+      "len": 4,
+      "text": "A project is told to it in plain lines."
+    },
+    {
+      "scene": "05-project",
+      "from": "typed",
+      "to": "end",
+      "len": 16,
+      "text": "Its scope. A checkpoint. What is expected of that checkpoint. And where it stands today. Each line is a run, with its own time."
+    },
+    {
+      "scene": "06-ingest",
+      "from": "loaded+0.3",
+      "to": "typed@2",
+      "len": 9,
+      "text": "Each session reports what it did, as a line, and the engine reads it against what it already holds."
+    },
+    {
+      "scene": "06-ingest",
+      "from": "typed@2",
+      "to": "end",
+      "len": 8,
+      "text": "Say a thing twice, and it is not stored twice. It is the same memory, with a new time."
+    },
+    {
+      "scene": "08-close",
+      "from": "tab type+0.3",
+      "to": "end",
+      "len": 11,
+      "lead": 0.4,
+      "text": "The next session starts from the state of the work, not from a transcript. Cortex. Research and engineering by James Huson. exnulla dot com."
+    }
+  ]
+}

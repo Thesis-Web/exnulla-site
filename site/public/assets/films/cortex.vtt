@@ -1,14 +1,43 @@
 WEBVTT
 
-00:00.000 --> 00:06.000
-Cortex. Pick up the thread.
-Persistent context for AI work.
+00:00.700 --> 00:09.593
+Cortex is memory for work: state, time and grounding, held in a live engine, so that a new session does not start the project over.
 
-00:06.000 --> 00:12.000
-New session. Same direction.
-Scope. Evidence. Next step.
+00:11.100 --> 00:14.407
+A project is told to it in plain lines.
 
-00:12.000 --> 00:18.000
-Keep the work connected.
-Project state. Time. Grounding.
+00:15.100 --> 00:16.666
+Its scope.
+
+00:16.716 --> 00:18.554
+A checkpoint.
+
+00:18.604 --> 00:21.315
+What is expected of that checkpoint.
+
+00:21.365 --> 00:23.815
+And where it stands today.
+
+00:23.865 --> 00:27.224
+Each line is a run, with its own time.
+
+00:31.100 --> 00:37.545
+Each session reports what it did, as a line, and the engine reads it against what it already holds.
+
+00:40.100 --> 00:44.036
+Say a thing twice, and it is not stored twice.
+
+00:44.086 --> 00:47.445
+It is the same memory, with a new time.
+
+00:48.500 --> 00:53.074
+The next session starts from the state of the work, not from a transcript.
+
+00:53.124 --> 00:54.793
+Cortex.
+
+00:54.843 --> 00:58.373
 Research and engineering by James Huson.
+
+00:58.423 --> 01:00.585
+exnulla dot com.

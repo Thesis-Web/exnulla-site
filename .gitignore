@@ -43,3 +43,6 @@ site/public/demos/
 
 # Demo artifacts are copied into site/public during build/deploy; never commit
 site/public/demos/
+
+# python authoring tools
+__pycache__/

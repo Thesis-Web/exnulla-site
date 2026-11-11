@@ -1,14 +1,61 @@
 WEBVTT
 
-00:00.000 --> 00:06.000
-Neuron. See the connections.
-Experimental symbolic computing.
+00:00.700 --> 00:03.204
+Neuron is a live engine.
 
-00:06.000 --> 00:12.000
-Follow the process.
-Symbols. Relationships. Execution.
+00:03.254 --> 00:05.964
+Every point is a word it knows.
 
-00:12.000 --> 00:18.000
-Make computation visible.
-Explore the process behind the output.
+00:06.014 --> 00:09.569
+Every line is a connection it has made for itself.
+
+00:10.384 --> 00:13.860
+Ask it to define a word it has never been given.
+
+00:15.184 --> 00:21.255
+It reads its sources, and works the word into the graph, along with every word it met on the way.
+
+00:21.305 --> 00:23.430
+Twenty-nine runs.
+
+00:23.480 --> 00:25.761
+Thirteen new words.
+
+00:25.811 --> 00:27.699
+Two seconds.
+
+00:28.309 --> 00:36.967
+One typed line, and a tree of runs underneath it: the engine asking its own questions, and answering them, without being told to.
+
+00:37.518 --> 00:40.998
+Ask the same thing again, and nothing runs.
+
+00:41.048 --> 00:43.173
+It already knows.
+
+00:43.223 --> 00:46.832
+Learning happens once, and takes its time.
+
+00:46.882 --> 00:49.121
+Recall is immediate.
+
+00:49.727 --> 00:52.187
+A meaning is not fixed.
+
+00:54.936 --> 00:59.389
+It can be told, and it can be changed, in a single line.
+
+00:59.936 --> 01:04.232
+Every run leaves a receipt: the path it took through the graph.
+
+01:06.936 --> 01:12.144
+Any run can be played back, hop by hop, and every hop can be read.
+
+01:16.336 --> 01:17.889
+Neuron.
+
+01:17.939 --> 01:21.470
 Research and engineering by James Huson.
+
+01:21.520 --> 01:23.681
+exnulla dot com.

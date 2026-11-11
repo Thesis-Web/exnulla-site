@@ -1,108 +1,75 @@
-# Cortex and Neuron product films
+# Cortex and Neuron films
 
-The public introduction shows the purpose of each research project while keeping the private
-implementation and live systems outside the website. The owner requested advertisement-style
-demos, a landing-page treatment, SEO and LLM discovery, and an image or video of the updated site
-on November 10, 2026.
+The films on the landing page and under `/lab` are screen recordings of the research engine as it
+ran, with a narrated voice-over and captions. They replace the first version (November 10, 2026),
+which used authored canvas graphics and no audio. The owner's brief for this version: record the
+real engine run; show the kinds of run (a typed line, the runs it spawns underneath, a define, a
+change of meaning, a repeat, a receipt played back, and a project's lines); drive interest without
+explaining how it works; narrate in a British voice; deploy through the atomic release so it can be
+rolled back.
 
-## Delivered experience
+## What the films show
 
-- Landing page: a 24-second introduction featuring both projects, followed by individual summaries.
-- Lab: an 18-second Cortex film and an 18-second Neuron film, each on its own watch page.
-- Portfolio: both projects linked from the project collection and the CV.
-- Accessibility: native playback controls, no autoplay, English captions, and visible transcripts.
-- Performance: posters load with the page; MP4 files load only when played. No external player,
-  film animation runtime, font service, or new backend is required.
+- `overview` (landing page): the engine's graph, a define run, the tree of runs under one line, the
+  same line asked again, a meaning changed, a receipt played back, and a project's lines in Cortex.
+- `neuron` (`/lab/neuron/`): the define, the tree, the repeat, the meaning change and the receipt.
+- `cortex` (`/lab/cortex/`): a project told in lines (scope, checkpoint, expected, state), a
+  session's report, and the same report said twice.
 
-The authored graphics are illustrative product films. They are not recordings, measurements,
-or evidence of live product behavior. The pages say this beside the player. Cortex is described
-as experimental persistent context for LLM work. Neuron is described as experimental symbolic
-computing. General language understanding and autonomous invention are not claimed.
+The numbers spoken in the narration (runs, hits, seconds) are the engine's own figures for the
+lines typed in the recording. Nothing is staged.
 
-The current owner request adds a presentation-led section to the older landing architecture
-document. Its performance and explicit-play constraints remain in effect. The compact mobile
-navigation keeps the film and content reachable without the previous large sticky header.
+## What is kept out
 
-## What this requires
+The recording shows the engine's stage and its typed-line panel only. Panels that describe the
+mechanism (the data sheet, what a run handed the kernel, the hop log, the receipt rows, the line
+files) are hidden with CSS at recording time, and the output rows that carry the formula text or
+raw gate lists are cut. The narration speaks of meanings, relationships, state, time, memory,
+learning and recall in broad terms only. No kernel source, schema, receipt, database, address or
+project record is in the public assets; the typed project lines are about this website.
 
-This version uses the existing Astro build, droplet, Nginx, and atomic release directory. There
-is no new hosting service, subscription, database access, or runtime model cost. The work is
-the public story, authored motion graphics, video export, page integration, search metadata,
-and responsive/playback verification.
+## How the films were made
 
-A future narrated commercial can reuse these scenes. It would require a chosen script, voice,
-and licensed audio, plus another editorial and review pass. These silent films already work
-as the public first version.
+- The engine ran on a throwaway copy of a copy of the brain, on its own port, started fresh before
+  the take, so the live brain and the saved copy were never touched and the "first time" lines were
+  first times. The kernel's own page served that port.
+- `scripts/films/record.mjs` drives the page with Playwright and records each scene as a WebM take
+  (1280x800, real time), with a marks file of when each action happened. The scene list is
+  `scripts/films/scenes.json`. The page URL comes from `EXNULLA_FILM_PAGE`, the Playwright module
+  from `EXNULLA_PLAYWRIGHT_MODULE`. Playwright, Chromium and FFmpeg are authoring tools, not site
+  dependencies.
+- `scripts/films/assemble.py` cuts each film from the takes by those marks (slow page read-backs are
+  sped up or jump-cut; a frame is held while the narration finishes), synthesises the narration per
+  segment with Microsoft Edge neural text-to-speech (voice `en-GB-RyanNeural`, via the `edge-tts`
+  package) from `scripts/films/specs/<film>.json`, writes `<film>.mp4` (H.264, yuv420p, 24 fps,
+  AAC, fast start), `<film>.vtt` captions timed from the synthesiser's word timings, the posters
+  (a real frame, WebP and JPEG) and `<film>.json` with the duration and transcript that
+  `site/src/data/films.ts` carries.
+
+```bash
+EXNULLA_FILM_PAGE=http://127.0.0.1:8059/ EXNULLA_PLAYWRIGHT_MODULE=/path/to/playwright/index.mjs \
+  node scripts/films/record.mjs takes scripts/films/scenes.json
+for f in overview neuron cortex; do python3 scripts/films/assemble.py takes scripts/films/specs/$f.json site/public/assets/films; done
+```
+
+Exports are committed under `site/public/assets/films`, so ordinary CI does not render video.
 
 ## Search and AI discovery
 
 Each film has a stable watch page with a descriptive title, canonical URL, plain HTML explanation,
-transcript, social image, linked author identity, breadcrumbs, and VideoObject JSON-LD.
-The normal sitemap includes the watch pages. A separate video sitemap supplies their content
-and thumbnail URLs and is declared in robots.txt. Project and CV links make the pages discoverable.
-
-The optional llms.txt is a concise index of public facts. It is not a ranking mechanism. The
-useful foundation is readable, crawlable, accurate content with consistent entity names and
-links. Inclusion in search results or AI answers is not guaranteed.
-
-References:
-
-- [Google: AI features and your website](https://developers.google.com/search/docs/appearance/ai-features)
-- [Google: Video structured data](https://developers.google.com/search/docs/appearance/structured-data/video)
-- [Google: Video SEO](https://developers.google.com/search/docs/appearance/video)
-
-## Sources and confidentiality
-
-The public project descriptions were checked against the owner's Neuron/Cortex reference and
-development notes. No kernel source, schema, execution receipt, database, project record,
-internal address, prompt, or development screenshot is included in the public assets.
-The renderer contains only invented visual geometry and public-facing copy.
-
-## Rebuild the films
-
-Authoring requires Node, FFmpeg with libx264, and an installed Playwright with Chromium. These
-are authoring tools, not dependencies added to the website. Set EXNULLA_PLAYWRIGHT_MODULE to
-the absolute path of Playwright's index.mjs. If the browser needs a local shared-library path,
-set LD_LIBRARY_PATH for the authoring command in your own environment.
-
-```bash
-node scripts/films/render.mjs
-node scripts/films/render.mjs cortex
-```
-
-The scene source is scripts/films/scene.html. Exports are committed under
-site/public/assets/films so ordinary CI does not need to render video. MP4 uses H.264, yuv420p,
-24 fps, and fast-start metadata. Posters are supplied as WebP for the player and JPEG for
-social/search thumbnails. Captions and the page transcripts follow the same scene timing.
+the narration as a transcript, social image, linked author identity, breadcrumbs and VideoObject
+JSON-LD. The normal sitemap includes the watch pages; a video sitemap supplies their content and
+thumbnail URLs and is declared in robots.txt. `llms.txt` is a short index of public facts.
 
 ## Verify and deploy
 
-Build with the existing npm script. Serve site/dist on port 4322, then run:
+Build with the existing npm script, serve `site/dist` on port 4322, then run
+`node scripts/films/check.mjs http://127.0.0.1:4322`. The check reads each film's labelled duration
+and caption file from the page and verifies playback, dimensions, audio decoding, the transcript,
+the discovery files, mobile/tablet/desktop overflow and browser/HTTP errors. The same check accepts
+the deployed origin.
 
-```bash
-node scripts/films/check.mjs http://127.0.0.1:4322
-```
-
-The browser check verifies mobile/tablet/desktop overflow, single H1, canonical and description
-metadata, zero MP4 requests before play, real playback and seeking, film durations, dimensions,
-transcripts, discovery files, and browser/HTTP errors. EXNULLA_QA_OUTPUT selects the screenshot
-and JSON report directory. The same check accepts the deployed origin.
-
-Keep the pinned existing demos in the build. Deploy through the existing release workflow,
-retain the previous release, and verify the public pages and media after promotion.
-
-The first automatic deployment exposed a pre-existing missing lockfile entry for the
-content-addressed-storage demo. The demos pin now includes that entry and the already-deployed
-intent-router presentation styles. A frozen install and all four demo builds pass; the built
-router asset hashes match the previous deployed assets. Pending files in the droplet's demos
-checkout were left in place.
-
-The droplet's Nginx MIME list does not include WebVTT. Its ExNulla virtual host needs the
-following location so caption assets return text/vtt. This is a one-time server configuration
-change; retain a copy of the prior virtual host and validate with nginx -t before reloading.
-
-```nginx
-location ~ ^/assets/films/(overview|cortex|neuron)\.vtt$ {
-    types { text/vtt vtt; }
-}
-```
+Deploy through the existing release workflow (push to `main`). The release lands in a new
+directory under `/var/www/exnulla-site/releases/<sha>` and `current` is re-pointed only after the
+invariants pass; the previous release stays on disk, so a rollback is re-pointing `current` and
+reloading Nginx. The Nginx virtual host serves `.vtt` as `text/vtt` for the three caption files.

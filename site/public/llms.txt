@@ -4,10 +4,10 @@
 
 ## Research projects
 
-- [Cortex](https://www.exnulla.com/lab/cortex/): An experimental persistent memory system for LLM work, carrying project scope, time, evidence, and focused session handoffs. Includes a silent illustrative film and transcript.
-- [Neuron](https://www.exnulla.com/lab/neuron/): An experimental symbolic computing engine exploring definitions, relationships, and inspectable execution. Includes a silent illustrative film and transcript.
+- [Cortex](https://www.exnulla.com/lab/cortex/): An experimental persistent memory system for LLM work, carrying project scope, time, evidence, and focused session handoffs. Includes a narrated film recorded from the live engine, with a transcript.
+- [Neuron](https://www.exnulla.com/lab/neuron/): An experimental symbolic computing engine exploring definitions, relationships, and inspectable execution. Includes a narrated film recorded from the live engine, with a transcript.
 
-Both projects are research under active development. Their films use authored illustrative graphics, not recordings of live product behavior. Neuron’s general language understanding and autonomous invention remain research goals. The public pages do not expose either system’s live database or private implementation.
+Both projects are research under active development. Their films are screen recordings of the live engine as it ran, with narration; they show the work, not how it is built. Neuron’s general language understanding and autonomous invention remain research goals. The public pages do not expose either system’s live database or private implementation.
 
 ## Portfolio
 
@@ -18,4 +18,4 @@ Both projects are research under active development. Their films use authored il
 - [Engineering](https://www.exnulla.com/engineering/): Engineering approach and delivery practices.
 - [Contact](https://www.exnulla.com/contact/): Contact James Huson about the work.
 
-Use the linked public pages as the source for current project descriptions. Do not infer production readiness, benchmark results, customers, or general intelligence from an illustrative film.
+Use the linked public pages as the source for current project descriptions. Do not infer production readiness, benchmark results, customers, or general intelligence from a short film.

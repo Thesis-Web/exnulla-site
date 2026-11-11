@@ -14,7 +14,7 @@ export const GET: APIRoute = () => {
       return `<url><loc>${PUBLIC_ORIGIN}/lab/${id}/</loc><video:video>
 <video:thumbnail_loc>${PUBLIC_ORIGIN}/assets/films/${id}-poster.jpg</video:thumbnail_loc>
 <video:title>${xml(`${item.name} — ${item.title}`)}</video:title>
-<video:description>${xml(`${item.description} Illustrative product film; no audio.`)}</video:description>
+<video:description>${xml(`${item.description} Recorded from the live engine; narrated in English with captions.`)}</video:description>
 <video:content_loc>${PUBLIC_ORIGIN}/assets/films/${id}.mp4</video:content_loc>
 <video:duration>${item.duration}</video:duration><video:publication_date>${FILM_PUBLISHED}</video:publication_date>
 </video:video></url>`;

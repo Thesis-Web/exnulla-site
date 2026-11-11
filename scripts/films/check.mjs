@@ -67,9 +67,9 @@ try {
       const videoLd = schemas
         .flatMap((schema) => schema['@graph'] || [schema])
         .find((schema) => schema['@type'] === 'VideoObject');
-      assert.equal(videoLd.duration, 'PT18S');
-      assert.ok(videoLd.transcript.includes('00:12'));
-      assert.equal(await page.locator('#transcript li').count(), 3);
+      assert.match(videoLd.duration, /^PT\d+S$/, `Duration: ${route}`);
+      assert.ok(videoLd.transcript.split('\n').length >= 3, `Transcript lines: ${route}`);
+      assert.ok((await page.locator('#transcript li').count()) >= 3, `Transcript items: ${route}`);
       await page.screenshot({ path: `${output}/${id}-desktop.png`, fullPage: true });
     }
 
@@ -82,11 +82,18 @@ try {
         element.textTracks[0].mode = 'hidden';
       });
       await page.waitForFunction(() => document.querySelector('track')?.readyState === 2);
+      const trackUrl = await page.locator('track').getAttribute('src');
+      const vtt = await (await fetch(`${base}${trackUrl}`)).text();
+      const cueCount = vtt.split('\n').filter((line) => line.includes('-->')).length;
+      assert.ok(cueCount >= 3, `Caption cues: ${route}`);
       assert.equal(
         await video.evaluate((element) => element.textTracks[0].cues.length),
-        route === '/' ? 4 : 3,
+        cueCount,
         `Captions: ${route}`,
       );
+      const label = (await video.getAttribute('aria-label')) || '';
+      const expectedSeconds = Number((label.match(/(\d+)-second/) || [])[1]);
+      assert.ok(expectedSeconds > 0, `Labelled duration: ${route}`);
       await page.waitForFunction(() => document.querySelector('video').currentTime > 0.2, {
         timeout: 12000,
       });
@@ -101,7 +108,11 @@ try {
         element.currentTime = 7;
         return result;
       });
-      assert.ok(Math.abs(state.duration - (route === '/' ? 24 : 18)) < 0.1, `Duration: ${route}`);
+      assert.ok(Math.abs(state.duration - expectedSeconds) < 0.75, `Duration: ${route}`);
+      assert.ok(
+        await video.evaluate((element) => (element.webkitAudioDecodedByteCount ?? 1) > 0),
+        `Audio decoded: ${route}`,
+      );
       assert.equal(state.width, 1280);
       assert.equal(state.height, 800);
       assert.equal(state.error, null);

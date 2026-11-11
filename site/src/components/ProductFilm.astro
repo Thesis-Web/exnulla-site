@@ -14,7 +14,7 @@ const item = FILMS[film];
       poster={`/assets/films/${film}-poster.webp`}
       width="1280"
       height="800"
-      aria-label={`${item.name}: ${item.title} ${item.duration}-second illustrative product film.`}
+      aria-label={`${item.name}: ${item.title} ${item.duration}-second film recorded from the live engine, narrated.`}
       aria-describedby={`film-note-${film}`}
     >
       <source src={`/assets/films/${film}.mp4`} type="video/mp4" />
@@ -30,13 +30,13 @@ const item = FILMS[film];
       <img src={`/assets/films/${film}-poster.webp`} alt="" width="1280" height="800" />
       <span class="play-label"
         ><span aria-hidden="true">▶</span> Watch film <span class="play-duration"
-          >0:{item.duration}</span
+          >{Math.floor(item.duration / 60)}:{String(item.duration % 60).padStart(2, '0')}</span
         ></span
       >
     </button>
   </div>
   <figcaption id={`film-note-${film}`}>
-    <span>{item.duration}s · Illustrative product film · No audio</span>
+    <span>{item.duration}s · Recorded from the live engine · Narrated, captioned</span>
     <a href={film === 'overview' ? '/lab#product-films' : '#transcript'}
       >Read the {film === 'overview' ? 'project summaries' : 'transcript'}
       <span aria-hidden="true">↗</span></a
