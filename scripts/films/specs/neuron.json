@@ -1,124 +1,93 @@
 {
- "id": "neuron",
- "voice": "bm_fable",
- "speed": 0.95,
- "poster_at": 5.0,
- "segments": [
-  {
-   "scene": "n1-title",
-   "from": "tab type+0.3",
-   "to": "end",
-   "len": 11,
-   "lead": 0.5,
-   "text": "This is Neuron. I won't tell you how it works, but I can show you what it does. Every point is a word. Every line is a relationship it formed on its own."
-  },
-  {
-   "scene": "n2-define",
-   "from": "loaded+0.3",
-   "to": "typed",
-   "len": 4,
-   "text": "I'll start with a word it has never been given."
-  },
-  {
-   "scene": "n2-define",
-   "from": "typed",
-   "to": "shot out",
-   "len": 10,
-   "text": "The line I typed is the primary run. Underneath it, the engine spawns its own secondary runs, one for every thing it had to understand on the way. Those are the counts.",
-   "cover": [
-    [
-     856,
-     468,
-     424,
-     332,
-     "EAE4DD"
-    ]
-   ]
-  },
-  {
-   "scene": "n3-formula",
-   "from": "loaded+0.3",
-   "to": "typed",
-   "len": 3,
-   "text": "Now a different word."
-  },
-  {
-   "scene": "n3-formula",
-   "from": "typed",
-   "to": "end",
-   "len": 10,
-   "text": "Look at the last row. Every question has a shape, and the first time it meets a new one it works out a formula. Here the formula was already there, so it used it again.",
-   "cover": [
-    [
-     856,
-     468,
-     424,
-     332,
-     "EAE4DD"
-    ]
-   ]
-  },
-  {
-   "scene": "n4-meaning",
-   "from": "loaded+0.3",
-   "to": "typed",
-   "len": 4,
-   "text": "A meaning isn't fixed."
-  },
-  {
-   "scene": "n4-meaning",
-   "from": "typed",
-   "to": "out",
-   "len": 0.7,
-   "hold": 0.0,
-   "text": ""
-  },
-  {
-   "scene": "n4-meaning",
-   "from": "out",
-   "to": "end",
-   "len": 8.5,
-   "cover": [
-    [
-     916,
-     277,
-     130,
-     17,
-     "E1DCD0"
-    ]
-   ],
-   "text": "I can tell it, in one line, that a word means something else, and the relationships move with it. No retraining, no rebuild. Just a change of state, with a time on it."
-  },
-  {
-   "scene": "n5-play",
-   "from": "loaded+0.3",
-   "to": "click #play+0.3",
-   "len": 7,
-   "text": "Ask for the word again and it answers from memory. The run it did is still there, as a receipt."
-  },
-  {
-   "scene": "n5-play",
-   "from": "click #play+0.3",
-   "to": "click #play@2",
-   "len": 12,
-   "cover": [
-    [
-     858,
-     308,
-     422,
-     492
-    ]
-   ],
-   "text": "So let's play it back. This is the path through the graph, hop by hop. Every hop is readable, which means every answer can be audited. Learning happens at build time. This is runtime, and it's quick."
-  },
-  {
-   "scene": "n6-close",
-   "from": "tab type+0.3",
-   "to": "end",
-   "len": 8,
-   "lead": 0.4,
-   "text": "That's Neuron. Research and engineering by James Huson, at exnulla dot com."
-  }
- ],
- "panel": "EAE4DD"
+  "id": "neuron",
+  "voice": "bm_fable",
+  "speed": 0.95,
+  "poster_at": 5.0,
+  "segments": [
+    {
+      "scene": "n1-title",
+      "from": "tab type+0.3",
+      "to": "end",
+      "len": 11,
+      "lead": 0.5,
+      "text": "This is Neuron. I won't tell you how it works, but I can show you what it does. Every point is a word. Every line is a relationship it formed on its own."
+    },
+    {
+      "scene": "n2-define",
+      "from": "loaded+0.3",
+      "to": "typed",
+      "len": 4,
+      "text": "I'll start with a word it has never been given."
+    },
+    {
+      "scene": "n2-define",
+      "from": "typed",
+      "to": "shot out",
+      "len": 10,
+      "text": "The line I typed is the primary run. Underneath it, the engine spawns its own secondary runs, one for every thing it had to understand on the way. Those are the counts.",
+      "cover": [[856, 468, 424, 332, "EAE4DD"]]
+    },
+    {
+      "scene": "n3-formula",
+      "from": "loaded+0.3",
+      "to": "typed",
+      "len": 3,
+      "text": "Now a different word."
+    },
+    {
+      "scene": "n3-formula",
+      "from": "typed",
+      "to": "end",
+      "len": 10,
+      "text": "Look at the last row. Every question has a shape, and the first time it meets a new one it works out a formula. Here the formula was already there, so it used it again.",
+      "cover": [[856, 468, 424, 332, "EAE4DD"]]
+    },
+    {
+      "scene": "n4-meaning",
+      "from": "loaded+0.3",
+      "to": "typed",
+      "len": 4,
+      "text": "A meaning isn't fixed."
+    },
+    {
+      "scene": "n4-meaning",
+      "from": "typed",
+      "to": "out",
+      "len": 0.7,
+      "hold": 0.0,
+      "text": ""
+    },
+    {
+      "scene": "n4-meaning",
+      "from": "out",
+      "to": "end",
+      "len": 8.5,
+      "cover": [[916, 277, 130, 17, "E1DCD0"]],
+      "text": "I can tell it, in one line, that a word means something else, and the relationships move with it. No retraining, no rebuild. Just a change of state, with a time on it."
+    },
+    {
+      "scene": "n5-play",
+      "from": "loaded+0.3",
+      "to": "click #play+0.3",
+      "len": 7,
+      "text": "Ask for the word again and it answers from memory. The run it did is still there, as a receipt."
+    },
+    {
+      "scene": "n5-play",
+      "from": "click #play+0.3",
+      "to": "click #play@2",
+      "len": 12,
+      "cover": [[858, 308, 422, 492]],
+      "text": "So let's play it back. This is the path through the graph, hop by hop. Every hop is readable, which means every answer can be audited. Learning happens at build time. This is runtime, and it's quick."
+    },
+    {
+      "scene": "n6-close",
+      "from": "tab type+0.3",
+      "to": "end",
+      "len": 8,
+      "lead": 0.4,
+      "text": "That's Neuron. Research and engineering by James Huson, at exnulla dot com."
+    }
+  ],
+  "panel": "EAE4DD"
 }

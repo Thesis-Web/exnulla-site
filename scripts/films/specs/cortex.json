@@ -1,73 +1,73 @@
 {
- "id": "cortex",
- "voice": "bm_fable",
- "speed": 0.95,
- "poster_at": 5.0,
- "segments": [
-  {
-   "scene": "c1-title",
-   "from": "tab type+0.3",
-   "to": "end",
-   "len": 10,
-   "lead": 0.5,
-   "text": "This is Cortex. It's memory for work. When I sit down with a new session, it doesn't start the project over. It starts from where the work actually is."
-  },
-  {
-   "scene": "c2-project",
-   "from": "loaded+0.3",
-   "to": "typed",
-   "len": 5,
-   "text": "I tell it about a project in plain lines. First, what the project is."
-  },
-  {
-   "scene": "c2-project",
-   "from": "typed",
-   "to": "typed@2",
-   "len": 6,
-   "text": "Then a checkpoint: a piece of the work with a clear edge."
-  },
-  {
-   "scene": "c2-project",
-   "from": "typed@2",
-   "to": "typed@3",
-   "len": 6,
-   "text": "What I expect to be true when that checkpoint is done."
-  },
-  {
-   "scene": "c2-project",
-   "from": "typed@3",
-   "to": "end",
-   "len": 8,
-   "text": "And where it stands today. Each of those lines is a run of its own, with its own time. Nothing here is a document. It's all state."
-  },
-  {
-   "scene": "c3-ingest",
-   "from": "loaded+0.3",
-   "to": "shot out",
-   "len": 9,
-   "text": "As a session works, it reports what it did, as a line, and Cortex reads it against what it already holds."
-  },
-  {
-   "scene": "c3-ingest",
-   "from": "shot out",
-   "to": "end",
-   "len": 9,
-   "text": "Now I say the same thing twice. It isn't stored twice. It's the same memory with a new time on it, and that is how it tells time passing from new information."
-  },
-  {
-   "scene": "c4-state",
-   "from": "loaded+0.3",
-   "to": "end",
-   "len": 7,
-   "text": "When the checkpoint is done, I say so, and the state moves. The history stays."
-  },
-  {
-   "scene": "c5-close",
-   "from": "tab type+0.3",
-   "to": "end",
-   "len": 8,
-   "lead": 0.4,
-   "text": "The next session opens the project and finds the state, the time, and the grounding. Nothing to re-read. Cortex, by James Huson, at exnulla dot com."
-  }
- ]
+  "id": "cortex",
+  "voice": "bm_fable",
+  "speed": 0.95,
+  "poster_at": 5.0,
+  "segments": [
+    {
+      "scene": "c1-title",
+      "from": "tab type+0.3",
+      "to": "end",
+      "len": 10,
+      "lead": 0.5,
+      "text": "This is Cortex. It's memory for work. When I sit down with a new session, it doesn't start the project over. It starts from where the work actually is."
+    },
+    {
+      "scene": "c2-project",
+      "from": "loaded+0.3",
+      "to": "typed",
+      "len": 5,
+      "text": "I tell it about a project in plain lines. First, what the project is."
+    },
+    {
+      "scene": "c2-project",
+      "from": "typed",
+      "to": "typed@2",
+      "len": 6,
+      "text": "Then a checkpoint: a piece of the work with a clear edge."
+    },
+    {
+      "scene": "c2-project",
+      "from": "typed@2",
+      "to": "typed@3",
+      "len": 6,
+      "text": "What I expect to be true when that checkpoint is done."
+    },
+    {
+      "scene": "c2-project",
+      "from": "typed@3",
+      "to": "end",
+      "len": 8,
+      "text": "And where it stands today. Each of those lines is a run of its own, with its own time. Nothing here is a document. It's all state."
+    },
+    {
+      "scene": "c3-ingest",
+      "from": "loaded+0.3",
+      "to": "shot out",
+      "len": 9,
+      "text": "As a session works, it reports what it did, as a line, and Cortex reads it against what it already holds."
+    },
+    {
+      "scene": "c3-ingest",
+      "from": "shot out",
+      "to": "end",
+      "len": 9,
+      "text": "Now I say the same thing twice. It isn't stored twice. It's the same memory with a new time on it, and that is how it tells time passing from new information."
+    },
+    {
+      "scene": "c4-state",
+      "from": "loaded+0.3",
+      "to": "end",
+      "len": 7,
+      "text": "When the checkpoint is done, I say so, and the state moves. The history stays."
+    },
+    {
+      "scene": "c5-close",
+      "from": "tab type+0.3",
+      "to": "end",
+      "len": 8,
+      "lead": 0.4,
+      "text": "The next session opens the project and finds the state, the time, and the grounding. Nothing to re-read. Cortex, by James Huson, at exnulla dot com."
+    }
+  ]
 }

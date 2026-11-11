@@ -24,16 +24,31 @@ export const FILMS = {
     status:
       'Working research system under active development. The film shows the engine as it ran on a copy of its memory; it does not establish general reliability or autonomous verification.',
     transcript: [
-      ['00:00', "This is Cortex. It's memory for work. When I sit down with a new session, it doesn't start the project over. It starts from where the work actually is."],
+      [
+        '00:00',
+        "This is Cortex. It's memory for work. When I sit down with a new session, it doesn't start the project over. It starts from where the work actually is.",
+      ],
       ['00:09', 'I tell it about a project in plain lines. First, what the project is.'],
       ['00:15', 'Then a checkpoint: a piece of the work with a clear edge.'],
       ['00:21', 'What I expect to be true when that checkpoint is done.'],
-      ['00:27', "And where it stands today. Each of those lines is a run of its own, with its own time. Nothing here is a document. It's all state."],
-      ['00:36', 'As a session works, it reports what it did, as a line, and Cortex reads it against what it already holds.'],
-      ['00:44', "Now I say the same thing twice. It isn't stored twice. It's the same memory with a new time on it, and that is how it tells time passing from new information."],
+      [
+        '00:27',
+        "And where it stands today. Each of those lines is a run of its own, with its own time. Nothing here is a document. It's all state.",
+      ],
+      [
+        '00:36',
+        'As a session works, it reports what it did, as a line, and Cortex reads it against what it already holds.',
+      ],
+      [
+        '00:44',
+        "Now I say the same thing twice. It isn't stored twice. It's the same memory with a new time on it, and that is how it tells time passing from new information.",
+      ],
       ['00:54', 'When the checkpoint is done, I say so, and the state moves. The history stays.'],
-      ['01:01', 'The next session opens the project and finds the state, the time, and the grounding. Nothing to re-read. Cortex, by James Huson, at exnulla dot com.'],
-    ] as [string, string][]
+      [
+        '01:01',
+        'The next session opens the project and finds the state, the time, and the grounding. Nothing to re-read. Cortex, by James Huson, at exnulla dot com.',
+      ],
+    ] as [string, string][],
   },
   neuron: {
     name: 'Neuron',
@@ -53,17 +68,35 @@ export const FILMS = {
     status:
       'Experimental research under active development. General language understanding and autonomous invention remain research goals. The film shows the engine as it ran on a copy of its memory.',
     transcript: [
-      ['00:00', "This is Neuron. I won't tell you how it works, but I can show you what it does. Every point is a word. Every line is a relationship it formed on its own."],
+      [
+        '00:00',
+        "This is Neuron. I won't tell you how it works, but I can show you what it does. Every point is a word. Every line is a relationship it formed on its own.",
+      ],
       ['00:10', "I'll start with a word it has never been given."],
-      ['00:14', 'The line I typed is the primary run. Underneath it, the engine spawns its own secondary runs, one for every thing it had to understand on the way. Those are the counts.'],
+      [
+        '00:14',
+        'The line I typed is the primary run. Underneath it, the engine spawns its own secondary runs, one for every thing it had to understand on the way. Those are the counts.',
+      ],
       ['00:25', 'Now a different word.'],
-      ['00:28', 'Look at the last row. Every question has a shape, and the first time it meets a new one it works out a formula. Here the formula was already there, so it used it again.'],
+      [
+        '00:28',
+        'Look at the last row. Every question has a shape, and the first time it meets a new one it works out a formula. Here the formula was already there, so it used it again.',
+      ],
       ['00:38', "A meaning isn't fixed."],
-      ['00:42', 'I can tell it, in one line, that a word means something else, and the relationships move with it. No retraining, no rebuild. Just a change of state, with a time on it.'],
-      ['00:52', 'Ask for the word again and it answers from memory. The run it did is still there, as a receipt.'],
-      ['00:59', "So let's play it back. This is the path through the graph, hop by hop. Every hop is readable, which means every answer can be audited. Learning happens at build time. This is runtime, and it's quick."],
+      [
+        '00:42',
+        'I can tell it, in one line, that a word means something else, and the relationships move with it. No retraining, no rebuild. Just a change of state, with a time on it.',
+      ],
+      [
+        '00:52',
+        'Ask for the word again and it answers from memory. The run it did is still there, as a receipt.',
+      ],
+      [
+        '00:59',
+        "So let's play it back. This is the path through the graph, hop by hop. Every hop is readable, which means every answer can be audited. Learning happens at build time. This is runtime, and it's quick.",
+      ],
       ['01:11', "That's Neuron. Research and engineering by James Huson, at exnulla dot com."],
-    ] as [string, string][]
+    ] as [string, string][],
   },
 };
 

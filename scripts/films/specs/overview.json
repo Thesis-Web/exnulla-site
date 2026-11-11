@@ -1,93 +1,70 @@
 {
- "id": "overview",
- "voice": "bm_fable",
- "speed": 0.95,
- "poster_at": 5.0,
- "segments": [
-  {
-   "scene": "o1-title",
-   "from": "tab type+0.3",
-   "to": "end",
-   "len": 12,
-   "lead": 0.5,
-   "text": "Let me show you something. This is a live engine. Every point is a word it knows, and every line is a relationship it worked out for itself. Nobody drew this."
-  },
-  {
-   "scene": "o2-define",
-   "from": "loaded+0.3",
-   "to": "typed",
-   "len": 5,
-   "text": "Here's Neuron. I'll ask it to define a word it has never been given."
-  },
-  {
-   "scene": "o2-define",
-   "from": "typed",
-   "to": "shot out",
-   "len": 9,
-   "text": "Watch the stage. It goes and reads, finds the word's relationships, and works them into the graph, along with everything it met on the way.",
-   "cover": [
-    [
-     856,
-     468,
-     424,
-     332,
-     "EAE4DD"
-    ]
-   ]
-  },
-  {
-   "scene": "o2-define",
-   "from": "shot out",
-   "to": "click #play+0.3",
-   "len": 5,
-   "text": "That one line set off a whole tree of runs underneath it. Every run leaves a receipt, so let's open this one and play it back.",
-   "cover": [
-    [
-     856,
-     468,
-     424,
-     332,
-     "EAE4DD"
-    ]
-   ]
-  },
-  {
-   "scene": "o2-define",
-   "from": "click #play+0.3",
-   "to": "click #play@2",
-   "len": 10,
-   "cover": [
-    [
-     858,
-     308,
-     422,
-     492
-    ]
-   ],
-   "text": "This is the path it took through the graph, hop by hop. Not a summary of it. The actual path."
-  },
-  {
-   "scene": "o3-again",
-   "from": "loaded+0.3",
-   "to": "end",
-   "len": 6,
-   "text": "Now I'll ask the same thing again. Nothing runs. It already knows. Learning happens once. Recall is instant."
-  },
-  {
-   "scene": "o4-project",
-   "from": "loaded+0.3",
-   "to": "end",
-   "len": 19,
-   "text": "And this is Cortex. Same engine, different job. I tell it about a project in plain lines: what it is, where the checkpoints are, how things stand. Each line lands with its own time, so the next session starts from the state of the work, not from a transcript of it."
-  },
-  {
-   "scene": "o5-close",
-   "from": "tab type+0.3",
-   "to": "end",
-   "len": 9,
-   "lead": 0.4,
-   "text": "Cortex and Neuron. Research and engineering by James Huson. Both at exnulla dot com."
-  }
- ],
- "panel": "EAE4DD"
+  "id": "overview",
+  "voice": "bm_fable",
+  "speed": 0.95,
+  "poster_at": 5.0,
+  "segments": [
+    {
+      "scene": "o1-title",
+      "from": "tab type+0.3",
+      "to": "end",
+      "len": 12,
+      "lead": 0.5,
+      "text": "Let me show you something. This is a live engine. Every point is a word it knows, and every line is a relationship it worked out for itself. Nobody drew this."
+    },
+    {
+      "scene": "o2-define",
+      "from": "loaded+0.3",
+      "to": "typed",
+      "len": 5,
+      "text": "Here's Neuron. I'll ask it to define a word it has never been given."
+    },
+    {
+      "scene": "o2-define",
+      "from": "typed",
+      "to": "shot out",
+      "len": 9,
+      "text": "Watch the stage. It goes and reads, finds the word's relationships, and works them into the graph, along with everything it met on the way.",
+      "cover": [[856, 468, 424, 332, "EAE4DD"]]
+    },
+    {
+      "scene": "o2-define",
+      "from": "shot out",
+      "to": "click #play+0.3",
+      "len": 5,
+      "text": "That one line set off a whole tree of runs underneath it. Every run leaves a receipt, so let's open this one and play it back.",
+      "cover": [[856, 468, 424, 332, "EAE4DD"]]
+    },
+    {
+      "scene": "o2-define",
+      "from": "click #play+0.3",
+      "to": "click #play@2",
+      "len": 10,
+      "cover": [[858, 308, 422, 492]],
+      "text": "This is the path it took through the graph, hop by hop. Not a summary of it. The actual path."
+    },
+    {
+      "scene": "o3-again",
+      "from": "loaded+0.3",
+      "to": "end",
+      "len": 6,
+      "text": "Now I'll ask the same thing again. Nothing runs. It already knows. Learning happens once. Recall is instant."
+    },
+    {
+      "scene": "o4-project",
+      "from": "loaded+0.3",
+      "to": "end",
+      "len": 19,
+      "text": "And this is Cortex. Same engine, different job. I tell it about a project in plain lines: what it is, where the checkpoints are, how things stand. Each line lands with its own time, so the next session starts from the state of the work, not from a transcript of it."
+    },
+    {
+      "scene": "o5-close",
+      "from": "tab type+0.3",
+      "to": "end",
+      "len": 9,
+      "lead": 0.4,
+      "text": "Cortex and Neuron. Research and engineering by James Huson. Both at exnulla dot com."
+    }
+  ],
+  "panel": "EAE4DD"
 }

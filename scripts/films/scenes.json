@@ -1,29 +1,210 @@
 [
-  {"id": "c1-title", "settle": 3000, "steps": [["tab", "step"], ["click", "#spin"], ["tab", "type"], ["wait", 10]]},
-  {"id": "c2-project", "steps": [
-    ["type", "cortex project exnulla-web : the site shows cortex and neuron as films recorded from the live engine", 0.05], ["wait", 2],
-    ["type", "cortex checkpoint exnulla-web 1 : the films are recorded from the engine, narrated and deployed", 0.05], ["wait", 2],
-    ["type", "cortex expected exnulla-web 1 : the three films play on the live site", 0.05], ["wait", 2],
-    ["type", "cortex state exnulla-web 1 : working", 0.07], ["wait", 4], ["shot", "out"], ["text", "#out"]]},
-  {"id": "c3-ingest", "steps": [
-    ["type", "cortex ingest exnulla-web : the films are recorded at full resolution and narrated", 0.05], ["out", 25], ["wait", 4], ["shot", "out"], ["text", "#out"],
-    ["type", "cortex ingest exnulla-web : the films are recorded at full resolution and narrated", 0.05], ["wait", 5], ["shot", "again"], ["text", "#out"]]},
-  {"id": "c4-state", "steps": [["type", "cortex state exnulla-web 1 : done", 0.07], ["wait", 4], ["text", "#out"]]},
-  {"id": "c5-close", "settle": 3000, "steps": [["tab", "step"], ["click", "#spin"], ["tab", "type"], ["wait", 8]]},
+  {
+    "id": "c1-title",
+    "settle": 3000,
+    "steps": [
+      ["tab", "step"],
+      ["click", "#spin"],
+      ["tab", "type"],
+      ["wait", 10]
+    ]
+  },
+  {
+    "id": "c2-project",
+    "steps": [
+      [
+        "type",
+        "cortex project exnulla-web : the site shows cortex and neuron as films recorded from the live engine",
+        0.05
+      ],
+      ["wait", 2],
+      [
+        "type",
+        "cortex checkpoint exnulla-web 1 : the films are recorded from the engine, narrated and deployed",
+        0.05
+      ],
+      ["wait", 2],
+      ["type", "cortex expected exnulla-web 1 : the three films play on the live site", 0.05],
+      ["wait", 2],
+      ["type", "cortex state exnulla-web 1 : working", 0.07],
+      ["wait", 4],
+      ["shot", "out"],
+      ["text", "#out"]
+    ]
+  },
+  {
+    "id": "c3-ingest",
+    "steps": [
+      [
+        "type",
+        "cortex ingest exnulla-web : the films are recorded at full resolution and narrated",
+        0.05
+      ],
+      ["out", 25],
+      ["wait", 4],
+      ["shot", "out"],
+      ["text", "#out"],
+      [
+        "type",
+        "cortex ingest exnulla-web : the films are recorded at full resolution and narrated",
+        0.05
+      ],
+      ["wait", 5],
+      ["shot", "again"],
+      ["text", "#out"]
+    ]
+  },
+  {
+    "id": "c4-state",
+    "steps": [
+      ["type", "cortex state exnulla-web 1 : done", 0.07],
+      ["wait", 4],
+      ["text", "#out"]
+    ]
+  },
+  {
+    "id": "c5-close",
+    "settle": 3000,
+    "steps": [
+      ["tab", "step"],
+      ["click", "#spin"],
+      ["tab", "type"],
+      ["wait", 8]
+    ]
+  },
 
-  {"id": "n1-title", "settle": 3000, "steps": [["tab", "step"], ["click", "#spin"], ["tab", "type"], ["wait", 11]]},
-  {"id": "n2-define", "steps": [["type", "define : testimony", 0.08], ["out", 40], ["wait", 6], ["shot", "out"], ["text", "#out"]]},
-  {"id": "n3-formula", "steps": [["type", "define : archive", 0.08], ["out", 40], ["wait", 6], ["shot", "out"], ["text", "#out"]]},
-  {"id": "n4-meaning", "steps": [["type", "change meaning : testimony from fact to proof", 0.07], ["out", 30], ["wait", 6], ["shot", "out"], ["text", "#out"]]},
-  {"id": "n5-play", "steps": [["type", "define : testimony", 0.08], ["wait", 4], ["text", "#out"], ["click", "#out [data-run] >> nth=0"], ["tab", "step"], ["wait", 2], ["shot", "step"], ["click", "#play"], ["wait", 12], ["shot", "play"], ["click", "#play"], ["wait", 1]]},
-  {"id": "n6-close", "settle": 3000, "steps": [["tab", "step"], ["click", "#spin"], ["tab", "type"], ["wait", 8]]},
+  {
+    "id": "n1-title",
+    "settle": 3000,
+    "steps": [
+      ["tab", "step"],
+      ["click", "#spin"],
+      ["tab", "type"],
+      ["wait", 11]
+    ]
+  },
+  {
+    "id": "n2-define",
+    "steps": [
+      ["type", "define : testimony", 0.08],
+      ["out", 40],
+      ["wait", 6],
+      ["shot", "out"],
+      ["text", "#out"]
+    ]
+  },
+  {
+    "id": "n3-formula",
+    "steps": [
+      ["type", "define : archive", 0.08],
+      ["out", 40],
+      ["wait", 6],
+      ["shot", "out"],
+      ["text", "#out"]
+    ]
+  },
+  {
+    "id": "n4-meaning",
+    "steps": [
+      ["type", "change meaning : testimony from fact to proof", 0.07],
+      ["out", 30],
+      ["wait", 6],
+      ["shot", "out"],
+      ["text", "#out"]
+    ]
+  },
+  {
+    "id": "n5-play",
+    "steps": [
+      ["type", "define : testimony", 0.08],
+      ["wait", 4],
+      ["text", "#out"],
+      ["click", "#out [data-run] >> nth=0"],
+      ["tab", "step"],
+      ["wait", 2],
+      ["shot", "step"],
+      ["click", "#play"],
+      ["wait", 12],
+      ["shot", "play"],
+      ["click", "#play"],
+      ["wait", 1]
+    ]
+  },
+  {
+    "id": "n6-close",
+    "settle": 3000,
+    "steps": [
+      ["tab", "step"],
+      ["click", "#spin"],
+      ["tab", "type"],
+      ["wait", 8]
+    ]
+  },
 
-  {"id": "o1-title", "settle": 3000, "steps": [["tab", "step"], ["click", "#spin"], ["tab", "type"], ["wait", 12]]},
-  {"id": "o2-define", "steps": [["type", "define : provenance", 0.08], ["out", 40], ["wait", 5], ["shot", "out"], ["text", "#out"], ["click", "#out [data-run] >> nth=0"], ["tab", "step"], ["wait", 2], ["click", "#play"], ["wait", 10], ["shot", "play"], ["click", "#play"], ["wait", 1]]},
-  {"id": "o3-again", "steps": [["type", "define : provenance", 0.08], ["wait", 5], ["text", "#out"]]},
-  {"id": "o4-project", "steps": [
-    ["type", "cortex project exnulla-lab : the site shows cortex and neuron as films recorded from the live engine", 0.05], ["wait", 2],
-    ["type", "cortex checkpoint exnulla-lab 1 : the films are recorded, narrated and deployed", 0.05], ["wait", 2],
-    ["type", "cortex state exnulla-lab 1 : working", 0.07], ["wait", 4], ["text", "#out"]]},
-  {"id": "o5-close", "settle": 3000, "steps": [["tab", "step"], ["click", "#spin"], ["tab", "type"], ["wait", 9]]}
+  {
+    "id": "o1-title",
+    "settle": 3000,
+    "steps": [
+      ["tab", "step"],
+      ["click", "#spin"],
+      ["tab", "type"],
+      ["wait", 12]
+    ]
+  },
+  {
+    "id": "o2-define",
+    "steps": [
+      ["type", "define : provenance", 0.08],
+      ["out", 40],
+      ["wait", 5],
+      ["shot", "out"],
+      ["text", "#out"],
+      ["click", "#out [data-run] >> nth=0"],
+      ["tab", "step"],
+      ["wait", 2],
+      ["click", "#play"],
+      ["wait", 10],
+      ["shot", "play"],
+      ["click", "#play"],
+      ["wait", 1]
+    ]
+  },
+  {
+    "id": "o3-again",
+    "steps": [
+      ["type", "define : provenance", 0.08],
+      ["wait", 5],
+      ["text", "#out"]
+    ]
+  },
+  {
+    "id": "o4-project",
+    "steps": [
+      [
+        "type",
+        "cortex project exnulla-lab : the site shows cortex and neuron as films recorded from the live engine",
+        0.05
+      ],
+      ["wait", 2],
+      [
+        "type",
+        "cortex checkpoint exnulla-lab 1 : the films are recorded, narrated and deployed",
+        0.05
+      ],
+      ["wait", 2],
+      ["type", "cortex state exnulla-lab 1 : working", 0.07],
+      ["wait", 4],
+      ["text", "#out"]
+    ]
+  },
+  {
+    "id": "o5-close",
+    "settle": 3000,
+    "steps": [
+      ["tab", "step"],
+      ["click", "#spin"],
+      ["tab", "type"],
+      ["wait", 9]
+    ]
+  }
 ]
