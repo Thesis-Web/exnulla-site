@@ -2,7 +2,7 @@
 """Cut the scene recordings against the narration and write <id>.mp4, <id>.vtt, posters and the transcript.
 
 usage: assemble.py <take dir> <film spec json> <out dir>
-spec: {"id": "overview", "voice": "en-GB-RyanNeural", "segments": [
+spec: {"id": "overview", "voice": "bm_fable", "speed": 0.95, "segments": [
          {"scene": "02-define", "from": "loaded+0.5", "to": "typed", "len": 6, "text": "narration ...", "hold": 0.4}, ...]}
 A mark is "<name>[@k][+/-seconds]" from <scene>.marks.json (k = the k-th occurrence, 1-based) or a plain number of seconds.
 Each segment lasts max(video length after speed, narration length + hold); the video is frozen on its last frame to fill,
@@ -11,9 +11,11 @@ import json, subprocess, sys, os, re, shutil, hashlib
 
 take, spec_path, out = sys.argv[1:4]
 spec = json.load(open(spec_path))
-fid, voice = spec['id'], spec.get('voice', 'en-GB-RyanNeural')
+fid, voice = spec['id'], spec.get('voice', 'bm_fable')
 work = os.path.join(out, 'work', fid); os.makedirs(work, exist_ok=True)
 EDGE = os.path.expanduser('~/.local/bin/edge-tts')
+SAY = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'say.py')   # Kokoro (voices bm_*/bf_*/am_*/af_*), run on the CPU
+OUT_W, OUT_H = int(spec.get('width', 1920)), int(spec.get('height', 1200))   # the take is recorded at this size; covers are given in 1280x800 and scaled
 
 def run(*cmd):
     r = subprocess.run(cmd, capture_output=True, text=True)
@@ -34,12 +36,18 @@ def mark(scene, ref):
     return hits[k - 1] + off
 
 def vo(text, key):
-    """the narration clip for one segment: mp3 + srt from edge-tts, cached by text"""
-    h = hashlib.sha1((voice + text).encode()).hexdigest()[:12]
-    mp3, srt = os.path.join(work, f'vo-{h}.mp3'), os.path.join(work, f'vo-{h}.srt')
-    if not os.path.exists(mp3):
-        run(EDGE, '--voice', voice, '--rate=' + spec.get('rate', '-4%'), '--text', text, '--write-media', mp3, '--write-subtitles', srt)
-    return mp3, srt
+    """the narration clip for one segment: audio + srt, cached by voice and text"""
+    kokoro = re.match(r'[ab][mf]_', voice) is not None
+    speed = str(spec.get('speed', 0.95))
+    h = hashlib.sha1((voice + (speed if kokoro else spec.get('rate', '-4%')) + text).encode()).hexdigest()[:12]
+    clip, srt = os.path.join(work, f'vo-{h}.' + ('wav' if kokoro else 'mp3')), os.path.join(work, f'vo-{h}.srt')
+    if not os.path.exists(clip):
+        if kokoro:
+            txt = os.path.join(work, f'vo-{h}.txt'); open(txt, 'w', encoding='utf-8').write(text)
+            run('python3', SAY, voice, speed, txt, clip, srt)
+        else:
+            run(EDGE, '--voice', voice, '--rate=' + spec.get('rate', '-4%'), '--text', text, '--write-media', clip, '--write-subtitles', srt)
+    return clip, srt
 
 def srt_cues(path):
     cues = []
@@ -53,7 +61,8 @@ def srt_cues(path):
 
 segs, t = [], 0.0
 for i, s in enumerate(spec['segments']):
-    scene = s['scene']; src = os.path.join(take, f'{scene}.webm')
+    scene = s['scene']; src = os.path.join(take, f'{scene}.mp4')
+    if not os.path.exists(src): src = os.path.join(take, f'{scene}.webm')
     a, b = mark(scene, s['from']), mark(scene, s['to'])
     hold = float(s.get('hold', 0.5))
     speed = float(s.get('speed', 1))
@@ -67,9 +76,9 @@ for i, s in enumerate(spec['segments']):
     target = max(vlen, lead + alen + hold, float(s.get('min', 0)))
     pad = max(0.0, target - vlen)
     vseg = os.path.join(work, f'v{i:02d}.mp4')
-    vf = f'setpts=PTS/{speed},fps=24,scale=1280:800:flags=lanczos'
+    vf = f'setpts=PTS/{speed},fps=24,scale={OUT_W}:{OUT_H}:flags=lanczos'
     for box in s.get('cover', []):   # a filled box over a region of the panel (a redaction in the panel's own colour): [x, y, w, h, colour?]
-        x, y, w, h = box[:4]; colour = box[4] if len(box) > 4 else spec.get('panel', 'EBE7DE')
+        x, y, w, h = [round(v * OUT_W / 1280) for v in box[:4]]; colour = box[4] if len(box) > 4 else spec.get('panel', 'EBE7DE')
         vf += f',drawbox=x={x}:y={y}:w={w}:h={h}:color=0x{colour}@1:t=fill'
     if pad > 0: vf += f',tpad=stop_mode=clone:stop_duration={pad:.3f}'
     run('ffmpeg', '-y', '-hide_banner', '-loglevel', 'error', '-ss', f'{a:.3f}', '-to', f'{b:.3f}', '-i', src,
@@ -91,7 +100,7 @@ for kind in ('v', 'a'):
     run('ffmpeg', '-y', '-hide_banner', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', os.path.join(work, f'all-{kind}.{"mp4" if kind == "v" else "m4a"}'))
 final = os.path.join(out, f'{fid}.mp4')
 run('ffmpeg', '-y', '-hide_banner', '-loglevel', 'error', '-i', os.path.join(work, 'all-v.mp4'), '-i', os.path.join(work, 'all-a.m4a'),
-    '-c:v', 'libx264', '-preset', 'slow', '-crf', str(spec.get('crf', 27)), '-maxrate', spec.get('maxrate', '1500k'), '-bufsize', '3000k', '-pix_fmt', 'yuv420p',
+    '-c:v', 'libx264', '-preset', 'slow', '-crf', str(spec.get('crf', 25)), '-maxrate', spec.get('maxrate', '3000k'), '-bufsize', '6000k', '-pix_fmt', 'yuv420p',
     '-c:a', 'copy', '-movflags', '+faststart', final)   # the web size: the stage is dense, so the rate is capped
 total = dur(final)
 
@@ -115,5 +124,5 @@ open(os.path.join(out, f'{fid}.vtt'), 'w', encoding='utf-8').write('\n'.join(vtt
 json.dump({'id': fid, 'duration': round(total, 3), 'transcript': transcript}, open(os.path.join(out, f'{fid}.json'), 'w'), indent=1)
 poster_at = float(spec.get('poster_at', min(total - 1, 8.0)))
 run('ffmpeg', '-y', '-hide_banner', '-loglevel', 'error', '-ss', f'{poster_at:.3f}', '-i', final, '-frames:v', '1', '-q:v', '2', os.path.join(out, f'{fid}-poster.jpg'))
-run('ffmpeg', '-y', '-hide_banner', '-loglevel', 'error', '-ss', f'{poster_at:.3f}', '-i', final, '-frames:v', '1', '-quality', '88', os.path.join(out, f'{fid}-poster.webp'))
+run('ffmpeg', '-y', '-hide_banner', '-loglevel', 'error', '-ss', f'{poster_at:.3f}', '-i', final, '-frames:v', '1', '-quality', '85', os.path.join(out, f'{fid}-poster.webp'))
 print(f'{fid}: {total:.2f}s  {os.path.getsize(final)/1e6:.1f} MB  cues {sum(1 for l in vtt if "-->" in l)}')

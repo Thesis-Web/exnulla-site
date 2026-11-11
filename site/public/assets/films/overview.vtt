@@ -1,85 +1,73 @@
 WEBVTT
 
-00:00.700 --> 00:02.865
+00:00.775 --> 00:02.075
+Let me show you something.
+
+00:02.125 --> 00:03.537
 This is a live engine.
 
-00:02.915 --> 00:05.626
-Every point is a word it knows.
+00:03.587 --> 00:07.187
+Every point is a word it knows, and every line is a relationship it worked
 
-00:05.676 --> 00:09.180
-Every line is a connection it has made for itself.
+00:07.237 --> 00:10.025
+out for itself. Nobody drew this.
 
-00:09.230 --> 00:14.230
-Two research projects run on it: Neuron, and Cortex.
+00:11.984 --> 00:16.409
+Here's Neuron. I'll ask it to define a word it has never been given.
 
-00:15.092 --> 00:16.645
-Neuron.
+00:17.318 --> 00:21.855
+Watch the stage. It goes and reads, finds the word's relationships, and works them into
 
-00:16.695 --> 00:20.120
-Ask it to define a word it has never been given.
+00:21.905 --> 00:25.268
+the graph, along with everything it met on the way.
 
-00:20.726 --> 00:26.797
-It reads its sources, and works the word into the graph, along with every word it met on the way.
+00:26.152 --> 00:29.265
+That one line set off a whole tree of runs underneath it.
 
-00:26.847 --> 00:28.972
-Twenty-nine runs.
+00:29.315 --> 00:33.602
+Every run leaves a receipt, so let's open this one and play it back.
 
-00:29.022 --> 00:31.303
-Thirteen new words.
+00:34.486 --> 00:37.211
+This is the path it took through the graph, hop by hop.
 
-00:31.353 --> 00:33.241
-Two seconds.
+00:37.261 --> 00:40.261
+Not a summary of it. The actual path.
 
-00:33.851 --> 00:41.259
-One typed line, and a tree of runs underneath it: the engine asking its own questions, and answering them.
+00:44.495 --> 00:46.308
+Now I'll ask the same thing again.
 
-00:42.851 --> 00:46.331
-Ask the same thing again, and nothing runs.
+00:46.358 --> 00:48.107
+Nothing runs. It already knows.
 
-00:46.381 --> 00:48.506
-It already knows.
+00:48.157 --> 00:49.383
+Learning happens once.
 
-00:48.556 --> 00:52.165
-Learning happens once, and takes its time.
+00:49.433 --> 00:51.370
+Recall is instant.
 
-00:52.215 --> 00:54.454
-Recall is immediate.
+00:52.212 --> 00:53.525
+And this is Cortex.
 
-00:55.060 --> 00:57.520
-A meaning is not fixed.
+00:53.575 --> 00:55.237
+Same engine, different job.
 
-01:00.269 --> 01:04.722
-It can be told, and it can be changed, in a single line.
+00:55.287 --> 00:57.462
+I tell it about a project in plain lines:
 
-01:05.269 --> 01:09.465
-Every run leaves a receipt: the path it took through the graph.
+00:57.512 --> 01:00.400
+what it is, where the checkpoints are, how things stand.
 
-01:09.515 --> 01:13.213
-Any run can be played back, hop by hop.
+01:00.450 --> 01:03.712
+Each line lands with its own time, so the next session starts from the
 
-01:14.269 --> 01:15.939
-Cortex.
+01:03.762 --> 01:06.662
+state of the work, not from a transcript of it.
 
-01:15.989 --> 01:23.372
-The same engine, holding a project: its scope, its checkpoints, what is expected, and where things stand.
-
-01:25.269 --> 01:28.775
-Each session reports what it did, as a line.
-
-01:28.825 --> 01:32.760
-Say a thing twice, and it is not stored twice.
-
-01:32.810 --> 01:36.119
-It is the same memory, with a new time.
-
-01:36.169 --> 01:40.791
-The next session starts from the state of the work, not from a transcript.
-
-01:41.836 --> 01:43.988
+01:11.637 --> 01:13.012
 Cortex and Neuron.
 
-01:44.038 --> 01:47.569
+01:13.062 --> 01:15.500
 Research and engineering by James Huson.
 
-01:47.619 --> 01:50.522
-Find both at exnulla dot com.
+01:15.550 --> 01:17.937
+Both at exnulla dot com.

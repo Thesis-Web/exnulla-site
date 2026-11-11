@@ -1,61 +1,73 @@
 WEBVTT
 
-00:00.700 --> 00:03.204
-Neuron is a live engine.
+00:00.775 --> 00:04.538
+This is Neuron. I won't tell you how it works, but I can show you what it does.
 
-00:03.254 --> 00:05.964
-Every point is a word it knows.
+00:04.588 --> 00:06.112
+Every point is a word.
 
-00:06.014 --> 00:09.569
-Every line is a connection it has made for itself.
+00:06.162 --> 00:09.350
+Every line is a relationship it formed on its own.
 
-00:10.384 --> 00:13.860
-Ask it to define a word it has never been given.
+00:10.984 --> 00:14.309
+I'll start with a word it has never been given.
 
-00:15.184 --> 00:21.255
-It reads its sources, and works the word into the graph, along with every word it met on the way.
+00:15.193 --> 00:17.293
+The line I typed is the primary run.
 
-00:21.305 --> 00:23.430
-Twenty-nine runs.
+00:17.343 --> 00:21.268
+Underneath it, the engine spawns its own secondary runs, one for every
 
-00:23.480 --> 00:25.761
-Thirteen new words.
+00:21.318 --> 00:23.106
+thing it had to understand on the way.
 
-00:25.811 --> 00:27.699
-Two seconds.
+00:23.156 --> 00:24.793
+Those are the counts.
 
-00:28.309 --> 00:36.967
-One typed line, and a tree of runs underneath it: the engine asking its own questions, and answering them, without being told to.
+00:25.702 --> 00:27.552
+Now a different word.
 
-00:37.518 --> 00:40.998
-Ask the same thing again, and nothing runs.
+00:28.469 --> 00:29.706
+Look at the last row.
 
-00:41.048 --> 00:43.173
-It already knows.
+00:29.756 --> 00:33.257
+Every question has a shape, and the first time it meets a new one it works
 
-00:43.223 --> 00:46.832
-Learning happens once, and takes its time.
+00:33.307 --> 00:37.819
+out a formula. Here the formula was already there, so it used it again.
 
-00:46.882 --> 00:49.121
-Recall is immediate.
+00:38.694 --> 00:40.819
+A meaning isn't fixed.
 
-00:49.727 --> 00:52.187
-A meaning is not fixed.
+00:42.319 --> 00:46.169
+I can tell it, in one line, that a word means something else, and the relationships
 
-00:54.936 --> 00:59.389
-It can be told, and it can be changed, in a single line.
+00:46.219 --> 00:49.106
+move with it. No retraining, no rebuild.
 
-00:59.936 --> 01:04.232
-Every run leaves a receipt: the path it took through the graph.
+00:49.156 --> 00:51.769
+Just a change of state, with a time on it.
 
-01:06.936 --> 01:12.144
-Any run can be played back, hop by hop, and every hop can be read.
+00:52.703 --> 00:55.466
+Ask for the word again and it answers from memory.
 
-01:16.336 --> 01:17.889
-Neuron.
+00:55.516 --> 00:58.478
+The run it did is still there, as a receipt.
 
-01:17.939 --> 01:21.470
-Research and engineering by James Huson.
+00:59.678 --> 01:00.828
+So let's play it back.
 
-01:21.520 --> 01:23.681
-exnulla dot com.
+01:00.878 --> 01:03.228
+This is the path through the graph, hop by hop.
+
+01:03.278 --> 01:06.666
+Every hop is readable, which means every answer can be audited.
+
+01:06.716 --> 01:08.353
+Learning happens at build time.
+
+01:08.403 --> 01:10.628
+This is runtime, and it's quick.
+
+01:12.012 --> 01:17.412
+That's Neuron. Research and engineering by James Huson, at exnulla dot com.

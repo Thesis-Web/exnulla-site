@@ -1,43 +1,67 @@
 WEBVTT
 
-00:00.700 --> 00:09.593
-Cortex is memory for work: state, time and grounding, held in a live engine, so that a new session does not start the project over.
+00:00.775 --> 00:03.100
+This is Cortex. It's memory for work.
 
-00:11.100 --> 00:14.407
-A project is told to it in plain lines.
+00:03.150 --> 00:06.575
+When I sit down with a new session, it doesn't start the project over.
 
-00:15.100 --> 00:16.666
-Its scope.
+00:06.625 --> 00:09.325
+It starts from where the work actually is.
 
-00:16.716 --> 00:18.554
-A checkpoint.
+00:10.192 --> 00:12.567
+I tell it about a project in plain lines.
 
-00:18.604 --> 00:21.315
-What is expected of that checkpoint.
+00:12.617 --> 00:14.992
+First, what the project is.
 
-00:21.365 --> 00:23.815
+00:15.901 --> 00:19.476
+Then a checkpoint: a piece of the work with a clear edge.
+
+00:21.901 --> 00:25.276
+What I expect to be true when that checkpoint is done.
+
+00:27.901 --> 00:29.314
 And where it stands today.
 
-00:23.865 --> 00:27.224
-Each line is a run, with its own time.
+00:29.364 --> 00:32.388
+Each of those lines is a run of its own, with its own time.
 
-00:31.100 --> 00:37.545
-Each session reports what it did, as a line, and the engine reads it against what it already holds.
+00:32.438 --> 00:33.826
+Nothing here is a document.
 
-00:40.100 --> 00:44.036
-Say a thing twice, and it is not stored twice.
+00:33.876 --> 00:35.401
+It's all state.
 
-00:44.086 --> 00:47.445
-It is the same memory, with a new time.
+00:36.276 --> 00:40.389
+As a session works, it reports what it did, as a line, and Cortex reads
 
-00:48.500 --> 00:53.074
-The next session starts from the state of the work, not from a transcript.
+00:40.439 --> 00:42.651
+it against what it already holds.
 
-00:53.124 --> 00:54.793
-Cortex.
+00:44.785 --> 00:46.685
+Now I say the same thing twice.
 
-00:54.843 --> 00:58.373
-Research and engineering by James Huson.
+00:46.735 --> 00:48.410
+It isn't stored twice.
 
-00:58.423 --> 01:00.585
-exnulla dot com.
+00:48.460 --> 00:51.785
+It's the same memory with a new time on it, and that is how it tells time
+
+00:51.835 --> 00:54.010
+passing from new information.
+
+00:54.902 --> 00:57.927
+When the checkpoint is done, I say so, and the state moves.
+
+00:57.977 --> 00:59.727
+The history stays.
+
+01:01.886 --> 01:05.261
+The next session opens the project and finds the state, the time, and the
+
+01:05.311 --> 01:07.574
+grounding. Nothing to re-read.
+
+01:07.624 --> 01:11.286
+Cortex, by James Huson, at exnulla dot com.

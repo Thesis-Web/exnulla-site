@@ -113,8 +113,8 @@ try {
         await video.evaluate((element) => (element.webkitAudioDecodedByteCount ?? 1) > 0),
         `Audio decoded: ${route}`,
       );
-      assert.equal(state.width, 1280);
-      assert.equal(state.height, 800);
+      assert.equal(state.width, 1920);
+      assert.equal(state.height, 1200);
       assert.equal(state.error, null);
       await page.waitForFunction(() => !document.querySelector('video').seeking);
       results.push({ route, playback: 'passed', ...state });
